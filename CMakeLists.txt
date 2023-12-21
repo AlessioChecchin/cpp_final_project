@@ -13,6 +13,9 @@ include_directories(include)
 # Add main.cpp file of the project root directory as a source file
 set(SOURCE_FILES
 	src/main.cpp
+	src/playground.cpp
+	src/player.cpp
+	src/box.cpp
 )
 
 # Add executable target with source files listed in SOURCE_FILES variable
