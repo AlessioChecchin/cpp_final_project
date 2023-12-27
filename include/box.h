@@ -6,4 +6,4 @@ class box
 	
 };
 
-#endif
+#endif // BOX_H
