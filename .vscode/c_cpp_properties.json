@@ -3,7 +3,8 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/include/**"
+                "${workspaceFolder}/include/**",
+                "${workspaceFolder}/test/include"
             ],
             "defines": [],
             "compilerPath": "/usr/lib/ccache/gcc",
