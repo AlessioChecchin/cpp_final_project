@@ -11,7 +11,10 @@ set(CMAKE_CXX_STANDARD 11)
 set(SOURCE_FILES
 	src/test_runner.cpp
 	
-	src/test.cpp
+	src/core/test.cpp
+	src/core/test_suite.cpp
+
+	src/unit/unit_test_config.cpp
 )
 
 # Add executable target with source files listed in SOURCE_FILES variable

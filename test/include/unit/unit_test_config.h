@@ -1,20 +1,21 @@
+/**
+ * Unit test for configuration file.
+ * 
+ * @author Alessio Checchin
+*/
+
 #ifndef UNIT_TEST_CONFIG_H
 #define UNIT_TEST_CONFIG_H
 
-#include "test.h"
-#include <iostream>
+#include "core/test_suite.h"
 
-class unit_test_config: public test
+class unit_test_config: public test_suite
 {
 public:
 
-	unit_test_config(const std::string& test_name): test(test_name)
-	{}
+	unit_test_config();
 
-	void run()
-	{
-		std::cout << "Runing test";
-	}
+	void test_getter();
 };
 
 #endif // UNIT_TEST_CONFIG_H
