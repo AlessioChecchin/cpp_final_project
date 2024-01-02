@@ -4,11 +4,14 @@
 #include "playground.h"
 #include "player.h"
 
+
+using namespace prj;
+
 int main()
 {
 	std::cout << "Hello world";
 
-	playground p;
+	prj::playground p; // Todo: ambiguo senza prj::? 
 	
 	auto tmp = std::unique_ptr<player>(new player());
 	tmp->set_name("Gino");

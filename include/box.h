@@ -1,9 +1,11 @@
 #ifndef BOX_H
 #define BOX_H
 
-class box
-{
-	
-};
-
+namespace prj
+{   
+    class box
+    {
+    
+    };
+}
 #endif // BOX_H
