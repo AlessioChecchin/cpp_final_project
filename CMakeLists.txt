@@ -14,6 +14,11 @@ set(SOURCE_FILES
 	src/playground.cpp
 	src/player.cpp
 	src/box.cpp
+	src/board.cpp
+	src/category.cpp
+	src/contract.cpp
+	src/config.cpp
+
 )
 
 # Add executable target with source files listed in SOURCE_FILES variable

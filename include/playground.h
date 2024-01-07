@@ -62,7 +62,7 @@ namespace prj
 		/**
 		 * Board of the game 
 		 */
-		board board_;
+		board board_{};
 
 		/**
 		 * Map that contains all the players in the playground.

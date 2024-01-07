@@ -1,5 +1,8 @@
 #include "config.h"
 
+#include <string>
+
+
 namespace prj
 {
 	config::config(): 
@@ -12,7 +15,7 @@ namespace prj
 		},
 		stay_prices_{
 			{ 2, 4,  7 },
-			{ 4, 8, 14 },
+			{ 4, 8, 14 }
 		},
 		bot_number_{3},
 		initial_budget_{100},

@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "building.h"
+#include "building/building.h"
 #include "player.h"
 
 namespace prj
@@ -12,23 +12,22 @@ namespace prj
 class contract
 {
 public:
+
+	/**
+	 * A contract is unique and contains non copiable objects.
+	*/
 	contract(const contract& c) = delete;
+
+	/**
+	 * A contract is unique and contains non copiable objects.
+	*/
 	contract& operator=(const contract& c) = delete;
 
-	std::shared_ptr<player> get_owner() const
-	{
-		return owner_;
-	}
+	std::shared_ptr<player> get_owner() const;
 
-	building* get_building()
-	{
-		return building_.get();
-	};
+	building* get_building();
 
-	const building* get_building() const
-	{
-		return building_.get();
-	};
+	const building* get_building() const;
 	
 private:
 	std::unique_ptr<building> building_;

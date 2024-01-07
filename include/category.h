@@ -1,3 +1,9 @@
+/**
+ * Category class.
+ * 
+ * @author Alessio Checchin
+*/
+
 #ifndef CATEGORY_H
 #define CATEGORY_H
 
@@ -6,22 +12,38 @@
 namespace prj
 {
 
+/**
+ * Category class.
+*/
 class category
 {
 public:
+	/**
+	 * Category constructor.
+	*/
+	category(const std::string& name, unsigned int id);
 
-	std::string get_name() const
-	{
-		return name_;
-	};
+	/**
+	 * Name getter.
+	 * @return The name of the category.
+	*/
+	std::string get_name() const;
 
-	unsigned int get_id() const
-	{
-		return id_;
-	};
+	/**
+	 * Id getter.
+	 * @return The id of the category.
+	*/
+	unsigned int get_id() const;
 
 private:
+	/**
+	 * Category name.
+	*/
 	std::string name_;
+
+	/**
+	 * Category id.
+	*/
 	unsigned int id_;
 };
 

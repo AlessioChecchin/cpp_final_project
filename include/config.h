@@ -1,4 +1,6 @@
 /**
+ * Configuration file.
+ * 
  * @author Alessio Checchin
 */
 
@@ -116,6 +118,8 @@ namespace prj
 
 	public:
 	
+		config();
+
 		/**
 		 * Bot number getter.
 		 * @return The number of bots in the game.
