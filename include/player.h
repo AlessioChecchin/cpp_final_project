@@ -3,7 +3,7 @@
 
 #include <string>
 
-class playground;
+//class playground;
 
 namespace prj
 {

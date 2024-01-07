@@ -4,14 +4,22 @@
 #include "playground.h"
 #include "player.h"
 
+//Temp
+#include "dice.h"
+
 
 using namespace prj;
 
 int main()
 {
+
+	dice myDice(100);
+	for(int i=0; i<100; i++)
+		std::cout << myDice.roll() << std::endl;
+
 	std::cout << "Hello world";
 
-	prj::playground p; // Todo: ambiguo senza prj::? 
+	playground p; // ambiguo senza prj::? Commentando linea 6 in player.h funziona
 	
 	auto tmp = std::unique_ptr<player>(new player());
 	tmp->set_name("Gino");

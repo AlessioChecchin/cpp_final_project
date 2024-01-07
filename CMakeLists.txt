@@ -19,6 +19,7 @@ set(SOURCE_FILES
 	src/contract.cpp
 	src/config.cpp
 
+	src/dice.cpp
 )
 
 # Add executable target with source files listed in SOURCE_FILES variable
