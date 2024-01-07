@@ -34,18 +34,12 @@ public:
 	 * Building name getter.
 	 * @return The name of the building.
 	*/
-	virtual std::string get_name() const
-	{
-		return name_;
-	}
+	virtual std::string get_name() const;
 
 	/**
 	 * Returns the id of the building.
 	*/
-	virtual unsigned int get_id() const
-	{
-		return id_;
-	}
+	virtual unsigned int get_id() const;
 
 	/**
 	 * Returns an instance of an upgraded building.
@@ -68,12 +62,12 @@ protected:
 	/**
 	 * Building name.
 	*/
-	std::string name_;
+	std::string name_{};
 
 	/**
 	 * Building id.
 	*/
-	unsigned int id_;
+	unsigned int id_{};
 };
 
 }

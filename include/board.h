@@ -24,6 +24,8 @@ namespace prj
 		*/
 		board();
 
+		bool is_angular(unsigned int position) const;
+
         /**
 		 * Size of the field.
 		*/

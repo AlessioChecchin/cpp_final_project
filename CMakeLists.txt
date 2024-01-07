@@ -19,6 +19,11 @@ set(SOURCE_FILES
 	src/contract.cpp
 	src/config.cpp
 
+	src/building/building.cpp
+	src/building/terrain.cpp
+	src/building/house.cpp
+	src/building/hotel.cpp
+
 	src/dice.cpp
 )
 

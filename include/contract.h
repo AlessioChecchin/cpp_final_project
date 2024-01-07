@@ -13,6 +13,7 @@ class contract
 {
 public:
 
+	contract();
 	/**
 	 * A contract is unique and contains non copiable objects.
 	*/

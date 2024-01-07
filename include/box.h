@@ -6,6 +6,8 @@
 #ifndef BOX_H
 #define BOX_H
 
+#include <memory>
+
 #include "contract.h"
 #include "category.h"
 
@@ -19,6 +21,7 @@ class box
 {
 public:
 
+	box(const category& cat);
 	/**
 	 * Copy disabled, it contains non-copiable object.
 	*/
@@ -27,7 +30,7 @@ public:
 	/**
 	 * Copy disabled, it contains non-copiable object.
 	*/
-	box& operator=(const building& b) = delete;
+	box& operator=(const box& b) = delete;
 
 	/**
 	 * Category getter.
@@ -38,6 +41,8 @@ public:
 		return category_;
 	}
 
+	contract* get_contract();
+
 private:
 	/**
 	 * Category of the box.
@@ -47,7 +52,7 @@ private:
 	/**
 	 * Contract associated with the box.
 	*/
-	contract contract_;
+	std::unique_ptr<contract> contract_;
 };
 
 }

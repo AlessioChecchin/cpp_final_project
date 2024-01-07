@@ -3,6 +3,9 @@
 namespace prj
 {
 
+category::category(const std::string& name, unsigned int id): name_{name}, id_{id}
+{}
+
 std::string category::get_name() const
 {
 	return name_;

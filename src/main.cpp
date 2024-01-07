@@ -13,9 +13,9 @@ using namespace prj;
 int main()
 {
 
-	dice myDice(100);
-	for(int i=0; i<100; i++)
-		std::cout << myDice.roll() << std::endl;
+	//dice myDice(100);
+	//for(int i=0; i<100; i++)
+	//	std::cout << myDice.roll() << std::endl;
 
 	std::cout << "Hello world";
 
