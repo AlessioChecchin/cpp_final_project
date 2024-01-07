@@ -1,3 +1,6 @@
+/**
+ * @author Jacopo Toniolo
+*/
 
 #include <random>
 #include <chrono>

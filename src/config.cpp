@@ -17,7 +17,8 @@ namespace prj
 			{ 2, 4,  7 },
 			{ 4, 8, 14 }
 		},
-		bot_number_{3},
+		player_number_{4},
+		bot_number_{4},
 		initial_budget_{100},
 		bonus_cycle_{20},
 		dice_number_{2},
@@ -37,6 +38,11 @@ namespace prj
 		display_props_["suf_player"]   = "%d";
 	}
 
+	unsigned int config::get_player_number() const
+	{
+		return player_number_;
+	}
+	
 	unsigned int config::get_bot_number() const
 	{
 		return bot_number_;

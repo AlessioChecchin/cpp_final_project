@@ -49,8 +49,14 @@ namespace prj
 		std::vector<std::vector<unsigned int>> stay_prices_{};
 
 		/**
+		 * The number of player (bot + human) playing.
+		 * Default value: 4.
+		 */
+		unsigned int player_number_{};
+
+		/**
 		 * The number of bots playing.
-		 * Default value: 3.
+		 * Default value: 4.
 		*/
 		unsigned int bot_number_{};
 		
@@ -119,6 +125,12 @@ namespace prj
 	public:
 	
 		config();
+
+		/**
+		 * Player number getter.
+		 * @return The number of players (bot + human) in the game
+		 */
+		virtual unsigned int get_player_number() const;
 
 		/**
 		 * Bot number getter.

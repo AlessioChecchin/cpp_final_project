@@ -1,3 +1,8 @@
+/**
+ * Dice class.
+ * @author Jacopo Toniolo
+*/
+
 #ifndef DICE_H
 #define DICE_H
 
