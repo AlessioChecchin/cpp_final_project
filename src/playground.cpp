@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <cmath>
 
-#include "player.h"
+#include "players/player.h"
 #include "board.h"
 
 namespace prj

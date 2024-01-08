@@ -10,8 +10,8 @@ class terrain: public building
 {
 public:
 	terrain();
-	virtual std::unique_ptr<building> upgrade() const;
-	virtual bool upgradable() const;
+	virtual std::unique_ptr<building> upgrade() const override;
+	virtual bool upgradable() const override;
 };
 
 } // prj

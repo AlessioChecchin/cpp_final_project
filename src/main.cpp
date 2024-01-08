@@ -2,7 +2,7 @@
 #include <memory>
 
 #include "playground.h"
-#include "player.h"
+#include "players/bot.h"
 
 //Temp
 #include "dice.h"
@@ -13,15 +13,15 @@ using namespace prj;
 int main()
 {
 
-	dice myDice(100);
-	for(int i=0; i<100; i++)
+	dice myDice(27);
+	for(int i=0; i<140000; i++)
 		std::cout << myDice.roll() << std::endl;
 
 	std::cout << "Hello world";
 
 	playground p; // ambiguo senza prj::? Commentando linea 6 in player.h funziona
 	
-	auto tmp = std::unique_ptr<player>(new player());
+	auto tmp = std::unique_ptr<player>(new bot());
 	tmp->set_name("Gino");
 
 	std::cout << tmp->get_name();

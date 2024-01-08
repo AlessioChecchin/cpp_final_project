@@ -10,8 +10,8 @@ class house: public building
 {
 public:
 	house();
-	virtual std::unique_ptr<building> upgrade() const;
-	virtual bool upgradable() const;
+	virtual std::unique_ptr<building> upgrade() const override;
+	virtual bool upgradable() const override;
 };
 
 } // prj

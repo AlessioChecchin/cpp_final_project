@@ -8,7 +8,7 @@
 #include <iostream>
 #include <array>
 
-#include "player.h"
+#include "players/player.h"
 #include "board.h"
 
 namespace prj

@@ -49,6 +49,11 @@ namespace prj
 		unsigned int get_pos();
 
 		/**
+		 * Decision of the player 
+		 */
+		virtual void decision() = 0;
+
+		/**
 		 * We decided to use friend to enforce encapsulation and allow 
 		 * only read methods for certain fields. We want playground to handle
 		 * the logic of score assignment ans positioning of the players. At the same
