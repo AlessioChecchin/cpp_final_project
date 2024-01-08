@@ -17,7 +17,7 @@ namespace prj
 			{ 2, 4,  7 },
 			{ 4, 8, 14 }
 		},
-		human_number_{4},
+		human_number_{0},
 		bot_number_{4},
 		initial_budget_{100},
 		bonus_cycle_{20},

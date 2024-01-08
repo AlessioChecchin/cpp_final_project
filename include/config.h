@@ -144,7 +144,7 @@ protected:
 
 	/**
 	 * The number of players playing.
-	 * Default value: 4
+	 * Default value: 0
 	 */
 	unsigned int human_number_{};
 
