@@ -17,8 +17,7 @@ namespace prj
 			{ 2, 4,  7 },
 			{ 4, 8, 14 }
 		},
-		player_number_{4},
-		bot_number_{4},
+		bot_number_{3},
 		initial_budget_{100},
 		bonus_cycle_{20},
 		dice_number_{2},
@@ -47,11 +46,6 @@ namespace prj
 		available_categories_.push_back(luxury);
 	}
 
-	unsigned int config::get_player_number() const
-	{
-		return player_number_;
-	}
-	
 	unsigned int config::get_bot_number() const
 	{
 		return bot_number_;
