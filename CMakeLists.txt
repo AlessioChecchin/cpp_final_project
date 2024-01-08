@@ -12,7 +12,9 @@ set(SOURCE_FILES
 	src/main.cpp
 	
 	src/playground.cpp
-	src/player.cpp
+	src/players/player.cpp
+	src/players/bot.cpp
+	src/players/human.cpp
 	src/box.cpp
 	src/board.cpp
 	src/category.cpp

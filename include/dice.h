@@ -1,5 +1,11 @@
+/**
+ * Dice class.
+ * @author Jacopo Toniolo
+*/
 #ifndef DICE_H
 #define DICE_H
+
+#include <random>
 
 namespace prj
 {
@@ -7,6 +13,7 @@ namespace prj
     {
     private:
         unsigned int faces_;
+        std::mt19937 generator; //random number generator
 
     public:
         /**

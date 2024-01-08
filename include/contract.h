@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "building/building.h"
-#include "player.h"
+#include "players/player.h"
 
 namespace prj
 {

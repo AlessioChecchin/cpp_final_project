@@ -2,8 +2,9 @@
 
 #include <memory>
 #include <stdexcept>
+#include <cmath>
 
-#include "player.h"
+#include "players/player.h"
 #include "board.h"
 #include "config.h"
 
@@ -56,13 +57,34 @@ namespace prj
 
 	void playground::move_player(std::shared_ptr<player> to_move, int steps)
 	{
-		unsigned int current_pos = to_move->get_pos();
-		if(current_pos + steps < 0)
-			to_move->position_ = board_.FIELD_SIZE + (current_pos + steps);
-		else if(current_pos + steps >= board_.FIELD_SIZE) // boxes are in range [0, FIELD_SIZE-1]
-			to_move->position_ = (current_pos + steps) - board_.FIELD_SIZE;
-		else
-			to_move->position_ += steps;
+        bool moving_forward = true;
+
+		// Get number of laps when adding steps 
+        int laps = static_cast<int>(std::abs(steps) / board_.FIELD_SIZE);
+        
+		// Cast 'steps' in range [0, FIELD_SIZE[
+        if(steps < 0)
+        {
+            moving_forward = false;
+            steps += board_.FIELD_SIZE + board_.FIELD_SIZE * laps;
+        }
+        else
+        {
+            steps -= board_.FIELD_SIZE * laps;
+        }
+        
+		// Add steps and check if it's over FIELD_SIZE
+        to_move->position_ += steps;
+        if(to_move->position_ >= board_.FIELD_SIZE)
+        {
+            to_move->position_ -= board_.FIELD_SIZE;
+            laps++;
+        }
+
+		// Add money to the player
+		if(moving_forward)
+			to_move->score_ += 9999999*laps;
+
 	}
 
 
