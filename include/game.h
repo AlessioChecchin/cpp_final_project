@@ -13,7 +13,7 @@ namespace prj
 class game
 {
     private:
-        config conf_;
+        std::shared_ptr<config> conf_;
         playground playgr_;
 
 
@@ -21,7 +21,7 @@ class game
         /**
          * Default constructor 
          */
-        game(config& conf);
+        game(std::shared_ptr<config> conf);
 
 
 

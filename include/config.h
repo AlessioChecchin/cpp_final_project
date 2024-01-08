@@ -38,6 +38,24 @@ public:
 
 	config();
 
+
+	/**
+	 * Copy disabled
+	*/
+	config(const config& b) = delete;
+
+	/**
+	 * Copy disabled
+	*/
+	config& operator=(const config& b) = delete;
+
+
+	/**
+	 * Human players number getter.
+	 * @return The number of human players in the game.
+	*/
+	virtual unsigned int get_human_number() const;
+
 	/**
 	 * Bot number getter.
 	 * @return The number of bots in the game.
@@ -123,9 +141,16 @@ protected:
 	*/
 	std::vector<std::vector<unsigned int>> stay_prices_{};
 
+
+	/**
+	 * The number of players playing.
+	 * Default value: 4
+	 */
+	unsigned int human_number_{};
+
 	/**
 	 * The number of bots playing.
-	 * Default value: 3.
+	 * Default value: 4.
 	*/
 	unsigned int bot_number_{};
 	
