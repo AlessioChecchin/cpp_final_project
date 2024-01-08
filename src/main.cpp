@@ -3,6 +3,7 @@
 
 #include "playground.h"
 #include "player.h"
+#include "config.h"
 
 //Temp
 #include "dice.h"
@@ -19,7 +20,7 @@ int main()
 
 	std::cout << "Hello world";
 
-	playground p; // ambiguo senza prj::? Commentando linea 6 in player.h funziona
+	playground p(std::shared_ptr<config>(new config())); // ambiguo senza prj::? Commentando linea 6 in player.h funziona
 	
 	auto tmp = std::unique_ptr<player>(new player());
 	tmp->set_name("Gino");

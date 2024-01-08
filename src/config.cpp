@@ -25,7 +25,8 @@ namespace prj
 		buy_land_possibility_bot_{0.25},
 		buy_house_possibility_bot_{0.25},
 		buy_hotel_possibility_bot_{0.25},
-		log_path_{"./log.txt"}
+		log_path_{"./log.txt"},
+		available_categories_{}
 	{
 		display_props_["box_angular"]  = " ";
 		display_props_["box_start"]    = "P";
@@ -35,6 +36,14 @@ namespace prj
 		display_props_["suf_house"]    = "*";
 		display_props_["suf_hotel"]    = "^";
 		display_props_["suf_player"]   = "%d";
+
+		category_config economy{"economy", 0, 8};
+		category_config standard{"standard", 1, 10};
+		category_config luxury{"luxury", 2, 6};
+
+		available_categories_.push_back(economy);
+		available_categories_.push_back(standard);
+		available_categories_.push_back(luxury);
 	}
 
 	unsigned int config::get_bot_number() const
@@ -80,5 +89,10 @@ namespace prj
 	std::string config::get_log_path() const
 	{
 		return log_path_;
+	}
+
+	std::vector<config::category_config> config::get_available_categories() const
+	{
+		return available_categories_;
 	}
 }

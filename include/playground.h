@@ -10,18 +10,18 @@
 
 #include "player.h"
 #include "board.h"
+#include "config.h"
 
 namespace prj
 {
 	class playground
 	{	
 	public:
-		playground();
+		playground(std::shared_ptr<config> configuration);
 
 		/**
 		 * Adds a player to the playground.
 		 * @param new_player The player to add.
-		 * 
 		*/
 		void add_player(std::shared_ptr<player> new_player);
 
@@ -62,7 +62,7 @@ namespace prj
 		/**
 		 * Board of the game 
 		 */
-		board board_{};
+		board board_;
 
 		/**
 		 * Map that contains all the players in the playground.

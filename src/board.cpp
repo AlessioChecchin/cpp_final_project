@@ -8,16 +8,28 @@
 #include <iostream>
 #include <chrono>
 #include <random>
+#include <stdexcept>
+
+#include "config.h"
 
 namespace prj
 {
 
-board::board()
+board::board(std::shared_ptr<config> configuration)
 {
-	constexpr int N_ECONOMY = 8;
-	constexpr int N_STANDARD = 10;
-	constexpr int N_LUXURY = 6;
+	// Reading categories config.
+	std::vector<config::category_config> cat_config = configuration->get_available_categories();
 
+	// Checking that the configuration is correct.
+	unsigned int sum = 0;
+	for(config::category_config& c: cat_config)
+	{
+		sum += c.number;
+	}
+
+	if(sum != FIELD_SIZE - 4) throw std::invalid_argument("Invalid configuration file, invalid number of categories");
+
+	// Entropy used for mixing.
 	constexpr int ENTROPY = 5000;
 
 	std::vector<int> positions;
@@ -29,10 +41,13 @@ board::board()
 		{
 			positions.push_back(i);
 		}
+		else
+		{
+			field_[i] = nullptr;
+		}
 	}
 
 	// Generates numbers from in the range [0, size]
-
     // Generate seed
     std::random_device seed_generator;
     std::mt19937::result_type seed = seed_generator();
@@ -51,19 +66,24 @@ board::board()
 
 	int j = 0;
 
-	for(int i = 0; i < N_ECONOMY; i++)
+	for(int i = 0; i < cat_config.size(); i++)
 	{
-		field_[positions[j++]] = std::unique_ptr<box>(new box(category("economy", 0)));
-	}
-	
-	for(int i = 0; i < N_STANDARD; i++)
-	{
-		field_[positions[j++]] = std::unique_ptr<box>(new box(category("standard", 1)));
+		for(int k = 0; k < cat_config[i].number; k++)
+		{
+			field_[positions[j++]] = std::unique_ptr<box>(new box(category(cat_config[i].name, cat_config[i].id)));
+		}
 	}
 
-	for(int i = 0; i < N_LUXURY; i++)
+	for(int i = 0; i < FIELD_SIZE; i++)
 	{
-		field_[positions[j++]] = std::unique_ptr<box>(new box(category("luxury", 2)));
+		if( field_[i] )
+		{
+			std::cout <<i << " " << field_[i]->get_category().get_name() << std::endl;
+		}
+		else
+		{
+			std::cout <<i << " NULL" << std::endl;
+		}
 	}
 };
 

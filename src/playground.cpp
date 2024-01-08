@@ -5,10 +5,11 @@
 
 #include "player.h"
 #include "board.h"
+#include "config.h"
 
 namespace prj
 {
-	playground::playground(): board_{}, players_{}
+	playground::playground(std::shared_ptr<config> configuration): board_{configuration}, players_{}
 	{}
 
 	void playground::add_player(std::shared_ptr<player> new_player)

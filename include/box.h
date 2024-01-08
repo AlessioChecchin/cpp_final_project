@@ -21,7 +21,11 @@ class box
 {
 public:
 
+	/**
+	 * Constructor.
+	*/
 	box(const category& cat);
+
 	/**
 	 * Copy disabled, it contains non-copiable object.
 	*/

@@ -10,35 +10,41 @@
 #include <memory>
 
 #include "box.h"
+#include "config.h"
 
 namespace prj
 {
+
+/**
+ * A board holds the boxes of the field.
+*/
+class board
+{
+public:
 	/**
-	 * A board holds the boxes of the field.
+	 * Default constructor.
 	*/
-    class board
-    {
-    public:
-		/**
-		 * Default constructor.
-		*/
-		board();
+	board(std::shared_ptr<config> configuration);
+	
+	bool is_angular(unsigned int position) const;
 
-		bool is_angular(unsigned int position) const;
+    /**
+	 * Size of the field.
+	*/
+	const static int FIELD_SIZE = 28;
 
-        /**
-		 * Size of the field.
-		*/
-		const static int FIELD_SIZE = 28;
+protected:
 
-    protected:
-        /**
-		 * Array representing the field. THe board is the owner of the boxes and,
-		 * for this reason, field_ is an array of unique_ptr.
-		 * Furthermore the use of pointers allows flexibility regarding possibles
-		 * polimorphic instances.
-		*/
-		std::array<std::unique_ptr<box>, FIELD_SIZE> field_;
-    };
+    /**
+	 * Array representing the field. THe board is the owner of the boxes and,
+	 * for this reason, field_ is an array of unique_ptr.
+	 * Furthermore the use of pointers allows flexibility regarding possibles
+	 * polimorphic instances.
+	*/
+	std::array<std::unique_ptr<box>, FIELD_SIZE> field_;
+};
+
+//std::ostream& operator<<(std::ostream& out, )
+
 }
 #endif // BOARD_H

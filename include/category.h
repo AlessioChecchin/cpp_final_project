@@ -35,6 +35,8 @@ public:
 	*/
 	unsigned int get_id() const;
 
+
+
 private:
 	/**
 	 * Category name.
@@ -45,6 +47,7 @@ private:
 	 * Category id.
 	*/
 	unsigned int id_;
+
 };
 
 } // prj
