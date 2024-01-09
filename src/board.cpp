@@ -27,7 +27,8 @@ board::board(std::shared_ptr<config> configuration)
 		sum += c.number;
 	}
 
-	if(sum != FIELD_SIZE - 4) throw std::invalid_argument("Invalid configuration file, invalid number of categories");
+	if(sum != FIELD_SIZE - 4)
+		throw std::invalid_argument("Invalid configuration file, invalid number of categories");
 
 	// Entropy used for mixing.
 	constexpr int ENTROPY = 5000;
@@ -74,22 +75,35 @@ board::board(std::shared_ptr<config> configuration)
 		}
 	}
 
-	for(int i = 0; i < FIELD_SIZE; i++)
-	{
-		if( field_[i] )
-		{
-			std::cout <<i << " " << field_[i]->get_category().get_name() << std::endl;
-		}
-		else
-		{
-			std::cout <<i << " NULL" << std::endl;
-		}
-	}
+	//for(int i = 0; i < FIELD_SIZE; i++)
+	//{
+	//	if( field_[i] )
+	//	{
+	//		std::cout <<i << " " << field_[i]->get_category().get_name() << std::endl;
+	//	}
+	//	else
+	//	{
+	//		std::cout <<i << " NULL" << std::endl;
+	//	}
+	//}
 };
 
 bool board::is_angular(unsigned int pos) const
 {
 	return pos == 0 || pos % (FIELD_SIZE / 4) == 0;
 }
+
+box* board::get_box(unsigned int position)
+{
+	if(position >= FIELD_SIZE) throw std::out_of_range("Out of range");
+	return field_[position].get();
+}
+
+const box* board::get_box(unsigned int position) const
+{
+	if(position >= FIELD_SIZE) throw std::out_of_range("Out of range");
+	return field_[position].get();
+}
+
 
 } // prj

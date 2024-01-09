@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <stdexcept>
+#include <iomanip>
 #include <cmath>
 
 #include "players/player.h"
@@ -75,7 +76,7 @@ namespace prj
         
 		// Add steps and check if it's over FIELD_SIZE
         to_move->position_ += steps;
-        if(to_move->position_ >= board_.FIELD_SIZE)
+		if(to_move->position_ >= board_.FIELD_SIZE)
         {
             to_move->position_ -= board_.FIELD_SIZE;
             laps++;
@@ -98,6 +99,60 @@ namespace prj
 	// Helper functions.
 	std::ostream& operator<<(std::ostream& os, const playground& play)
 	{
+		for(int i = 0; i < 8; i++)
+		{
+			const box* current_box = play.board_.get_box(i);
+
+			std::string name;
+
+			if(current_box)
+			{
+				name = current_box->get_category().get_name();
+			}
+			else
+			{
+				name = "null";
+			}
+			
+			if(i % 3)
+			{
+				name = "|X^X|";
+			}
+			else
+			{
+				name = "| S |";
+			}
+			
+			os << name << " ";
+		}
+
+		os << std::endl;
+
+		for(int i = 0; i < 10; i++)
+		{
+			os << std::setw(5 * 8 + 7 - 5) << std::left << "|LFT|" << std::right << "|RHT|" << std::endl;
+		}
+
+		/*for(unsigned int i = 0; i < play.board_.FIELD_SIZE; i++)
+		{
+			const box* current_box = play.board_.get_box(i);
+
+			std::string name;
+
+			if(current_box)
+			{
+				name = current_box->get_category().get_name();
+			}
+			else
+			{
+				name = "null";
+			}
+			
+			
+			std::cout << std::setw(4) << "S" << std::left << std::endl;
+			
+
+		}*/
 		return os;
 	}
 }

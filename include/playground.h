@@ -14,63 +14,62 @@
 
 namespace prj
 {
-	class playground
-	{	
-	public:
-		playground(std::shared_ptr<config> configuration);
+class playground
+{	
+public:
+	playground(std::shared_ptr<config> configuration);
 
-		/**
-		 * Adds a player to the playground.
-		 * @param new_player The player to add.
-		*/
-		void add_player(std::shared_ptr<player> new_player);
+	/**
+	 * Adds a player to the playground.
+	 * @param new_player The player to add.
+	*/
+	virtual void add_player(std::shared_ptr<player> new_player);
+	/**
+	 * Removes a player from the playground.
+	 * @param to_remove The player to remove.
+	*/
 
-		/**
-		 * Removes a player from the playground.
-		 * @param to_remove The player to remove.
-		*/
-		void remove_player(std::shared_ptr<player> to_remove);
+	virtual void remove_player(std::shared_ptr<player> to_remove);
 
-		/**
-		 * Returns a vector containing the players in the playground.
-		 * @return A vector of shared pointers to players.
-		*/
-		std::vector<std::shared_ptr<player>> get_players();
+	/**
+	 * Returns a vector containing the players in the playground.
+	 * @return A vector of shared pointers to players.
+	*/
+	virtual std::vector<std::shared_ptr<player>> get_players();
 
-		/**
-		 * Tests if a player is present in the playground.
-		 * @return true if the player is present, false otherwise.
-		*/
-		bool is_playing(std::shared_ptr<player> to_remove);
+	/**
+	 * Tests if a player is present in the playground.
+	 * @return true if the player is present, false otherwise.
+	*/
+	virtual bool is_playing(std::shared_ptr<player> to_remove);
 
-		/**
-		 * Move the player of the specified number of steps.
-		 * The player can be moved either forward and backward
-		 * @param to_move The player to remove
-		 * @param steps Number of steps of the player
-		 */
-		void move_player(std::shared_ptr<player> to_move, int steps);
+	/**
+	 * Move the player of the specified number of steps.
+	 * The player can be moved either forward and backward
+	 * @param to_move The player to remove
+	 * @param steps Number of steps of the player
+	 */
+	virtual void move_player(std::shared_ptr<player> to_move, int steps);
 
-	protected:
-		/**
-		 * Utility function wrapping find.
-		*/
-		std::map<unsigned long int, std::shared_ptr<player>>::iterator
-			find_player(unsigned long int id);
+	friend std::ostream& operator<<(std::ostream& os, const playground& play);
+	
+protected:
+	/**
+	 * Utility function wrapping find.
+	*/
+	std::map<unsigned long int, std::shared_ptr<player>>::iterator
+		find_player(unsigned long int id);
+protected:
+	/**
+	 * Board of the game 
+	 */
+	board board_;
+	/**
+	 * Map that contains all the players in the playground.
+	*/
+	std::map<unsigned long int, std::shared_ptr<player>> players_;	
+};
 
-	protected:
-		/**
-		 * Board of the game 
-		 */
-		board board_;
-
-		/**
-		 * Map that contains all the players in the playground.
-		*/
-		std::map<unsigned long int, std::shared_ptr<player>> players_;	
-	};
-
-	std::ostream& operator<<(std::ostream& os, const playground& play);
 }
 
 #endif // PLAYGROUND_H
