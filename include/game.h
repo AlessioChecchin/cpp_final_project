@@ -15,7 +15,7 @@ class game
     private:
         std::shared_ptr<config> conf_;
         playground playgr_;
-
+        std::shared_ptr<player> game_order[];
 
     public:
         /**
@@ -23,7 +23,17 @@ class game
          */
         game(std::shared_ptr<config> conf);
 
+        /**
+         * Add players to the game
+         */
+        void add_players(unsigned int init_balance);
 
+        /**
+         * Get playing order 
+         * @return Vector of players with the defined random order
+         */
+        std::vector<std::shared_ptr<player>> retrieve_order();
+    
 
 
 

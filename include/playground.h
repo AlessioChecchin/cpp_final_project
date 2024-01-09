@@ -54,9 +54,9 @@ namespace prj
 	protected:
 		/**
 		 * Utility function wrapping find.
+		 * @return The player found, nullptr otherwise
 		*/
-		std::map<unsigned long int, std::shared_ptr<player>>::iterator
-			find_player(unsigned long int id);
+		std::vector<std::shared_ptr<player>>::iterator find_player(unsigned long int id);
 
 	protected:
 		/**
@@ -67,7 +67,7 @@ namespace prj
 		/**
 		 * Map that contains all the players in the playground.
 		*/
-		std::map<unsigned long int, std::shared_ptr<player>> players_;	
+		std::vector<std::shared_ptr<player>> players_;	
 	};
 
 	std::ostream& operator<<(std::ostream& os, const playground& play);

@@ -3,6 +3,7 @@
 #include <memory>
 #include <stdexcept>
 #include <cmath>
+#include <algorithm>
 
 #include "players/player.h"
 #include "board.h"
@@ -21,19 +22,12 @@ namespace prj
 		}
 
 		new_player->is_playing_ = true;
-		players_[new_player->get_id()] = new_player;
+		players_.push_back(new_player);
 	}
 
 	std::vector<std::shared_ptr<player>> playground::get_players()
 	{
-		std::vector<std::shared_ptr<player>> result;
-
-		for(auto it = players_.begin(); it != players_.end(); it++)
-		{
-			result.push_back(it->second);
-		}
-
-		return result;
+		return players_;
 	}
 
 	void playground::remove_player(std::shared_ptr<player> to_remove)
@@ -46,7 +40,7 @@ namespace prj
 			return;
 		}
 
-		element->second->is_playing_ = false;
+		(*element)->is_playing_ = false; 
 		players_.erase(element);
 	}
 
@@ -89,10 +83,13 @@ namespace prj
 
 
 	// Protected methods
-	std::map<unsigned long int, std::shared_ptr<player>>::iterator
-		playground::find_player(unsigned long int id)
+
+	std::vector<std::shared_ptr<player>>::iterator playground::find_player(unsigned long int id)
 	{
-		return players_.find(id);
+		return std::find_if(players_.begin(), players_.end(), [id](std::shared_ptr<player> p)
+		{
+			return p->get_id() == id;
+		});
 	}
 
 	// Helper functions.
