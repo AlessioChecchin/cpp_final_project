@@ -1,5 +1,5 @@
 /**
- * This slass contains and runs a group of test.
+ * This class contains and runs a group of test.
  * Each group of tests is associated to a child of this class.
  * It provides a case for unit tests and integration tests.
  * 

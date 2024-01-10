@@ -1,7 +1,7 @@
 /**
- * Unit test for configuration file.
+ * Unit test for configuration class.
  * 
- * @author Alessio Checchin
+ * @authors Alessio Checchin, Giulio Cattelan
 */
 
 #ifndef UNIT_TEST_CONFIG_H
@@ -15,6 +15,8 @@ public:
 
 	unit_test_config();
 
+	void test_constructor();
+	void test_category_config();
 	void test_getter();
 };
 
