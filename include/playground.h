@@ -26,6 +26,12 @@ namespace prj
 		void add_player(std::shared_ptr<player> new_player);
 
 		/**
+		 * Obtain the player that has to play the current round
+		 * @return Player that has to play
+		 */
+		std::shared_ptr<player> next_player();
+
+		/**
 		 * Removes a player from the playground.
 		 * @param to_remove The player to remove.
 		*/
@@ -68,6 +74,12 @@ namespace prj
 		 * Map that contains all the players in the playground.
 		*/
 		std::vector<std::shared_ptr<player>> players_;	
+
+		/**
+		 * Index of the player that has to play the current round
+		 */
+		unsigned int player_index;
+
 	};
 
 	std::ostream& operator<<(std::ostream& os, const playground& play);

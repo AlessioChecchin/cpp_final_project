@@ -11,8 +11,13 @@
 
 namespace prj
 {
-	playground::playground(std::shared_ptr<config> configuration): board_{configuration}, players_{}
+	playground::playground(std::shared_ptr<config> configuration): board_{configuration}, players_{}, player_index{0}
 	{}
+
+	std::shared_ptr<player> playground::next_player()
+	{
+		return players_[player_index++];
+	}
 
 	void playground::add_player(std::shared_ptr<player> new_player)
 	{

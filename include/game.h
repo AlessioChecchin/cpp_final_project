@@ -5,6 +5,8 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <map>
+
 #include "config.h"
 #include "playground.h"
 #include "dice.h"
@@ -27,13 +29,13 @@ class game
         /**
          * Create players
          */
-        std::multimap<unsigned long int , std::shared_ptr<player>>  create_players(unsigned int init_balance);
+        std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>>  create_players(unsigned int init_balance);
 
         /**
          * Order players with dice rolling
          * @param players The map containing players 
          */
-        void order_players(std::multimap<unsigned long int , std::shared_ptr<player>>& players);
+        void order_players(std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>>& players);
 
         /**
          * Roll dices and get their value

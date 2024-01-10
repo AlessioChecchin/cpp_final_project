@@ -14,33 +14,42 @@ namespace prj
 {
 game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf} 
 {
-    // Add players with initial budget
-    auto players = create_players(conf_->get_initial_budget());
+    // Create players with initial budget
+    auto tempPlayers = create_players(conf_->get_initial_budget());
 
-    // Testing
-    std::multimap<unsigned long, std::shared_ptr<prj::player>>::iterator it;
-    for(it = players.begin(); it != players.end(); it++)
-    {
-        std::cout<<"Score: "<<it->first<<"\t Player: "<<(it->second)->get_id()<<"\n";
+    // Order players with dice rolling and add the to playground
+    order_players(tempPlayers);
+    auto players = playgr_.get_players();
+
+    // Game continues until someone wins or it's a bot-game (with max number of rounds)
+    // Rounds are in range [1, conf_->round_number]
+    bool game_end = false;
+    unsigned int round_counter = 0;
+
+    while(!game_end)
+    {  
+        round_counter++;
+        ////////////////////////////////////////////////////////////////////////////////////////v
+        auto current_player = playgr_.next_player();
+
+        // Move player
+        playgr_.move_player(current_player, roll_dice());
+
+        // Per test - da togliere
+        game_end = true;
+        ////////////////////////////////////////////////////////////////////////////////////////v
+        // It's a bot-only game
+        if(conf_->get_human_number()==0 && round_counter==conf_->get_round_number())
+            game_end = true;
+
+        // It's a human or bot-only game
+        //if(qualcuno vince) game_end = true;
     }
-    std::cout<<"ORDERED_________________________\n";
-    // Order players with dice rolling
-    order_players(players);
-    std::vector<std::shared_ptr<player>>::iterator it2;
-    auto temp = playgr_.get_players();
-    for(it2 = temp.begin(); it2 != temp.end(); it2++)
-    {
-        std::cout<<"Player: "<<(*it2)->get_id()<<"\n";
-    }
-
-    // aggiungere i player a playground nell'ordine definito
-    
-
 }
 
-void game::order_players(std::multimap<unsigned long int , std::shared_ptr<player>>& players)
+void game::order_players(std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>>& players)
 {
-    std::multimap<unsigned long int , std::shared_ptr<player>> tempMap;
+    std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>> tempMap;
     std::multimap<unsigned long int , std::shared_ptr<player>>::iterator it, prevIt;
 
     it = players.begin();
@@ -91,9 +100,9 @@ void game::order_players(std::multimap<unsigned long int , std::shared_ptr<playe
 }
 
 
-std::multimap<unsigned long int , std::shared_ptr<player>> game::create_players(unsigned int init_balance)
+std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>> game::create_players(unsigned int init_balance)
 {
-    std::multimap<unsigned long int , std::shared_ptr<player>> players;
+    std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>> players;
 
     // Add bots to playground
     for(int i=0 ; i<conf_->get_bot_number(); i++)
