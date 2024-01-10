@@ -3,6 +3,7 @@
 */
 
 #include <random>
+#include <stdexcept>
 
 #include "dice.h"
 
@@ -11,6 +12,9 @@ namespace prj
 
 dice::dice(unsigned int faces): faces_{faces} 
 {
+    if(faces == 0)
+        throw std::invalid_argument("Dices with 0 faces are not allowed");
+
     // Generate seed
     std::random_device seed_generator;
     std::mt19937::result_type seed = seed_generator(); // result_type = unsigned int
