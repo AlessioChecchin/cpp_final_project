@@ -42,5 +42,5 @@ void test_methods()
 	prj::house b;
 
 	assert(("Failing to check if the object is upgradable (it shouldn't be possible)", b.upgradable() == true));
-	// == true is there for better readability
+	// "== true" is there for better readability
 }
