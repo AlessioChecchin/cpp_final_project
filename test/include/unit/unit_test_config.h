@@ -20,4 +20,6 @@ public:
 	void test_getters();
 };
 
+bool test_config_valid();
+
 #endif // UNIT_TEST_CONFIG_H

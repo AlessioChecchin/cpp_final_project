@@ -16,7 +16,7 @@ unit_test_config::unit_test_config(): test_suite{"unit_test_config"}
 void unit_test_config::test_constructor()
 {
 	//testing default constructor
-	prj::config a;
+	assert(("Failed to create config object", test_config_valid()));
 }
 
 void unit_test_config::test_category_config()
@@ -68,4 +68,17 @@ void unit_test_config::test_getters()
 	available_categories.push_back(luxury);
 
 	assert(("Failed to get available_categories", a.get_available_categories() == available_categories));
+}
+
+bool test_config_valid()
+{
+	try
+	{
+		prj::config a;
+		return true;
+	}
+	catch(const std::exception& e)
+	{
+		return false;
+	}
 }
