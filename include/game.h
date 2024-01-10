@@ -7,6 +7,7 @@
 
 #include "config.h"
 #include "playground.h"
+#include "dice.h"
 
 namespace prj
 {
@@ -15,7 +16,7 @@ class game
     private:
         std::shared_ptr<config> conf_;
         playground playgr_;
-        std::shared_ptr<player> game_order[];
+        std::vector<dice> dices;
 
     public:
         /**
@@ -24,15 +25,23 @@ class game
         game(std::shared_ptr<config> conf);
 
         /**
-         * Add players to the game
+         * Create players
          */
-        void add_players(unsigned int init_balance);
+        std::multimap<unsigned long int , std::shared_ptr<player>>  create_players(unsigned int init_balance);
 
         /**
-         * Get playing order 
-         * @return Vector of players with the defined random order
+         * Order players with dice rolling
+         * @param players The map containing players 
          */
-        std::vector<std::shared_ptr<player>> retrieve_order();
+        void order_players(std::multimap<unsigned long int , std::shared_ptr<player>>& players);
+
+        /**
+         * Roll dices and get their value
+         * @param dice_number The number of dices to roll
+         * @return unsigned long int The total score 
+         */
+        unsigned long int roll_dice();
+        
     
 
 
