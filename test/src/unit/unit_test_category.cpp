@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <assert.h>
-#include <stdexcept>
 
 unit_test_category::unit_test_category(): test_suite{"unit_test_category"}
 {
