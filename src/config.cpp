@@ -92,6 +92,15 @@ namespace prj
 		return buy_hotel_possibility_bot_;
 	}
 
+	std::string config::get_display_prop(const std::string& prop_name) const
+	{
+		if(display_props_.find(prop_name) != display_props_.end())
+		{
+			return display_props_.at(prop_name);
+		}
+		return "";
+	}
+
 	std::string config::get_log_path() const
 	{
 		return log_path_;

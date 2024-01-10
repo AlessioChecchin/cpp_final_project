@@ -41,7 +41,7 @@ public:
 	 * Tests if a player is present in the playground.
 	 * @return true if the player is present, false otherwise.
 	*/
-	virtual bool is_playing(std::shared_ptr<player> to_remove);
+	virtual bool is_playing(std::shared_ptr<player> to_remove) const;
 
 	/**
 	 * Move the player of the specified number of steps.
@@ -64,6 +64,12 @@ protected:
 	 * Board of the game 
 	 */
 	board board_;
+
+	/**
+	 * Configuration
+	*/
+	std::shared_ptr<config> configuration_;
+	
 	/**
 	 * Map that contains all the players in the playground.
 	*/
