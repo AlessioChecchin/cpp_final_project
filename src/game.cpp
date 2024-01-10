@@ -5,7 +5,6 @@
 #include <iterator>
 #include <map>
 
-
 #include "dice.h"
 #include "config.h"
 #include "players/bot.h"
@@ -41,16 +40,22 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}
 
 void game::order_players(std::multimap<unsigned long int , std::shared_ptr<player>>& players)
 {
-    unsigned long int tempId;
-
     std::multimap<unsigned long int , std::shared_ptr<player>> tempMap;
     std::multimap<unsigned long int , std::shared_ptr<player>>::iterator it, prevIt;
 
     it = players.begin();
     prevIt = it++;
-
     bool is_copying = false;
 
+    /**
+     * This code loops through the map of players. If it finds two or more players who's score is the same
+     * it puts those player inside a tempMap.
+     * The player is saved in tempMap with a new dice_roll() as key.
+     * As soon as the iterator reaches the end of the sequence of player with same score,
+     * tempMap (which contains player with a new score) is checked again with this algorithm
+     * 
+     * If a player has a unique score, it is added to playground
+     */
     for(prevIt; prevIt != players.end(); prevIt++)
     {
         if(it == players.end() || prevIt->first != it->first)
@@ -67,22 +72,21 @@ void game::order_players(std::multimap<unsigned long int , std::shared_ptr<playe
                     order_players(tempMap);  
                     tempMap.clear();
                 }
-                it++;
             }
-            // prevIt is poiting to a player who's score is unique. The player is sent to playground
+            // prevIt is pointing to a player who's score is unique. The player is sent to playground
             else
             {
                 playgr_.add_player(prevIt->second);
-                it ++;
             } 
         }
+        // player pointed by prevIt doesn't have a unique score
         else if(prevIt->first == it->first)
         {
             tempMap.insert({roll_dice(), prevIt->second});
             is_copying = true;
-
-            it ++;
         }       
+
+        it++;
     }
 }
 
