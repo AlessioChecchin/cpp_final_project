@@ -80,9 +80,11 @@ public:
 		 */
 		unsigned int player_index;
 
+	    friend std::ostream& operator<<(std::ostream& os, const playground& play);
 	};
 
-	std::ostream& operator<<(std::ostream& os, const playground& play);
+    
+
 }
 
 #endif // PLAYGROUND_H
