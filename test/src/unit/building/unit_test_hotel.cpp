@@ -4,7 +4,6 @@
 #include <iostream>
 #include <assert.h>
 #include <stdexcept>
-#include <memory>
 
 unit_test_hotel::unit_test_hotel(): test_suite{"unit_test_hotel"}
 {
