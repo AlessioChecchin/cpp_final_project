@@ -24,19 +24,19 @@ void unit_test_config::test_category_config()
 	//testing categry__coonfig constructor
 	//note: there is an implicit cast when comparing an unsigned int with a negative int
 	prj::config::category_config a{"a", 0, 8};
-	assert(("Failed to create category_config object a{\"a\", 0, 8}:", a.name == "a"));
-	assert(("Failed to create category_config object a{\"a\", 0, 8}:", a.id == 0));
-	assert(("Failed to create category_config object a{\"a\", 0, 8}:", a.number == 8));
+	assert(("Failed to create category_config object a{\"a\", 0, 8}", a.name == "a"));
+	assert(("Failed to create category_config object a{\"a\", 0, 8}", a.id == 0));
+	assert(("Failed to create category_config object a{\"a\", 0, 8}", a.number == 8));
 
 	prj::config::category_config b{"abcdefg", 2, -203};
-	assert(("Failed to create category_config object b{\"abcdefg\", 2, -203}:", b.name == "abcdefg"));
-	assert(("Failed to create category_config object b{\"abcdefg\", 2, -203}:", b.id == -1));
-	assert(("Failed to create category_config object b{\"abcdefg\", 2, -203}:", b.number == -203));
+	assert(("Failed to create category_config object b{\"abcdefg\", 2, -203}", b.name == "abcdefg"));
+	assert(("Failed to create category_config object b{\"abcdefg\", 2, -203}", b.id == -1));
+	assert(("Failed to create category_config object b{\"abcdefg\", 2, -203}", b.number == -203));
 
 	prj::config::category_config c{"", 0, 8};
-	assert(("Failed to create category_config object c{\"\", 0, 8}:", c.name == ""));
-	assert(("Failed to create category_config object c{\"\", 0, 8}:", c.id == 0));
-	assert(("Failed to create category_config object c{\"\", 0, 8}:", c.number == 8));
+	assert(("Failed to create category_config object c{\"\", 0, 8}", c.name == ""));
+	assert(("Failed to create category_config object c{\"\", 0, 8}", c.id == 0));
+	assert(("Failed to create category_config object c{\"\", 0, 8}", c.number == 8));
 	
 	
 }
@@ -46,8 +46,8 @@ void unit_test_config::test_getters()
 	//testing getters
 	prj::config a;
 
-	assert(("Failed to get human_number_:", a.get_human_number() == 0));
-	assert(("Failed to get bot_number_ ", a.get_bot_number() == 4));
+	assert(("Failed to get human_number_", a.get_human_number() == 0));
+	assert(("Failed to get bot_number_", a.get_bot_number() == 4));
 	assert(("Failed to get initial_budget_", a.get_initial_budget() == 100));
 	assert(("Failed to get bonus_cycle_", a.get_bonus_cycle() == 20));
 	assert(("Failed to get dice_number_", a.get_dice_number() == 2));

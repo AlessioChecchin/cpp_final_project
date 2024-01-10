@@ -40,10 +40,10 @@ void unit_test_dice::test_methods()
 	//testing roll method
 	prj::dice a(6);
 
-	assert(("Failed to roll the dice (it shuldn't be possible):", a.roll()));
-	assert(("Failed to roll the dice (it shuldn't be possible):", a.roll()));
-	assert(("Failed to roll the dice (it shuldn't be possible):", a.roll()));
-	assert(("Failed to roll the dice (it shuldn't be possible):", a.roll()));
-	assert(("Failed to roll the dice (it shuldn't be possible):", a.roll()));
-	assert(("Failed to roll the dice (it shuldn't be possible):", a.roll()));
+	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
+	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
+	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
+	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
+	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
+	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
 }
