@@ -19,6 +19,4 @@ public:
 	void test_getters();
 };
 
-bool test_category_valid(unsigned int faces);
-
 #endif // UNIT_TEST_CATEGORY_H
