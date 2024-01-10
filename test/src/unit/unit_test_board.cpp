@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <assert.h>
+#include <stdexcept>
 
 unit_test_board::unit_test_board(): test_suite{"unit_test_board"}
 {
