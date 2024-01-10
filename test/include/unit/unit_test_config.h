@@ -17,7 +17,7 @@ public:
 
 	void test_constructor();
 	void test_category_config();
-	void test_getter();
+	void test_getters();
 };
 
 #endif // UNIT_TEST_CONFIG_H

@@ -10,7 +10,7 @@ unit_test_config::unit_test_config(): test_suite{"unit_test_config"}
 	// we are sure that test object does not outlive the current class instance.
 	add_test(test("constructor", std::bind(&unit_test_config::test_constructor, this)));
 	add_test(test("category_config", std::bind(&unit_test_config::test_category_config, this)));
-	add_test(test("getter", std::bind(&unit_test_config::test_getter, this)));
+	add_test(test("getter", std::bind(&unit_test_config::test_getters, this)));
 }
 
 void unit_test_config::test_constructor()
@@ -41,7 +41,7 @@ void unit_test_config::test_category_config()
 	
 }
 
-void unit_test_config::test_getter()
+void unit_test_config::test_getters()
 {
 	//testing getters
 	prj::config a;
