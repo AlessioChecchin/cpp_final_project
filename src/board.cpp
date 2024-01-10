@@ -75,17 +75,17 @@ board::board(std::shared_ptr<config> configuration)
 		}
 	}
 
-	//for(int i = 0; i < FIELD_SIZE; i++)
-	//{
-	//	if( field_[i] )
-	//	{
-	//		std::cout <<i << " " << field_[i]->get_category().get_name() << std::endl;
-	//	}
-	//	else
-	//	{
-	//		std::cout <<i << " NULL" << std::endl;
-	//	}
-	//}
+	// for(int i = 0; i < FIELD_SIZE; i++)
+	// {
+	// 	if( field_[i] )
+	// 	{
+	// 		std::cout <<i << " " << field_[i]->get_category().get_name() << std::endl;
+	// 	}
+	// 	else
+	// 	{
+	// 		std::cout <<i << " NULL" << std::endl;
+	// 	}
+	// }
 };
 
 bool board::is_angular(unsigned int pos) const

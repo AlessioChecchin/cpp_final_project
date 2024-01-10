@@ -13,7 +13,7 @@ namespace prj
     {
     private:
         unsigned int faces_;
-        std::mt19937 generator; //random number generator
+        std::mt19937 generator_; //random number generator
 
     public:
         /**
@@ -26,6 +26,27 @@ namespace prj
          * @return Random number between 1 and "faces"
          */
         unsigned int roll();
+
+        /**
+	     * Copy disabled
+	    */
+	    dice(const dice& b) = delete;
+    
+	    /**
+	     * Copy disabled
+	    */
+	    dice& operator=(const dice& b) = delete;
+
+        /**
+         * Move constructor
+         */
+        dice(dice&& b);
+
+        /**
+         * Move assignment
+         */
+        dice& operator=(dice&& b);
+        
     };
 }
 #endif //DICE
