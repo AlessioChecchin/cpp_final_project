@@ -121,6 +121,13 @@ public:
 	*/
 	virtual std::vector<category_config> get_available_categories() const;
 
+	/**
+	 * Display prop getter.
+	 * @param prop_name The property to get.
+	 * @return The requested prof if exists, an empty string otherwise.
+	*/
+	virtual std::string get_display_prop(const std::string& prop_name) const;
+
 protected:
 
 	/**

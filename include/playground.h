@@ -19,23 +19,23 @@ class playground
 public:
 	playground(std::shared_ptr<config> configuration);
 
-		/**
-		 * Adds a player to the playground.
-		 * @param new_player The player to add.
-		*/
-		void add_player(std::shared_ptr<player> new_player);
+	/**
+	 * Adds a player to the playground.
+	 * @param new_player The player to add.
+	*/
+	void add_player(std::shared_ptr<player> new_player);
 
-		/**
-		 * Obtain the player that has to play the current round
-		 * @return Player that has to play
-		 */
-		std::shared_ptr<player> next_player();
+	/**
+	 * Obtain the player that has to play the current round
+	 * @return Player that has to play
+	 */
+	std::shared_ptr<player> next_player();
 
-		/**
-		 * Removes a player from the playground.
-		 * @param to_remove The player to remove.
-		*/
-		void remove_player(std::shared_ptr<player> to_remove);
+	/**
+	 * Removes a player from the playground.
+	 * @param to_remove The player to remove.
+	*/
+	void remove_player(std::shared_ptr<player> to_remove);
 
 	/**
 	 * Returns a vector containing the players in the playground.
@@ -47,7 +47,7 @@ public:
 	 * Tests if a player is present in the playground.
 	 * @return true if the player is present, false otherwise.
 	*/
-	virtual bool is_playing(std::shared_ptr<player> to_remove);
+	virtual bool is_playing(std::shared_ptr<player> to_remove) const;
 
 		/**
 		 * Move the player of the specified number of steps.
@@ -70,6 +70,12 @@ public:
 		 */
 		board board_;
 
+	
+		/**
+		 * Configuration
+		*/
+		std::shared_ptr<config> configuration_;
+	
 		/**
 		 * Map that contains all the players in the playground.
 		*/
@@ -83,7 +89,6 @@ public:
 	    friend std::ostream& operator<<(std::ostream& os, const playground& play);
 	};
 
-    
 
 }
 
