@@ -17,6 +17,7 @@ namespace prj
 			{ 2, 4,  7 },
 			{ 4, 8, 14 }
 		},
+		round_number_{100},
 		human_number_{0},
 		bot_number_{4},
 		initial_budget_{100},
@@ -45,6 +46,11 @@ namespace prj
 		available_categories_.push_back(economy);
 		available_categories_.push_back(standard);
 		available_categories_.push_back(luxury);
+	}
+
+	unsigned int config::get_round_number() const
+	{
+		return round_number_;
 	}
 
 	unsigned int config::get_human_number() const

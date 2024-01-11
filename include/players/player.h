@@ -19,10 +19,7 @@ namespace prj
 
 	public:
 
-		/**
-		 * Default constructor.
-		*/
-		player();
+
 
 		/**
 		 * Name getter.
@@ -49,6 +46,13 @@ namespace prj
 		unsigned int get_pos();
 
 		/**
+		 * Score getter
+		 * @return The amount of money the player has
+		 */
+		unsigned int get_score();
+
+
+		/**
 		 * Decision of the player 
 		 */
 		virtual void decision() = 0;
@@ -61,6 +65,19 @@ namespace prj
 		 * playground. The trade-off is creating a tight-coupled class to enforce encapsulation.
 		*/
 		friend class playground;	
+		
+
+	protected:
+		/**
+		 * Default constructor
+		*/
+		player();
+
+		/**
+		 * Create player with initial balance
+		 */
+		player(unsigned int init_balance);
+
 	};
 }
 

@@ -6,8 +6,12 @@
 
 namespace prj
 {
-    
+bot::bot() : player() {}
+
+bot::bot(unsigned int balance) : player(balance) {}   
+
 void bot::decision()
+
 {
 
 }

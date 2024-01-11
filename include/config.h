@@ -49,6 +49,11 @@ public:
 	*/
 	config& operator=(const config& b) = delete;
 
+	/**
+	 * Max round number getter.
+	 * @return The max number of round allowed in computer-only games
+	*/
+	virtual unsigned int get_round_number() const;
 
 	/**
 	 * Human players number getter.
@@ -141,6 +146,12 @@ protected:
 	*/
 	std::vector<std::vector<unsigned int>> stay_prices_{};
 
+
+	/**
+	 * The max number of round allowed in only-computer games
+	 * Default value: 100
+	 */
+	unsigned int round_number_{};
 
 	/**
 	 * The number of players playing.

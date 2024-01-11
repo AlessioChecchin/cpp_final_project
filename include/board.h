@@ -26,7 +26,26 @@ public:
 	*/
 	board(std::shared_ptr<config> configuration);
 	
+	/**
+	 * Checks if is an angular box.
+	 * @param position Position of the box to check.
+	 * @return If the box in in angular position.
+	*/
 	bool is_angular(unsigned int position) const;
+
+	/**
+	 * Returns a non-owning pointer that allows to access a box.
+	 * @param position The position of the box to get.
+	 * @return A non-owning pointer to the box. Pointer lifetime is automatically handled.
+	*/
+	const box* get_box(unsigned int position) const;
+
+	/**
+	 * Returns a non-owning pointer that allows to access a box.
+	 * @param position The position of the box to get.
+	 * @return A non-owning pointer to the box. Pointer lifetime is automatically handled.
+	*/
+	box* get_box(unsigned int position);
 
     /**
 	 * Size of the field.
@@ -43,8 +62,6 @@ protected:
 	*/
 	std::array<std::unique_ptr<box>, FIELD_SIZE> field_;
 };
-
-//std::ostream& operator<<(std::ostream& out, )
 
 }
 #endif // BOARD_H

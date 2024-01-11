@@ -2,7 +2,9 @@
 
 #include <memory>
 #include <stdexcept>
+#include <iomanip>
 #include <cmath>
+#include <algorithm>
 
 #include "players/player.h"
 #include "board.h"
@@ -10,8 +12,13 @@
 
 namespace prj
 {
-	playground::playground(std::shared_ptr<config> configuration): board_{configuration}, players_{}
+	playground::playground(std::shared_ptr<config> configuration): board_{configuration}, players_{}, player_index{0}
 	{}
+
+	std::shared_ptr<player> playground::next_player()
+	{
+		return players_[player_index++];
+	}
 
 	void playground::add_player(std::shared_ptr<player> new_player)
 	{
@@ -21,19 +28,12 @@ namespace prj
 		}
 
 		new_player->is_playing_ = true;
-		players_[new_player->get_id()] = new_player;
+		players_.push_back(new_player);
 	}
 
 	std::vector<std::shared_ptr<player>> playground::get_players()
 	{
-		std::vector<std::shared_ptr<player>> result;
-
-		for(auto it = players_.begin(); it != players_.end(); it++)
-		{
-			result.push_back(it->second);
-		}
-
-		return result;
+		return players_;
 	}
 
 	void playground::remove_player(std::shared_ptr<player> to_remove)
@@ -46,7 +46,7 @@ namespace prj
 			return;
 		}
 
-		element->second->is_playing_ = false;
+		(*element)->is_playing_ = false; 
 		players_.erase(element);
 	}
 
@@ -75,7 +75,7 @@ namespace prj
         
 		// Add steps and check if it's over FIELD_SIZE
         to_move->position_ += steps;
-        if(to_move->position_ >= board_.FIELD_SIZE)
+		if(to_move->position_ >= board_.FIELD_SIZE)
         {
             to_move->position_ -= board_.FIELD_SIZE;
             laps++;
@@ -89,15 +89,72 @@ namespace prj
 
 
 	// Protected methods
-	std::map<unsigned long int, std::shared_ptr<player>>::iterator
-		playground::find_player(unsigned long int id)
+
+	std::vector<std::shared_ptr<player>>::iterator playground::find_player(unsigned long int id)
 	{
-		return players_.find(id);
+		return std::find_if(players_.begin(), players_.end(), [id](std::shared_ptr<player> p)
+		{
+			return p->get_id() == id;
+		});
 	}
 
 	// Helper functions.
 	std::ostream& operator<<(std::ostream& os, const playground& play)
 	{
+		for(int i = 0; i < 8; i++)
+		{
+			const box* current_box = play.board_.get_box(i);
+
+			std::string name;
+
+			if(current_box)
+			{
+				name = current_box->get_category().get_name();
+			}
+			else
+			{
+				name = "null";
+			}
+			
+			if(i % 3)
+			{
+				name = "|X^X|";
+			}
+			else
+			{
+				name = "| S |";
+			}
+			
+			os << name << " ";
+		}
+
+		os << std::endl;
+
+		for(int i = 0; i < 10; i++)
+		{
+			os << std::setw(5 * 8 + 7 - 5) << std::left << "|LFT|" << std::right << "|RHT|" << std::endl;
+		}
+
+		/*for(unsigned int i = 0; i < play.board_.FIELD_SIZE; i++)
+		{
+			const box* current_box = play.board_.get_box(i);
+
+			std::string name;
+
+			if(current_box)
+			{
+				name = current_box->get_category().get_name();
+			}
+			else
+			{
+				name = "null";
+			}
+			
+			
+			std::cout << std::setw(4) << "S" << std::left << std::endl;
+			
+
+		}*/
 		return os;
 	}
 }

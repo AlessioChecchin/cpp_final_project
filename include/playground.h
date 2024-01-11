@@ -14,10 +14,10 @@
 
 namespace prj
 {
-	class playground
-	{	
-	public:
-		playground(std::shared_ptr<config> configuration);
+class playground
+{	
+public:
+	playground(std::shared_ptr<config> configuration);
 
 		/**
 		 * Adds a player to the playground.
@@ -26,22 +26,28 @@ namespace prj
 		void add_player(std::shared_ptr<player> new_player);
 
 		/**
+		 * Obtain the player that has to play the current round
+		 * @return Player that has to play
+		 */
+		std::shared_ptr<player> next_player();
+
+		/**
 		 * Removes a player from the playground.
 		 * @param to_remove The player to remove.
 		*/
 		void remove_player(std::shared_ptr<player> to_remove);
 
-		/**
-		 * Returns a vector containing the players in the playground.
-		 * @return A vector of shared pointers to players.
-		*/
-		std::vector<std::shared_ptr<player>> get_players();
+	/**
+	 * Returns a vector containing the players in the playground.
+	 * @return A vector of shared pointers to players.
+	*/
+	virtual std::vector<std::shared_ptr<player>> get_players();
 
-		/**
-		 * Tests if a player is present in the playground.
-		 * @return true if the player is present, false otherwise.
-		*/
-		bool is_playing(std::shared_ptr<player> to_remove);
+	/**
+	 * Tests if a player is present in the playground.
+	 * @return true if the player is present, false otherwise.
+	*/
+	virtual bool is_playing(std::shared_ptr<player> to_remove);
 
 		/**
 		 * Move the player of the specified number of steps.
@@ -54,9 +60,9 @@ namespace prj
 	protected:
 		/**
 		 * Utility function wrapping find.
+		 * @return The player found, nullptr otherwise
 		*/
-		std::map<unsigned long int, std::shared_ptr<player>>::iterator
-			find_player(unsigned long int id);
+		std::vector<std::shared_ptr<player>>::iterator find_player(unsigned long int id);
 
 	protected:
 		/**
@@ -67,10 +73,18 @@ namespace prj
 		/**
 		 * Map that contains all the players in the playground.
 		*/
-		std::map<unsigned long int, std::shared_ptr<player>> players_;	
+		std::vector<std::shared_ptr<player>> players_;	
+
+		/**
+		 * Index of the player that has to play the current round
+		 */
+		unsigned int player_index;
+
+	    friend std::ostream& operator<<(std::ostream& os, const playground& play);
 	};
 
-	std::ostream& operator<<(std::ostream& os, const playground& play);
+    
+
 }
 
 #endif // PLAYGROUND_H
