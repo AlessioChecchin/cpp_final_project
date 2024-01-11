@@ -121,25 +121,34 @@ namespace prj
 		const board& b
 	)
 	{
+		// Warning, current box may be null.
 
 		std::string name;
+		std::string building_suffix;
 
 		if(position == 0)
 		{
-			name = "| P |";
+			name = "P";
 		}
 		else if(b.is_angular(position))
 		{
-			name = "|   |";
+			name = " ";
 		}
 		else if(current_box)
 		{
 			name = conf.get()->get_display_prop("box_" + current_box->get_category().get_name());
-			name = "| " + name + " |"; 
 		}
 
-		return name;
+		if(current_box)
+		{
+			std::string building_name = current_box->get_contract()->get_building()->get_name();
+			building_suffix = conf.get()->get_display_prop("suf_" + building_name);
+		}
+		
+
+		return name + building_suffix;
 	}
+
 
 
 	std::ostream& operator<<(std::ostream& os, const playground& play)

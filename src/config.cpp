@@ -35,6 +35,7 @@ namespace prj
 		display_props_["box_economy"]  = "E";
 		display_props_["box_standard"] = "S";
 		display_props_["box_luxury"]   = "L";
+		display_props_["suf_terrain"]  = "";
 		display_props_["suf_house"]    = "*";
 		display_props_["suf_hotel"]    = "^";
 		display_props_["suf_player"]   = "%d";
