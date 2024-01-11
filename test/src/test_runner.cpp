@@ -1,3 +1,5 @@
+#include "core/test_config.h"		//test_config is included, go uncomment macros to configure it
+
 #include "unit/unit_test_config.h"
 #include "unit/unit_test_category.h"
 #include "unit/unit_test_dice.h"

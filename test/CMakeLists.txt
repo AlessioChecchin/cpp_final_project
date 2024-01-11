@@ -15,6 +15,21 @@ set(SOURCE_FILES
 	src/core/test_suite.cpp
 
 	src/unit/unit_test_config.cpp
+	src/unit/unit_test_category.cpp
+	src/unit/unit_test_dice.cpp
+	src/unit/unit_test_contract.cpp
+	src/unit/unit_test_box.cpp
+	src/unit/unit_test_board.cpp
+	src/unit/unit_test_playground.cpp
+	src/unit/unit_test_game.cpp
+
+	src/unit/players/unit_test_human.cpp
+	src/unit/players/unit_test_bot.cpp
+
+	src/unit/building/unit_test_terrain.cpp
+	src/unit/building/unit_test_house.cpp
+	src/unit/building/unit_test_hotel.cpp
+
 )
 
 # Add executable target with source files listed in SOURCE_FILES variable
