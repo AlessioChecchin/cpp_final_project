@@ -14,6 +14,8 @@ namespace prj
 {
 game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf} 
 {
+
+	std::cout << playgr_;
     // Create players with initial budget
     auto tempPlayers = create_players(conf_->get_initial_budget());
 

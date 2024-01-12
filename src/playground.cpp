@@ -12,8 +12,14 @@
 
 namespace prj
 {
-	playground::playground(std::shared_ptr<config> configuration): board_{configuration}, players_{}, player_index{0}
-	{}
+	playground::playground(std::shared_ptr<config> configuration): board_{configuration}, players_{}, player_index{0}, configuration_{configuration}
+	{
+		if(!configuration)
+		{
+			throw std::invalid_argument("Config can't be null");
+		}
+	}
+
 
 	std::shared_ptr<player> playground::next_player()
 	{
@@ -50,9 +56,15 @@ namespace prj
 		players_.erase(element);
 	}
 
-	bool playground::is_playing(std::shared_ptr<player> target)
+	bool playground::is_playing(std::shared_ptr<player> target) const
 	{
-		return find_player(target->get_id()) != players_.end();
+		if(!target) return false;
+
+		unsigned int id = target->id_;
+		return std::find_if(players_.begin(), players_.end(), [id](std::shared_ptr<player> p)
+		{
+			return p->get_id() == id;
+		}) != players_.end();
 	}
 
 	void playground::move_player(std::shared_ptr<player> to_move, int steps)
@@ -98,63 +110,90 @@ namespace prj
 		});
 	}
 
+
 	// Helper functions.
+	std::string _calc_name
+	(
+		unsigned int position,
+		const playground& p,
+		const box* current_box,
+		const std::shared_ptr<config>& conf,
+		const board& b
+	)
+	{
+		// Warning, current box may be null.
+
+		std::string name;
+		std::string building_suffix;
+
+		if(position == 0)
+		{
+			name = "P";
+		}
+		else if(b.is_angular(position))
+		{
+			name = " ";
+		}
+		else if(current_box)
+		{
+			name = conf.get()->get_display_prop("box_" + current_box->get_category().get_name());
+		}
+
+		if(current_box)
+		{
+			std::string building_name = current_box->get_contract()->get_building()->get_name();
+			building_suffix = conf.get()->get_display_prop("suf_" + building_name);
+		}
+		
+
+		return name + building_suffix;
+	}
+
+
+
 	std::ostream& operator<<(std::ostream& os, const playground& play)
 	{
-		for(int i = 0; i < 8; i++)
+
+		constexpr short cell_width = 5;
+		constexpr unsigned int full_row = play.board_.FIELD_SIZE / 4 + 1;
+		constexpr unsigned int central_rows = full_row - 2;
+		constexpr unsigned int med_row_width = cell_width * full_row + (full_row - 1) - cell_width;
+
+		for(int i = 0; i < full_row; i++)
 		{
 			const box* current_box = play.board_.get_box(i);
 
-			std::string name;
+			std::string name = _calc_name(i, play, current_box, play.configuration_, play.board_);
 
-			if(current_box)
-			{
-				name = current_box->get_category().get_name();
-			}
-			else
-			{
-				name = "null";
-			}
-			
-			if(i % 3)
-			{
-				name = "|X^X|";
-			}
-			else
-			{
-				name = "| S |";
-			}
-			
 			os << name << " ";
 		}
 
 		os << std::endl;
 
-		for(int i = 0; i < 10; i++)
+		for(int i = 0; i < central_rows; i++)
 		{
-			os << std::setw(5 * 8 + 7 - 5) << std::left << "|LFT|" << std::right << "|RHT|" << std::endl;
+			unsigned int left = play.board_.FIELD_SIZE - i - 1;
+			unsigned int right = full_row + i;
+
+			const box* box_left = play.board_.get_box(left);
+			const box* box_right = play.board_.get_box(right);
+			
+			std::string name_left = _calc_name(left, play, box_left, play.configuration_, play.board_);
+			std::string name_right = _calc_name(left, play, box_right, play.configuration_, play.board_);
+
+			os << std::setw(med_row_width) << std::left << name_left << std::right << name_right << std::endl;
 		}
 
-		/*for(unsigned int i = 0; i < play.board_.FIELD_SIZE; i++)
+
+		for(int i =  play.board_.FIELD_SIZE - central_rows - 1; i >= full_row + central_rows; i--)
 		{
 			const box* current_box = play.board_.get_box(i);
 
-			std::string name;
+			std::string name = _calc_name(i, play, current_box, play.configuration_, play.board_);
 
-			if(current_box)
-			{
-				name = current_box->get_category().get_name();
-			}
-			else
-			{
-				name = "null";
-			}
-			
-			
-			std::cout << std::setw(4) << "S" << std::left << std::endl;
-			
+			os << name << " ";
+		}
 
-		}*/
 		return os;
 	}
 }

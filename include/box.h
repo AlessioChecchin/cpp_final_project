@@ -45,7 +45,15 @@ public:
 		return category_;
 	}
 
+	/**
+	 * Contract getter.
+	*/
 	contract* get_contract();
+
+	/**
+	 * Contract getter.
+	*/
+	const contract* get_contract() const;
 
 private:
 	/**

@@ -35,6 +35,7 @@ namespace prj
 		display_props_["box_economy"]  = "E";
 		display_props_["box_standard"] = "S";
 		display_props_["box_luxury"]   = "L";
+		display_props_["suf_terrain"]  = "";
 		display_props_["suf_house"]    = "*";
 		display_props_["suf_hotel"]    = "^";
 		display_props_["suf_player"]   = "%d";
@@ -96,6 +97,15 @@ namespace prj
 	double config::get_buy_hotel_possibility_bot() const
 	{
 		return buy_hotel_possibility_bot_;
+	}
+
+	std::string config::get_display_prop(const std::string& prop_name) const
+	{
+		if(display_props_.find(prop_name) != display_props_.end())
+		{
+			return display_props_.at(prop_name);
+		}
+		return "";
 	}
 
 	std::string config::get_log_path() const
