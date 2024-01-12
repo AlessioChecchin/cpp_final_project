@@ -23,13 +23,19 @@ public:
 	 * Adds a player to the playground.
 	 * @param new_player The player to add.
 	*/
-	virtual void add_player(std::shared_ptr<player> new_player);
+	void add_player(std::shared_ptr<player> new_player);
+
+	/**
+	 * Obtain the player that has to play the current round
+	 * @return Player that has to play
+	 */
+	std::shared_ptr<player> next_player();
+
 	/**
 	 * Removes a player from the playground.
 	 * @param to_remove The player to remove.
 	*/
-
-	virtual void remove_player(std::shared_ptr<player> to_remove);
+	void remove_player(std::shared_ptr<player> to_remove);
 
 	/**
 	 * Returns a vector containing the players in the playground.
@@ -49,38 +55,46 @@ public:
 	*/
 	virtual bool is_playing(std::shared_ptr<player> to_remove) const;
 
-	/**
-	 * Move the player of the specified number of steps.
-	 * The player can be moved either forward and backward
-	 * @param to_move The player to remove
-	 * @param steps Number of steps of the player
-	 */
-	virtual void move_player(std::shared_ptr<player> to_move, int steps);
+		/**
+		 * Move the player of the specified number of steps.
+		 * The player can be moved either forward and backward
+		 * @param to_move The player to remove
+		 * @param steps Number of steps of the player
+		 */
+		void move_player(std::shared_ptr<player> to_move, int steps);
 
-	friend std::ostream& operator<<(std::ostream& os, const playground& play);
-	
-protected:
-	/**
-	 * Utility function wrapping find.
-	*/
-	std::map<unsigned long int, std::shared_ptr<player>>::iterator
-		find_player(unsigned long int id);
-protected:
-	/**
-	 * Board of the game 
-	 */
-	board board_;
+	protected:
+		/**
+		 * Utility function wrapping find.
+		 * @return The player found, nullptr otherwise
+		*/
+		std::vector<std::shared_ptr<player>>::iterator find_player(unsigned long int id);
 
-	/**
-	 * Configuration
-	*/
-	std::shared_ptr<config> configuration_;
+	protected:
+		/**
+		 * Board of the game 
+		 */
+		board board_;
+
 	
-	/**
-	 * Map that contains all the players in the playground.
-	*/
-	std::map<unsigned long int, std::shared_ptr<player>> players_;	
-};
+		/**
+		 * Configuration
+		*/
+		std::shared_ptr<config> configuration_;
+	
+		/**
+		 * Map that contains all the players in the playground.
+		*/
+		std::vector<std::shared_ptr<player>> players_;	
+
+		/**
+		 * Index of the player that has to play the current round
+		 */
+		unsigned int player_index;
+
+	    friend std::ostream& operator<<(std::ostream& os, const playground& play);
+	};
+
 
 }
 

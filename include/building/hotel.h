@@ -1,7 +1,7 @@
 #ifndef HOTEL_H
 #define HOTEL_H
 
-#include "building/building.h"
+#include "building.h"
 
 namespace prj
 {

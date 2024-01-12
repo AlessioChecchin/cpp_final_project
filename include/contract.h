@@ -29,6 +29,8 @@ public:
 	building* get_building();
 
 	const building* get_building() const;
+
+	void set_building(std::unique_ptr<building> new_building);
 	
 private:
 	std::unique_ptr<building> building_;

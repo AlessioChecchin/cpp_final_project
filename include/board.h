@@ -64,4 +64,5 @@ protected:
 };
 
 }
+
 #endif // BOARD_H

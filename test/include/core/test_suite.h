@@ -1,5 +1,5 @@
 /**
- * This slass contains and runs a group of test.
+ * This class contains and runs a group of test.
  * Each group of tests is associated to a child of this class.
  * It provides a case for unit tests and integration tests.
  * 
@@ -12,8 +12,8 @@
 #include <string>
 #include <vector>
 
-#include "core/test.h"
-#include "core/test_config.h"
+#include "test.h"
+#include "test_config.h"
 
 /**
  * Test suite class. Allows to automatically run a group of tests.
@@ -26,6 +26,16 @@ public:
 	 * @param test_suite_name The name of the test suite.
 	*/
 	test_suite(const std::string& test_suite_name);
+
+	/**
+	 * Disable copy
+	*/
+	test_suite(const test_suite& c) = delete;
+
+	/**
+	 * Disable copy
+	*/
+	test_suite& operator=(const test_suite& c) = delete;
 
 	/**
 	 * Method used to run all contained tests.
@@ -55,11 +65,13 @@ private:
 	#define TEST_SUITE_COLOR "\033[1;36m"
 	#define TEST_COLOR ""
 	#define TEST_SUCCESS "\033[1;32m"
+	#define TEST_FAIL "\033[1;31m"
 	#define RESET "\033[0m"
 #else
 	#define TEST_SUITE_COLOR ""
 	#define TEST_COLOR ""
 	#define TEST_SUCCESS ""
+	#define TEST_FAIL ""
 	#define RESET ""
 #endif
 

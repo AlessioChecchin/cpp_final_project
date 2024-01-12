@@ -22,4 +22,11 @@ const building* contract::get_building() const
 	return building_.get();
 };
 
+void contract::set_building(std::unique_ptr<building> new_building)
+{
+	// Replace the old building with the new one.
+	// Old building is auomtatically deleted.
+	building_ = std::move(new_building);
+}
+
 }

@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <iomanip>
 #include <cmath>
+#include <algorithm>
 
 #include "players/player.h"
 #include "board.h"
@@ -11,12 +12,18 @@
 
 namespace prj
 {
-	playground::playground(std::shared_ptr<config> configuration): board_{configuration}, players_{}, configuration_{configuration}
+	playground::playground(std::shared_ptr<config> configuration): board_{configuration}, players_{}, player_index{0}, configuration_{configuration}
 	{
 		if(!configuration)
 		{
 			throw std::invalid_argument("Config can't be null");
 		}
+	}
+
+
+	std::shared_ptr<player> playground::next_player()
+	{
+		return players_[player_index++];
 	}
 
 	void playground::add_player(std::shared_ptr<player> new_player)
@@ -27,19 +34,12 @@ namespace prj
 		}
 
 		new_player->is_playing_ = true;
-		players_[new_player->get_id()] = new_player;
+		players_.push_back(new_player);
 	}
 
 	std::vector<std::shared_ptr<player>> playground::get_players()
 	{
-		std::vector<std::shared_ptr<player>> result;
-
-		for(auto it = players_.begin(); it != players_.end(); it++)
-		{
-			result.push_back(it->second);
-		}
-
-		return result;
+		return players_;
 	}
 
 	std::vector<std::shared_ptr<const player>> playground::get_players() const
@@ -65,13 +65,19 @@ namespace prj
 			return;
 		}
 
-		element->second->is_playing_ = false;
+		(*element)->is_playing_ = false; 
 		players_.erase(element);
 	}
 
 	bool playground::is_playing(std::shared_ptr<player> target) const
 	{
-		return players_.find(target->get_id()) != players_.end();
+		if(!target) return false;
+
+		unsigned int id = target->id_;
+		return std::find_if(players_.begin(), players_.end(), [id](std::shared_ptr<player> p)
+		{
+			return p->get_id() == id;
+		}) != players_.end();
 	}
 
 	void playground::move_player(std::shared_ptr<player> to_move, int steps)
@@ -108,11 +114,15 @@ namespace prj
 
 
 	// Protected methods
-	std::map<unsigned long int, std::shared_ptr<player>>::iterator
-		playground::find_player(unsigned long int id)
+
+	std::vector<std::shared_ptr<player>>::iterator playground::find_player(unsigned long int id)
 	{
-		return players_.find(id);
+		return std::find_if(players_.begin(), players_.end(), [id](std::shared_ptr<player> p)
+		{
+			return p->get_id() == id;
+		});
 	}
+
 
 	// Helper functions.
 	std::string _calc_name
@@ -124,25 +134,34 @@ namespace prj
 		const board& b
 	)
 	{
+		// Warning, current box may be null.
 
 		std::string name;
+		std::string building_suffix;
 
 		if(position == 0)
 		{
-			name = "| P |";
+			name = "P";
 		}
 		else if(b.is_angular(position))
 		{
-			name = "|   |";
+			name = " ";
 		}
 		else if(current_box)
 		{
 			name = conf.get()->get_display_prop("box_" + current_box->get_category().get_name());
-			name = "| " + name + " |"; 
 		}
 
-		return name;
+		if(current_box)
+		{
+			std::string building_name = current_box->get_contract()->get_building()->get_name();
+			building_suffix = conf.get()->get_display_prop("suf_" + building_name);
+		}
+		
+
+		return name + building_suffix;
 	}
+
 
 
 	std::ostream& operator<<(std::ostream& os, const playground& play)

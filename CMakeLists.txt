@@ -20,6 +20,7 @@ set(SOURCE_FILES
 	src/category.cpp
 	src/contract.cpp
 	src/config.cpp
+	src/game.cpp
 
 	src/building/building.cpp
 	src/building/terrain.cpp

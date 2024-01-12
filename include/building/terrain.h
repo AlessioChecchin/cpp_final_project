@@ -1,7 +1,7 @@
 #ifndef TERRAIN_H
 #define TERRAIN_H
 
-#include "building/building.h"
+#include "building.h"
 
 namespace prj
 {
