@@ -6,8 +6,6 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
-#include <chrono>
-#include <random>
 #include <stdexcept>
 
 #include "config.h"
@@ -49,18 +47,13 @@ board::board(std::shared_ptr<config> configuration)
 	}
 
 	// Generates numbers from in the range [0, size]
-    // Generate seed
-    std::random_device seed_generator;
-    std::mt19937::result_type seed = seed_generator();
-    std::mt19937 rng(seed);
+	dice generator(positions.size());
 
 	// Mixing
 	for(int i = 0; i < FIELD_SIZE * ENTROPY; i++)
 	{
-	    std::uniform_int_distribution<std::mt19937::result_type> distribution(1, positions.size());
-
-		int x = distribution(rng) - 1;
-		int y = distribution(rng) - 1;
+		int x = generator.roll() - 1;
+		int y = generator.roll() - 1;
 
 		std::swap(positions[x], positions[y]);
 	}
@@ -74,18 +67,6 @@ board::board(std::shared_ptr<config> configuration)
 			field_[positions[j++]] = std::unique_ptr<box>(new box(category(cat_config[i].name, cat_config[i].id)));
 		}
 	}
-
-	// for(int i = 0; i < FIELD_SIZE; i++)
-	// {
-	// 	if( field_[i] )
-	// 	{
-	// 		std::cout <<i << " " << field_[i]->get_category().get_name() << std::endl;
-	// 	}
-	// 	else
-	// 	{
-	// 		std::cout <<i << " NULL" << std::endl;
-	// 	}
-	// }
 };
 
 bool board::is_angular(unsigned int pos) const
