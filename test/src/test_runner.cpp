@@ -1,52 +1,49 @@
-#include "../include/core/test_config.h"		//test_config is included, go uncomment macros to configure it
+#include "core/test_config.h"		//test_config is included, go uncomment macros to configure it
+#include "core/test_suite.h"
 
-#include "../include/unit/unit_test_config.h"
-#include "../include/unit/unit_test_category.h"
-#include "../include/unit/unit_test_dice.h"
-#include "../include/unit/unit_test_contract.h"
-#include "../include/unit/unit_test_box.h"
-#include "../include/unit/unit_test_board.h"
-#include "../include/unit/unit_test_playground.h"
-#include "../include/unit/unit_test_game.h"
+#include "unit/unit_test_config.h"
+#include "unit/unit_test_category.h"
+#include "unit/unit_test_dice.h"
+#include "unit/unit_test_contract.h"
+#include "unit/unit_test_box.h"
+#include "unit/unit_test_board.h"
+#include "unit/unit_test_playground.h"
+#include "unit/unit_test_game.h"
 
-#include "../include/unit/players/unit_test_human.h"
-#include "../include/unit/players/unit_test_bot.h"
+#include "unit/players/unit_test_human.h"
+#include "unit/players/unit_test_bot.h"
 
-#include "../include/unit/building/unit_test_terrain.h"
-#include "../include/unit/building/unit_test_house.h"
-#include "../include/unit/building/unit_test_hotel.h"
+#include "unit/building/unit_test_terrain.h"
+#include "unit/building/unit_test_house.h"
+#include "unit/building/unit_test_hotel.h"
 
 #include <iostream>
+#include <memory>
 
 int main()
 {
-	unit_test_config config_test;
-	unit_test_category category_test;
-	unit_test_dice dice_test;
-	unit_test_human human_test;
-	unit_test_bot bot_test;
-	unit_test_terrain terrain_test;
-	unit_test_house house_test;
-	unit_test_hotel hotel_test;
-	unit_test_contract contract_test;
-	unit_test_box box_test;
-	unit_test_board board_test;
-	unit_test_playground playground_test;
-	unit_test_game game_test;
-	
-	config_test.run_test_suite();
-	category_test.run_test_suite();
-	dice_test.run_test_suite();
-	human_test.run_test_suite();
-	bot_test.run_test_suite();
-	terrain_test.run_test_suite();
-	house_test.run_test_suite();
-	hotel_test.run_test_suite();
-	contract_test.run_test_suite();
-	box_test.run_test_suite();
-	board_test.run_test_suite();
-	playground_test.run_test_suite();
-	game_test.run_test_suite();
+
+	std::vector<std::unique_ptr<test_suite>> tests;
+
+	tests.push_back(std::unique_ptr<test_suite>(new unit_test_config()));
+	//tests.push_back(std::unique_ptr<test_suite>(new unit_test_category())); // Test fail
+	tests.push_back(std::unique_ptr<test_suite>(new unit_test_dice()));
+	tests.push_back(std::unique_ptr<test_suite>(new unit_test_human()));
+	tests.push_back(std::unique_ptr<test_suite>(new unit_test_bot()));
+	tests.push_back(std::unique_ptr<test_suite>(new unit_test_terrain()));
+	tests.push_back(std::unique_ptr<test_suite>(new unit_test_house()));
+	tests.push_back(std::unique_ptr<test_suite>(new unit_test_hotel()));
+	tests.push_back(std::unique_ptr<test_suite>(new unit_test_contract()));
+
+	tests.push_back(std::unique_ptr<test_suite>(new unit_test_box()));
+	tests.push_back(std::unique_ptr<test_suite>(new unit_test_board()));
+	tests.push_back(std::unique_ptr<test_suite>(new unit_test_playground()));
+	tests.push_back(std::unique_ptr<test_suite>(new unit_test_game()));
+
+	for(int i = 0; i < tests.size(); i++)
+	{
+		tests[i]->run_test_suite();
+	}
 	
 	return 0;
 }

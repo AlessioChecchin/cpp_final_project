@@ -1,5 +1,5 @@
-#include "../../include/unit/unit_test_box.h"
-#include "../../../include/box.h"
+#include "unit/unit_test_box.h"
+#include "box.h"
 
 #include <iostream>
 #include <assert.h>

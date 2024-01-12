@@ -1,5 +1,5 @@
-#include "../../include/unit/unit_test_contract.h"
-#include "../../../include/contract.h"
+#include "unit/unit_test_contract.h"
+#include "contract.h"
 
 #include <iostream>
 #include <assert.h>

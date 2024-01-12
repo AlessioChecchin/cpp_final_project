@@ -1,5 +1,5 @@
-#include "../../include/unit/unit_test_category.h"
-#include "../../../include/category.h"
+#include "unit/unit_test_category.h"
+#include "category.h"
 
 #include <iostream>
 #include <assert.h>

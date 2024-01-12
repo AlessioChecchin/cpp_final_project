@@ -1,4 +1,11 @@
-#include "../../include/core/test_suite.h"
+/**
+ * Test suite core
+ * 
+ * @author Alessio Checchin
+*/
+
+
+#include "core/test_suite.h"
 
 #include <iostream>
 
@@ -19,10 +26,11 @@ void test_suite::run_test_suite()
 	// Running all tests.
 	for(test& t: tests_)
 	{
-		std::cout << TEST_COLOR << "[" << i << "/" << tests_.size() << "] Running test [" << t.get_name() << "]..." << RESET;
+		// All the output inside a test will be printed in red. std::flush in necessary to flush the output buffer.
+		std::cout << TEST_COLOR << "[" << i << "/" << tests_.size() << "] Running test [" << t.get_name() << "]..." << TEST_FAIL << std::flush;
 		t.run_test();
 		// The test succeeds if no assertion is thrown.
-		std::cout << TEST_SUCCESS << "[ok]" << std::endl;
+		std::cout << TEST_SUCCESS << "[ok]" << RESET << std::endl;
 		i++;
 	}
 }

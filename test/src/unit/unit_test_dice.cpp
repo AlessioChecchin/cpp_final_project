@@ -1,5 +1,5 @@
-#include "../../include/unit/unit_test_dice.h"
-#include "../../../include/dice.h"
+#include "unit/unit_test_dice.h"
+#include "dice.h"
 
 #include <iostream>
 #include <assert.h>

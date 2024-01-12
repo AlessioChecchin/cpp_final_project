@@ -1,5 +1,5 @@
-#include "../../include/unit/unit_test_config.h"
-#include "../../../include/config.h"
+#include "unit/unit_test_config.h"
+#include "config.h"
 
 #include <iostream>
 #include <assert.h>

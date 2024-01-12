@@ -28,6 +28,16 @@ public:
 	test_suite(const std::string& test_suite_name);
 
 	/**
+	 * Disable copy
+	*/
+	test_suite(const test_suite& c) = delete;
+
+	/**
+	 * Disable copy
+	*/
+	test_suite& operator=(const test_suite& c) = delete;
+
+	/**
 	 * Method used to run all contained tests.
 	*/
 	void run_test_suite();
@@ -55,11 +65,13 @@ private:
 	#define TEST_SUITE_COLOR "\033[1;36m"
 	#define TEST_COLOR ""
 	#define TEST_SUCCESS "\033[1;32m"
+	#define TEST_FAIL "\033[1;31m"
 	#define RESET "\033[0m"
 #else
 	#define TEST_SUITE_COLOR ""
 	#define TEST_COLOR ""
 	#define TEST_SUCCESS ""
+	#define TEST_FAIL ""
 	#define RESET ""
 #endif
 

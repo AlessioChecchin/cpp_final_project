@@ -1,9 +1,9 @@
-#include "../../include/unit/unit_test_playground.h"
-#include "../../../include/playground.h"
-#include "../../../include/players/player.h"
-#include "../../../include/players/human.h"
-#include "../../../include/players/bot.h"
-#include "../../../include/config.h"
+#include "unit/unit_test_playground.h"
+#include "playground.h"
+#include "players/player.h"
+#include "players/human.h"
+#include "players/bot.h"
+#include "config.h"
 
 #include <iostream>
 #include <assert.h>

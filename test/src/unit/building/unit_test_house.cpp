@@ -1,5 +1,5 @@
-#include "../../../include/unit/building/unit_test_house.h"
-#include "../../../../include/building/house.h"
+#include "unit/building/unit_test_house.h"
+#include "building/house.h"
 
 #include <iostream>
 #include <assert.h>

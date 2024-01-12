@@ -1,5 +1,5 @@
-#include "../../../include/unit/players/unit_test_bot.h"
-#include "../../../../include/players/bot.h"
+#include "unit/players/unit_test_bot.h"
+#include "players/bot.h"
 
 #include <iostream>
 #include <assert.h>
