@@ -23,17 +23,17 @@ void unit_test_config::test_category_config()
 {
 	//testing category_config constructor
 	//note: there is an implicit cast when comparing an unsigned int with a negative int
-	prj::config::category_config a{"a", 0, 8};
+	prj::config::category_config a("a", 0, 8);
 	//assert(("Failed to create category_config object a{\"a\", 0, 8}", a.name == "a"));
 	//assert(("Failed to create category_config object a{\"a\", 0, 8}", a.id == 0));
 	//assert(("Failed to create category_config object a{\"a\", 0, 8}", a.number == 8));
 
-	prj::config::category_config b{"abcdefg", 2, 203};
+	prj::config::category_config b("abcdefg", 2, -203);
 	//assert(("Failed to create category_config object b{\"abcdefg\", 2, -203}", b.name == "abcdefg"));
 	//assert(("Failed to create category_config object b{\"abcdefg\", 2, -203}", b.id == -1));
 	//assert(("Failed to create category_config object b{\"abcdefg\", 2, -203}", b.number == -203));
 
-	prj::config::category_config c{"", 0, 8};
+	prj::config::category_config c("", 0, 8);
 	//assert(("Failed to create category_config object c{\"\", 0, 8}", c.name == ""));
 	//assert(("Failed to create category_config object c{\"\", 0, 8}", c.id == 0));
 	//assert(("Failed to create category_config object c{\"\", 0, 8}", c.number == 8));

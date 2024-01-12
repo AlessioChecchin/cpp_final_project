@@ -7,6 +7,11 @@ project(test_final_project VERSION 1.0.0 DESCRIPTION "Tests for c++ final projec
 # Enable c++11 standard.
 set(CMAKE_CXX_STANDARD 11)
 
+include_directories(
+	./include 
+	../include
+)
+
 # Add main.cpp file of the project root directory as a source file
 set(SOURCE_FILES
 	./src/test_runner.cpp

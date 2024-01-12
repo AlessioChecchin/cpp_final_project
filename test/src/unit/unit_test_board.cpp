@@ -25,7 +25,7 @@ void unit_test_board::test_methods()
 {
 	//testing is_angular()
 	//N.B.: FIELD_SIZE = 28, angular boxes are: 0, 7, 14, 21
-	prj::board a(std::shared_ptr<prj::config>(new prj::config()));
+	prj::board a{std::shared_ptr<prj::config>(new prj::config())};
 	
 	// "== true" is there for better readability
 	assert(("Failing to determine that box 0 is angular", a.is_angular(0) == true));
@@ -51,7 +51,7 @@ bool test_board_valid()
 {
 	try
 	{
-		prj::board a(std::shared_ptr<prj::config>(new prj::config()));
+		prj::board a{std::shared_ptr<prj::config>(new prj::config())};
 		return true;
 	}
 	catch(const std::exception& e)
