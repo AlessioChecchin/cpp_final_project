@@ -42,6 +42,19 @@ namespace prj
 		return result;
 	}
 
+	std::vector<std::shared_ptr<const player>> playground::get_players() const
+	{
+		std::vector<std::shared_ptr<const player>> result;
+
+		for(auto it = players_.begin(); it != players_.end(); it++)
+		{
+			result.push_back(it->second);
+		}
+
+		return result;
+	}
+
+
 	void playground::remove_player(std::shared_ptr<player> to_remove)
 	{
 		auto element = find_player(to_remove->get_id());
@@ -140,6 +153,8 @@ namespace prj
 		constexpr unsigned int central_rows = full_row - 2;
 		constexpr unsigned int med_row_width = cell_width * full_row + (full_row - 1) - cell_width;
 
+		std::vector<std::shared_ptr<const player>> players = play.get_players();
+
 		for(int i = 0; i < full_row; i++)
 		{
 			const box* current_box = play.board_.get_box(i);
@@ -173,6 +188,11 @@ namespace prj
 			std::string name = _calc_name(i, play, current_box, play.configuration_, play.board_);
 
 			os << name << " ";
+		}
+
+		for(auto it = players.begin(); it != players.end(); it++)
+		{
+			std::cout << it->get()->get_name() << std::endl;
 		}
 
 		return os;

@@ -38,6 +38,12 @@ public:
 	virtual std::vector<std::shared_ptr<player>> get_players();
 
 	/**
+	 * Returns a vector containing the players in the playground.
+	 * @return A vector of shared pointers to players.
+	*/
+	virtual std::vector<std::shared_ptr<const player>> get_players() const;
+
+	/**
 	 * Tests if a player is present in the playground.
 	 * @return true if the player is present, false otherwise.
 	*/
