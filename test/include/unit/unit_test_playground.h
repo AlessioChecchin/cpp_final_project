@@ -7,11 +7,11 @@
 #ifndef UNIT_TEST_PLAYGROUND_H
 #define UNIT_TEST_PLAYGROUND_H
 
-#include "core/test_suite.h"
-#include "../../include/playground.h"
-#include "../../include/players/player.h"
-#include "../../include/players/human.h"
-#include "../../include/players/bot.h"
+#include "../core/test_suite.h"
+#include "../../../include/playground.h"
+#include "../../../include/players/player.h"
+#include "../../../include/players/human.h"
+#include "../../../include/players/bot.h"
 
 #include <memory>
 

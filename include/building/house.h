@@ -1,7 +1,7 @@
 #ifndef HOUSE_H
 #define HOUSE_H
 
-#include "building/building.h"
+#include "building.h"
 
 namespace prj
 {

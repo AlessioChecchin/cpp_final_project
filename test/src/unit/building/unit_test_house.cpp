@@ -31,7 +31,7 @@ void unit_test_house::test_getters()
 	assert(("Failing to create house object a:", a.get_id() == 1));
 }
 
-void test_methods()
+void unit_test_house::test_methods()
 {
 	//testing upgrade()
 	prj::house a;

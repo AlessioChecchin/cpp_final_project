@@ -1,20 +1,20 @@
-#include "core/test_config.h"		//test_config is included, go uncomment macros to configure it
+#include "../include/core/test_config.h"		//test_config is included, go uncomment macros to configure it
 
-#include "unit/unit_test_config.h"
-#include "unit/unit_test_category.h"
-#include "unit/unit_test_dice.h"
-#include "unit/unit_test_contract.h"
-#include "unit/unit_test_box.h"
-#include "unit/unit_test_board.h"
-#include "unit/unit_test_playground.h"
-#include "unit/unit_test_game.h"
+#include "../include/unit/unit_test_config.h"
+#include "../include/unit/unit_test_category.h"
+#include "../include/unit/unit_test_dice.h"
+#include "../include/unit/unit_test_contract.h"
+#include "../include/unit/unit_test_box.h"
+#include "../include/unit/unit_test_board.h"
+#include "../include/unit/unit_test_playground.h"
+#include "../include/unit/unit_test_game.h"
 
-#include "unit/players/unit_test_human.h"
-#include "unit/players/unit_test_bot.h"
+#include "../include/unit/players/unit_test_human.h"
+#include "../include/unit/players/unit_test_bot.h"
 
-#include "unit/building/unit_test_terrain.h"
-#include "unit/building/unit_test_house.h"
-#include "unit/building/unit_test_hotel.h"
+#include "../include/unit/building/unit_test_terrain.h"
+#include "../include/unit/building/unit_test_house.h"
+#include "../include/unit/building/unit_test_hotel.h"
 
 #include <iostream>
 

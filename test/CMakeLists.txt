@@ -9,26 +9,26 @@ set(CMAKE_CXX_STANDARD 11)
 
 # Add main.cpp file of the project root directory as a source file
 set(SOURCE_FILES
-	src/test_runner.cpp
+	./src/test_runner.cpp
 	
-	src/core/test.cpp
-	src/core/test_suite.cpp
+	./src/core/test.cpp
+	./src/core/test_suite.cpp
 
-	src/unit/unit_test_config.cpp
-	src/unit/unit_test_category.cpp
-	src/unit/unit_test_dice.cpp
-	src/unit/unit_test_contract.cpp
-	src/unit/unit_test_box.cpp
-	src/unit/unit_test_board.cpp
-	src/unit/unit_test_playground.cpp
-	src/unit/unit_test_game.cpp
+	./src/unit/unit_test_config.cpp
+	./src/unit/unit_test_category.cpp
+	./src/unit/unit_test_dice.cpp
+	./src/unit/unit_test_contract.cpp
+	./src/unit/unit_test_box.cpp
+	./src/unit/unit_test_board.cpp
+	./src/unit/unit_test_playground.cpp
+	./src/unit/unit_test_game.cpp
 
-	src/unit/players/unit_test_human.cpp
-	src/unit/players/unit_test_bot.cpp
+	./src/unit/players/unit_test_human.cpp
+	./src/unit/players/unit_test_bot.cpp
 
-	src/unit/building/unit_test_terrain.cpp
-	src/unit/building/unit_test_house.cpp
-	src/unit/building/unit_test_hotel.cpp
+	./src/unit/building/unit_test_terrain.cpp
+	./src/unit/building/unit_test_house.cpp
+	./src/unit/building/unit_test_hotel.cpp
 
 )
 

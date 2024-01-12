@@ -12,8 +12,8 @@
 #include <string>
 #include <vector>
 
-#include "core/test.h"
-#include "core/test_config.h"
+#include "test.h"
+#include "test_config.h"
 
 /**
  * Test suite class. Allows to automatically run a group of tests.

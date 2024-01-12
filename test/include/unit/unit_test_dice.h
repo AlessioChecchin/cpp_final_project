@@ -7,7 +7,7 @@
 #ifndef UNIT_TEST_DICE_H
 #define UNIT_TEST_DICE_H
 
-#include "core/test_suite.h"
+#include "../core/test_suite.h"
 
 class unit_test_dice: public test_suite
 {

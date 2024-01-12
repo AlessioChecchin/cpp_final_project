@@ -4,7 +4,7 @@
 #ifndef BOT_H
 #define BOT_H
 
-#include "players/player.h"
+#include "player.h"
 
 
 namespace prj

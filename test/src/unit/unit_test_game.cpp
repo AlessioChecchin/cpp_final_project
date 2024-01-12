@@ -1,6 +1,6 @@
-#include "unit/unit_test_game.h"
-#include "../../include/game.h"
-#include "../../include/config.h"
+#include "../../include/unit/unit_test_game.h"
+#include "../../../include/game.h"
+#include "../../../include/config.h"
 
 #include <iostream>
 #include <assert.h>

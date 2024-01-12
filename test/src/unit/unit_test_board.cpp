@@ -1,5 +1,5 @@
-#include "unit/unit_test_board.h"
-#include "../../include/board.h"
+#include "../../include/unit/unit_test_board.h"
+#include "../../../include/board.h"
 #include "../../include/config.h"
 
 #include <iostream>

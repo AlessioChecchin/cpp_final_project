@@ -7,7 +7,7 @@
 #ifndef UNIT_TEST_GAME_H
 #define UNIT_TEST_GAME_H
 
-#include "core/test_suite.h"
+#include "../core/test_suite.h"
 
 #include <memory>
 

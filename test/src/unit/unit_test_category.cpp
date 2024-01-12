@@ -1,5 +1,5 @@
-#include "unit/unit_test_category.h"
-#include "../../include/category.h"
+#include "../../include/unit/unit_test_category.h"
+#include "../../../include/category.h"
 
 #include <iostream>
 #include <assert.h>
@@ -15,11 +15,11 @@ unit_test_category::unit_test_category(): test_suite{"unit_test_category"}
 void unit_test_category::test_constructor()
 {
 	//testing constructor
-	prj::category a{"Alpha", -1};
-	assert(("Failed to create category object a{\"Alpha\", 0}", a.get_name() == "Alpha"));
-	assert(("Failed to create category object a{\"Alpha\", 0}", a.get_id() == 0));
+	prj::category a{"Alpha", 1};
+	assert(("Failed to create category object a{\"Alpha\", 1}", a.get_name() == "Alpha"));
+	assert(("Failed to create category object a{\"Alpha\", 1}", a.get_id() == 0));
 
-	prj::category b{"Beta", -1};
+	prj::category b{"Beta", 1};
 	assert(("Failed to create category object b{\"Beta\", 1}", a.get_name() == "Beta"));
 	assert(("Failed to create category object b{\"Beta\", 1}", a.get_id() == 0));
 }

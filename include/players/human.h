@@ -4,7 +4,7 @@
 #ifndef HUMAN_H
 #define HUMAN_H
 
-#include "players/player.h"
+#include "player.h"
 
 
 namespace prj

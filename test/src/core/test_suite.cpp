@@ -1,4 +1,4 @@
-#include "core/test_suite.h"
+#include "../../include/core/test_suite.h"
 
 #include <iostream>
 

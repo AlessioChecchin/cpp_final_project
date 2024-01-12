@@ -1,4 +1,6 @@
-#include "core/test.h"
+#include "../../include/core/test.h"
+
+#include "../../../include/config.h"
 
 test::test(const std::string& test_name, const std::function<void()>& proc):
 	test_name_{test_name},

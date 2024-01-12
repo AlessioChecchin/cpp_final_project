@@ -31,7 +31,7 @@ void unit_test_terrain::test_getters()
 	assert(("Failing to create terrain object a:", a.get_id() == 0));
 }
 
-void test_methods()
+void unit_test_terrain::test_methods()
 {
 	//testing upgrade()
 	prj::terrain a;

@@ -29,7 +29,7 @@ void unit_test_human::test_setters()
 	//testing setters
 }
 
-void test_methods()
+void unit_test_human::test_methods()
 {
 	//testing decision()
 }

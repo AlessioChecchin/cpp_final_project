@@ -32,7 +32,7 @@ void unit_test_hotel::test_getters()
 	assert(("Failing to create hotel object a:", a.get_id() == 2));
 }
 
-void test_methods()
+void unit_test_hotel::test_methods()
 {
 	//testing upgrade()
 	prj::hotel a;
