@@ -43,13 +43,13 @@ namespace prj
 		 * Position getter 
 		 * @return The player position on the board
 		 */
-		unsigned int get_pos();
+		unsigned int get_pos() const;
 
 		/**
 		 * Score getter
 		 * @return The amount of money the player has
 		 */
-		unsigned int get_score();
+		unsigned int get_score() const;
 
 
 		/**

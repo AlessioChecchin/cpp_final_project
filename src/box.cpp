@@ -5,12 +5,12 @@ namespace prj
 
 box::box(const category& cat): category_{cat}, contract_{std::unique_ptr<contract>(new contract())}
 {
-	std::unique_ptr<building> new_building = contract_->get_building()->upgrade();
+	//std::unique_ptr<building> new_building = contract_->get_building()->upgrade();
 
-	contract_->set_building(std::move(new_building));
+	//contract_->set_building(std::move(new_building));
 
-	new_building = std::move(contract_->get_building()->upgrade());
-	contract_->set_building(std::move(new_building));
+	//new_building = std::move(contract_->get_building()->upgrade());
+	//contract_->set_building(std::move(new_building));
 
 
 }
