@@ -26,6 +26,8 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}
     bool game_end = false;
     unsigned int round_counter = 0;
 
+    
+
     while(!game_end)
     {  
         round_counter++;

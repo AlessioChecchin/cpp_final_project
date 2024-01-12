@@ -9,6 +9,8 @@
 #include "dice.h"
 #include "game.h"
 #include "config.h"
+#include "logger/logger.h"
+#include "players/bot.h"
 
 using namespace prj;
 
@@ -21,17 +23,20 @@ int main()
 
 	// std::cout << "Hello world";
 
-	//playground p(std::shared_ptr<config>(new config())); // ambiguo senza prj::? Commentando linea 6 in player.h funziona
+//	playground p(std::shared_ptr<config>(new config())); // ambiguo senza prj::? Commentando linea 6 in player.h funziona
 	
-	//auto tmp = std::unique_ptr<player>(new bot(100));
-	game myGame(std::shared_ptr<config>(new config()));
+	logger& log = log.get_logger();
+	
+	log << std::endl;
+
+
+//	auto tmp = std::unique_ptr<player>(new bot(100));
+//	game myGame(std::shared_ptr<config>(new config()));
 	// for(int i=0; i<10; i++)
 	// 	std::cout<<myGame.roll_dice()<<std::endl;
 
 	
-	
 
-	//std::cout<<tmp->get_score();
 	//tmp->set_name("Gino");
 
 	//std::cout << tmp->get_name();
