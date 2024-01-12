@@ -20,6 +20,30 @@ void unit_test_dice::test_constructor()
 	assert(("Failed to create dice object: prj::dice b(1)", test_dice_valid(1) == true));
 	assert(("Failed to create dice object: prj::dice d(-1)", test_dice_valid(-1) == true));
 	assert(("Failed to create dice object: prj::dice c(0)", test_dice_valid(0) == false));
+
+	//testing move constructor
+	prj::dice a{20};
+	prj::dice b{4};
+	prj::dice c{6};
+	prj::dice d{1};
+	assert(("Failed to create dice object: prj::dice a(6)", test_dice_valid(a) == true));
+	assert(("Failed to create dice object: prj::dice b(1)", test_dice_valid(b) == true));
+	assert(("Failed to create dice object: prj::dice d(-1)", test_dice_valid(c) == true));
+	assert(("Failed to create dice object: prj::dice c(0)", test_dice_valid(d) == true));
+
+}
+
+void unit_test_dice::test_methods()
+{
+	//testing roll method
+	prj::dice a(6);
+
+	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
+	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
+	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
+	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
+	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
+	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
 }
 
 bool test_dice_valid(unsigned int faces)
@@ -35,15 +59,15 @@ bool test_dice_valid(unsigned int faces)
 	}
 }
 
-void unit_test_dice::test_methods()
+bool test_dice_valid(prj::dice& d)
 {
-	//testing roll method
-	prj::dice a(6);
-
-	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
-	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
-	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
-	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
-	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
-	assert(("Failed to roll the dice (it shuldn't be possible)", a.roll()));
+	try
+	{
+		prj::dice a(std::move(d));
+		return true;
+	}
+	catch(const std::invalid_argument& e)
+	{
+		return false;
+	}
 }

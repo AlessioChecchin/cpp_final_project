@@ -8,6 +8,7 @@
 #define UNIT_TEST_DICE_H
 
 #include "../core/test_suite.h"
+#include "../../../include/dice.h"
 
 class unit_test_dice: public test_suite
 {
@@ -20,5 +21,6 @@ public:
 };
 
 bool test_dice_valid(unsigned int faces);
+bool test_dice_valid(prj::dice& d);
 
 #endif // UNIT_TEST_DICE_H
