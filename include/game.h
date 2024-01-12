@@ -44,14 +44,6 @@ class game
          */
         unsigned long int roll_dice();
         
-    
-
-
-
-
-
-
-
 
 };
 
