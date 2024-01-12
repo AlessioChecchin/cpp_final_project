@@ -30,7 +30,7 @@ namespace prj
 		log_path_{"./log.txt"},
 		available_categories_{}
 	{
-		display_props_["box_angular"]  = " ";
+		display_props_["box_angular"]  = "";
 		display_props_["box_start"]    = "P";
 		display_props_["box_economy"]  = "E";
 		display_props_["box_standard"] = "S";

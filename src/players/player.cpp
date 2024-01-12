@@ -17,7 +17,7 @@ namespace prj
 		this->score_ = init_balance;
 	}
 
-	unsigned int player::get_score()
+	unsigned int player::get_score() const
 	{
 		return score_;
 	}
@@ -37,7 +37,7 @@ namespace prj
 		name_ = name;
 	}
 
-	unsigned int player::get_pos()
+	unsigned int player::get_pos() const
 	{
 		return position_;
 	}
