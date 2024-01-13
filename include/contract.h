@@ -30,6 +30,8 @@ public:
 
 	const building* get_building() const;
 
+	void set_owner(std::shared_ptr<player> new_player);
+
 	void set_building(std::unique_ptr<building> new_building);
 	
 private:

@@ -17,6 +17,7 @@ public:
 
 	void test_constructor();
 	void test_getters();
+	void test_setters();
 };
 
 #endif // UNIT_TEST_CONTRACT_H

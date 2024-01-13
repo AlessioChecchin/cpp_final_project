@@ -22,6 +22,11 @@ const building* contract::get_building() const
 	return building_.get();
 };
 
+void contract::set_owner(std::shared_ptr<player> new_player)
+{
+	owner_ = new_player;
+}
+
 void contract::set_building(std::unique_ptr<building> new_building)
 {
 	// Replace the old building with the new one.
