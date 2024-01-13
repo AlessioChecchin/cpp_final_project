@@ -23,6 +23,15 @@ dice::dice(unsigned int faces): faces_{faces}
     generator_ = std::mt19937(seed);
 }
 
+dice::dice(unsigned int faces, unsigned int seed): faces_{faces}
+{
+    if(faces == 0)
+        throw std::invalid_argument("Dices with 0 faces are not allowed");
+
+    // Create RandomNumberGenerator from seed
+    generator_ = std::mt19937(seed);
+}
+
 dice::dice(dice&& b) : faces_{b.faces_}, generator_{std::move(b.generator_)}
 {
     b.faces_ = 0;

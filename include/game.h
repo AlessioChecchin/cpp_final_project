@@ -21,7 +21,6 @@ class game
         playground playgr_;
         std::vector<dice> dices;
         logger& logger_;
-        unsigned int last_roll_;
 
         /**
          * Order players with dice rolling

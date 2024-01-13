@@ -23,6 +23,8 @@ namespace prj
 
 	std::shared_ptr<player> playground::next_player()
 	{
+		if(player_index == 4)
+			player_index = 0;
 		return players_[player_index++];
 	}
 
