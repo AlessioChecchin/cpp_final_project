@@ -9,9 +9,16 @@
 #include "players/player.h"
 #include "board.h"
 #include "config.h"
+#include "logger/logger.h"
 
 namespace prj
 {
+
+// TO REMOVE
+void playground::test(std::shared_ptr<player> player)
+{
+	player->score_ = -1000;
+}
 
 playground::playground(std::shared_ptr<config> configuration): board_{configuration}, players_{}, player_index{0}, configuration_{configuration}
 {
@@ -57,14 +64,24 @@ std::vector<std::shared_ptr<const player>> playground::get_players() const
 
 void playground::remove_player(std::shared_ptr<player> to_remove)
 {
-	auto element = find_player(to_remove->get_id());
+	unsigned long int id = to_remove->id_;
+	// auto element = std::find_if(players_.begin(), players_.end(), [id](std::shared_ptr<player> p)
+	// {
+	// 	return p->get_id() == id;
+	// });
+	
+
 	// Fails silently.
-	if(element == players_.end())	
-	{
-		return;
-	}
-	(*element)->is_playing_ = false; 
-	players_.erase(element);
+	// if(element == players_.end())	
+	// {
+	// 	return;
+	// }
+	
+	// (*element)->is_playing_ = false; 
+	players_.erase(players_.begin());
+	
+	players_ = get_players();
+
 }
 
 bool playground::is_playing(std::shared_ptr<player> target) const
@@ -101,20 +118,25 @@ void playground::move_player(std::shared_ptr<player> to_move, int steps)
         to_move->position_ -= board_.FIELD_SIZE;
         laps++;
     }
-	//Todo: Add money to the player
-	if(moving_forward)
-		to_move->score_ += 9999999*laps;
+	//Add money to the player (<=> laps > 0)
+	if(moving_forward && laps > 0)
+	{
+		for(int i=0; i<laps; i++)
+		{
+			logger& logger_ = logger_.get_logger();
+			logger_ << "Giocatore "
+        			<< to_move->get_id() 
+        			<< " e' passato dal via e ha ritirato "
+        			<< configuration_->get_bonus_cycle()
+        			<< " fiorini"
+        			<< std::endl;
+
+			to_move->score_ += configuration_->get_bonus_cycle();
+		}
+	}
 }
 
 // Protected methods
-std::vector<std::shared_ptr<player>>::iterator playground::find_player(unsigned long int id)
-{
-	return std::find_if(players_.begin(), players_.end(), [id](std::shared_ptr<player> p)
-	{
-		return p->get_id() == id;
-	});
-}
-
 
 std::string playground::format_text(unsigned int position) const
 {

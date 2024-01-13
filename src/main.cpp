@@ -23,7 +23,7 @@ int main()
 
 	// std::cout << "Hello world";
 
-//	playground p(std::shared_ptr<config>(new config())); // ambiguo senza prj::? Commentando linea 6 in player.h funziona
+	playground p(std::shared_ptr<config>(new config())); // ambiguo senza prj::? Commentando linea 6 in player.h funziona
 	
 	logger& log = log.get_logger();
 	
@@ -31,11 +31,22 @@ int main()
 
 
 //	auto tmp = std::unique_ptr<player>(new bot(100));
-//	game myGame(std::shared_ptr<config>(new config()));
+	game myGame(std::shared_ptr<config>(new config()));
+
 	// for(int i=0; i<10; i++)
 	// 	std::cout<<myGame.roll_dice()<<std::endl;
 
+	// for(int i=0; i<10; i++)
+	// 	p.add_player(std::unique_ptr<player>(new bot(100)));
 	
+	// auto temp = p.get_players();
+
+	// for(int i=0; i<temp.size(); i++)
+	// {
+	// 	p.remove_player(temp[i]);
+	// 	temp = p.get_players();
+	// }
+
 
 	//tmp->set_name("Gino");
 

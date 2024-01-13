@@ -49,7 +49,7 @@ namespace prj
 		 * Score getter
 		 * @return The amount of money the player has
 		 */
-		unsigned int get_score() const;
+		int get_score() const;
 
 
 		/**

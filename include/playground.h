@@ -17,6 +17,9 @@ namespace prj
 class playground
 {	
 public:
+	// TO REMOVE
+	void test(std::shared_ptr<player> player);
+
 	playground(std::shared_ptr<config> configuration);
 
     /**
@@ -72,14 +75,6 @@ public:
 	 * @param steps Number of steps of the player
 	 */
 	virtual void move_player(std::shared_ptr<player> to_move, int steps);
-
-protected:
-
-	/**
-	 * Utility function wrapping find.
-	 * @return The player found, nullptr otherwise
-	*/
-	std::vector<std::shared_ptr<player>>::iterator find_player(unsigned long int id);
 
 protected:
 

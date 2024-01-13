@@ -17,7 +17,7 @@ namespace prj
 		this->score_ = init_balance;
 	}
 
-	unsigned int player::get_score() const
+	int player::get_score() const
 	{
 		return score_;
 	}

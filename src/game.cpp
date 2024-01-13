@@ -31,11 +31,27 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
     unsigned int round_counter = 0;    
     std::shared_ptr<player> current_player;
 
-    for(int round=0; round<conf_->get_round_number(); round++)
+    bool test = false;
+
+    for(int i=0; i<40; i++)
     {
-        for(int turn=0; turn<conf->get_bot_number() + conf_->get_human_number(); turn++)
+        std::cout<<"Playerssssssssssssssssss: "<<players.size()<< " -> ";
+
+        playgr_.remove_player(players[i]);
+        players = playgr_.get_players();
+
+        std::cout<<players.size()<<std::endl;
+    }
+
+    //for(int round=0; round<conf_->get_round_number() && !game_end; round++)
+    for(int round=0; round<1000 && !game_end; round++)
+    {
+	    std::cout << playgr_;
+
+        for(int turn=0; turn<conf->get_bot_number() + conf_->get_human_number() && !game_end; turn++)
         {
             unsigned int temp_roll;
+
 
         
             current_player = playgr_.next_player();
@@ -49,16 +65,36 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
             log_arrived(current_player);
 
 
-            // ------ Bisogna tenere i turni max anche per partite human-bot
-            if(round_counter==conf_->get_round_number())
+            // FOR TEST PURPOSE ONLY
+            if(round%3==0 && turn == 2 && !test)
+                {playgr_.test(current_player);
+                test= true;}
+            std::cout<<">>>> score player "<<current_player->get_id()<<" = "<<current_player->get_score()<<std::endl;
+            
+    
+            // Check if player has money. If so eliminate him and update players
+            // if(current_player->get_score() < 0)
+            // {
+            //     std::cout<<"!!!!!";
+            //     log_eliminated(current_player);
+            //     playgr_.remove_player(current_player);
+            //     players = playgr_.get_players();
+
+                
+            // }
+            
+
+            // Check if there's only one player left
+            if(players.size() == 0)
                 game_end = true;
 
-        // It's a human or bot-only game
-        //if(qualcuno vince) game_end = true;
         }
+        logger_ << std::endl;
+
+        char x;
+        std::cin.get(x);
     }
 
-	std::cout << playgr_;
 
 }
 
