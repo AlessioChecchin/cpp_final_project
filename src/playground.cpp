@@ -123,10 +123,13 @@ std::string playground::format_text(unsigned int position) const
 	std::string name;
 	std::string building_suffix;
 
+	// If is start box (current box is null)
 	if(position == 0)
 	{
 		name = configuration_.get()->get_display_prop("box_start");
 	}
+
+	// Angular box (current_box is null)
 	else if(board_.is_angular(position))
 	{
 		name = configuration_.get()->get_display_prop("box_angular");
@@ -135,6 +138,8 @@ std::string playground::format_text(unsigned int position) const
 	{
 		name = configuration_.get()->get_display_prop("box_" + current_box->get_category().get_name());
 	}
+
+	// Gets the buiding name.
 	if(current_box)
 	{
 		std::string building_name = current_box->get_contract()->get_building()->get_name();
@@ -142,18 +147,18 @@ std::string playground::format_text(unsigned int position) const
 	}
 	
 	return name + building_suffix;
-
 }
 
 std::string playground::format_label_players(const std::multimap<unsigned int, std::shared_ptr<const player>>& map, unsigned int position) const
 {
 	std::string formatted;
 
+	// Getting player that are in the box of specified position
 	for(auto it = map.begin(); it != map.end(); it++)
 	{
 		if(it->first == position)
 		{
-			formatted += std::to_string(it->second->get_id());
+			formatted += std::to_string(it->second->get_id() + 1);
 		}
 	}
 
@@ -164,6 +169,7 @@ std::string playground::format_label(const std::multimap<unsigned int, std::shar
 {
 	std::string formatted = format_text(position) + format_label_players(map, position);
 	
+	// If nothing is specified, then adapting is not performed.
 	if(cell_width == 0)
 	{
 		return formatted;
@@ -174,11 +180,11 @@ std::string playground::format_label(const std::multimap<unsigned int, std::shar
 
 std::string playground::adapt_label_size(const std::string& original, unsigned int desired_size, char delimiter) const
 {
+	// Adapts size
 	if(original.size() < desired_size)
 	{
 		if(desired_size - original.size() >= 2)
 		{
-
 			unsigned int left_offset = (desired_size - original.size()) / 2;
 			unsigned int right_offset = desired_size - original.size() - left_offset;
 
@@ -190,30 +196,37 @@ std::string playground::adapt_label_size(const std::string& original, unsigned i
 		}
 	}
 
+	// If conditions for adapring size are not met then it just appends the delimiters.
 	return delimiter + original+ delimiter;
 }
 
 
 std::ostream& operator<<(std::ostream& os, const playground& play)
 {
+	// Constants used for calculating the board gui.
 	constexpr unsigned int default_cell_width = 3;
 	constexpr unsigned int full_row = play.board_.FIELD_SIZE / 4 + 1;
 	constexpr unsigned int central_rows = full_row - 2;
 	constexpr unsigned int extra_spaces = 2;
+
+	// Maps positions with players.
 	std::multimap<unsigned int, std::shared_ptr<const player>> position_map;
 
+	// Output buffering.
 	std::vector<std::string> out_buf_top;
 	std::vector<std::string> out_buf_bottom;
 
 	unsigned int max_size_top = 0;
 	unsigned int max_size_bottom = 0;
 
+	// Creates the player map position.
 	for(auto it = play.players_.begin(); it != play.players_.end(); it++)
 	{
 		position_map.insert({it->get()->get_pos(), *it});
 	}
 
-	for(int i = 0; i < full_row; i++)
+	// Generating top row (buffering is needed because we need to find the biggest label).
+	for(int i = full_row + central_rows; i < play.board_.FIELD_SIZE - central_rows; i++)
 	{
 		const box* current_box = play.board_.get_box(i);
 		out_buf_top.push_back(play.format_label(position_map, i));
@@ -224,7 +237,8 @@ std::ostream& operator<<(std::ostream& os, const playground& play)
 		}
 	}
 	
-	for(int i =  play.board_.FIELD_SIZE - central_rows - 1; i >= full_row + central_rows; i--)
+	// Generating bottom row (buffering is needed because we need to find the biggest label).
+	for(int i = full_row - 1; i >= 0; i--)
 	{
 		const box* current_box = play.board_.get_box(i);
 		out_buf_bottom.push_back(play.format_label(position_map, i));
@@ -235,6 +249,7 @@ std::ostream& operator<<(std::ostream& os, const playground& play)
 		}
 	}
 	
+	// Calculated the cell_width.
 	unsigned int cell_width = std::max(max_size_top, max_size_bottom);
 	cell_width = std::max(cell_width, default_cell_width);
 
@@ -253,6 +268,7 @@ std::ostream& operator<<(std::ostream& os, const playground& play)
 	os << std::endl;
 	os << "A  ";
 
+	// Output top row.
 	for(int i = 0; i < full_row; i++)
 	{
 		os << play.adapt_label_size(out_buf_top[i], cell_width) << " ";
@@ -260,10 +276,11 @@ std::ostream& operator<<(std::ostream& os, const playground& play)
 
 	os << std::endl;
 
+	// Output middle rows.
 	for(int i = 0; i < central_rows; i++)
 	{
-		unsigned int left = play.board_.FIELD_SIZE - i - 1;
-		unsigned int right = full_row + i;
+		unsigned int left = full_row + central_rows - i - 1;
+		unsigned int right = play.board_.FIELD_SIZE - central_rows + i;
 		const box* box_left = play.board_.get_box(left);
 		const box* box_right = play.board_.get_box(right);
 		
@@ -276,6 +293,7 @@ std::ostream& operator<<(std::ostream& os, const playground& play)
 
 	os << static_cast<char>('A' + central_rows + 1) << "  ";
 
+	// Output bottom row.
 	for(int i = 0; i < full_row; i++)
 	{
 		os << play.adapt_label_size(out_buf_bottom[i], cell_width) << " ";
