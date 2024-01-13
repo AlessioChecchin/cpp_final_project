@@ -10,11 +10,11 @@
 #include "players/bot.h"
 #include "players/human.h"
 #include "game.h"
+#include "logger/logger.h"
 namespace prj
 {
-game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf} 
+game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{logger_.get_logger()}
 {
-
     // Create players with initial budget
     auto tempPlayers = create_players(conf_->get_initial_budget());
 
@@ -22,31 +22,40 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}
     order_players(tempPlayers);
     auto players = playgr_.get_players();
 
-    // Game continues until someone wins or it's a bot-game (with max number of rounds)
-    // Rounds are in range [1, conf_->round_number]
+    //TEST
+    for(int i=0; i<players.size(); i++)
+        std::cout<<"Player "<<players[i]->get_id()<<std::endl;
+
+    // 
     bool game_end = false;
-    unsigned int round_counter = 0;
+    unsigned int round_counter = 0;    
+    std::shared_ptr<player> current_player;
 
-    
+    for(int round=0; round<conf_->get_round_number(); round++)
+    {
+        for(int turn=0; turn<conf->get_bot_number() + conf_->get_human_number(); turn++)
+        {
+            unsigned int temp_roll;
 
-    while(!game_end)
-    {  
-        round_counter++;
-        ////////////////////////////////////////////////////////////////////////////////////////v
-        auto current_player = playgr_.next_player();
+        
+            current_player = playgr_.next_player();
 
-        // Move player
-        playgr_.move_player(current_player, roll_dice());
+            // Dice roll
+            temp_roll = roll_dice();
+            log_dice_rolled(current_player, temp_roll);
 
-        // Per test - da togliere
-        game_end = true;
-        ////////////////////////////////////////////////////////////////////////////////////////v
-        // It's a bot-only game
-        if(conf_->get_human_number()==0 && round_counter==conf_->get_round_number())
-            game_end = true;
+            // Move player
+            playgr_.move_player(current_player, temp_roll);
+            log_arrived(current_player);
+
+
+            // ------ Bisogna tenere i turni max anche per partite human-bot
+            if(round_counter==conf_->get_round_number())
+                game_end = true;
 
         // It's a human or bot-only game
         //if(qualcuno vince) game_end = true;
+        }
     }
 
 	std::cout << playgr_;
@@ -78,7 +87,10 @@ void game::order_players(std::multimap<unsigned long int , std::shared_ptr<playe
             // prevIt is still poiting to a player who had the same score of others
             if(is_copying)
             {
-                tempMap.insert({roll_dice(), prevIt->second});
+                unsigned int temp_roll = roll_dice();
+                tempMap.insert({temp_roll, prevIt->second});
+                
+                log_dice_rolled(prevIt->second, temp_roll);
                 is_copying = false;
                 
                 // Check if second dice_roll succeeded
@@ -97,7 +109,9 @@ void game::order_players(std::multimap<unsigned long int , std::shared_ptr<playe
         // player pointed by prevIt doesn't have a unique score
         else if(prevIt->first == it->first)
         {
-            tempMap.insert({roll_dice(), prevIt->second});
+            unsigned int temp_roll = roll_dice();
+            tempMap.insert({temp_roll, prevIt->second});
+            log_dice_rolled(prevIt->second, temp_roll);
             is_copying = true;
         }       
 
@@ -109,14 +123,28 @@ void game::order_players(std::multimap<unsigned long int , std::shared_ptr<playe
 std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>> game::create_players(unsigned int init_balance)
 {
     std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>> players;
-
+    
     // Add bots to playground
     for(int i=0 ; i<conf_->get_bot_number(); i++)
-        players.insert({roll_dice(),std::shared_ptr<player>(new bot(init_balance))});
+    {
+        std::shared_ptr<player> player(new bot(init_balance));
+
+        unsigned int temp_roll = roll_dice();
+        log_dice_rolled(player, temp_roll);
+
+        players.insert({temp_roll, player});
+    }
     
     // Add human player to playground
     for(int i=conf_->get_bot_number(); i<conf_->get_human_number(); i++)
-        players.insert({roll_dice(),std::shared_ptr<player>(new human(init_balance))});
+    {
+        std::shared_ptr<player> player(new human(init_balance));
+        
+        unsigned int temp_roll = roll_dice();
+        log_dice_rolled(player, temp_roll);
+
+        players.insert({temp_roll, player});
+    }
     
     return players; 
 }
@@ -129,11 +157,97 @@ unsigned long int game::roll_dice()
             dices.push_back(std::move(dice(6)));
     
     // Roll and sum the results
-    unsigned long int score = 0;
+    unsigned int result = 0;
     for(int i=0; i<dices.size(); i++)
-       score += dices[i].roll();
+       result += dices[i].roll();
 
-    return score;
+    return result;
+}
+
+
+
+void game::log_start_bonus(std::shared_ptr<player> p) const
+{
+    logger_ << "Giocatore "
+        << p->get_id() 
+        << " e' passato dal via e ha ritirato "
+        << conf_->get_bonus_cycle()
+        << " fiorini"
+        << std::endl;
+}
+void game::log_dice_rolled(std::shared_ptr<player> p, int score) const
+{
+    logger_ << "Giocatore "
+            << p->get_id() 
+            << " ha tirato i dadi ottenendo un valore di "
+            << score 
+            << std::endl;
+
+}
+void game::log_arrived(std::shared_ptr<player> p) const
+{
+    logger_ << "Giocatore "
+            << p->get_id() 
+            << " e' arrivato alla casella "
+            << p->get_pos()
+            << std::endl;
+}
+void game::log_bought_house(std::shared_ptr<player> p) const
+{
+    logger_ << "Giocatore "
+            << p->get_id() 
+            << " ha costruito una casa sul terreno "
+            << p->get_pos()
+            << std::endl;
+}
+void game::log_bought_terrain(std::shared_ptr<player> p) const
+{
+    logger_ << "Giocatore "
+            << p->get_id() 
+            << " ha acquistato il terreno "
+            << p->get_pos()
+            << std::endl;
+}
+void game::log_bought_hotel(std::shared_ptr<player> p) const
+{
+    logger_ << "Giocatore "
+            << p->get_id() 
+            << " ha migliorato una casa in albergo sul terreno "
+            << p->get_pos()
+            << std::endl;
+}
+void game::log_fee(std::shared_ptr<player> payee, std::shared_ptr<player> payer, unsigned int amount) const
+{
+    logger_ << "Giocatore "
+            << payer->get_id() 
+            << " ha pagato "
+            << amount
+            << " fiorini a giocatore "
+            << payee->get_id()
+            << " per pernottamento nella casella "
+            << payer->get_pos()
+            << std::endl;
+}
+void game::log_round_ended(std::shared_ptr<player> p) const
+{
+    logger_ << "Giocatore "
+            << p->get_id() 
+            << " ha finito il turno"
+            << std::endl;
+}
+void game::log_eliminated(std::shared_ptr<player> p) const
+{
+    logger_ << "Giocatore "
+            << p->get_id() 
+            << " e' stato eliminato"
+            << std::endl;
+}
+void game::log_win(std::shared_ptr<player> p)  const
+{
+    logger_ << "Giocatore "
+            << p->get_id() 
+            << " ha vinto la partita"
+            << std::endl;
 }
 
 }   
