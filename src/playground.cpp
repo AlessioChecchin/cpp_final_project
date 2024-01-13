@@ -104,6 +104,69 @@ void playground::move_player(std::shared_ptr<player> to_move, int steps)
 		to_move->score_ += 9999999*laps;
 }
 
+action playground::perform_action(std::shared_ptr<player> to_perform)
+{
+	if(!to_perform)
+	{
+		throw std::invalid_argument("Invalid player");
+	}
+
+	if(!is_playing(to_perform))
+	{
+		throw std::invalid_argument("Player is not playing here");
+	}
+
+	std::set<action> choices;
+
+	box* player_box = board_.get_box(to_perform->position_);
+	
+	if(board_.is_angular(to_perform->position_))
+	{
+		// If the box is angulare the user does nothing.
+		choices.emplace(action::NOTHING);
+	}
+	else
+	{
+		// If the box does not have an owner, the player can buy it.
+		std::shared_ptr<player> owner = board_.get_box(to_perform->position_)->get_contract()->get_owner();
+
+		if(owner == nullptr)
+		{
+			// If the box does not have a owner then the user can do nothing or buy the terrain.
+			choices.emplace(action::NOTHING);
+
+			// TODO: check money.
+			choices.emplace(action::BUY);
+		}
+		else if(owner->id_ == to_perform->id_)
+		{
+			// If the user owns the box, then he can choose to do nothing.
+			choices.emplace(action::NOTHING);
+
+			if(player_box->get_contract()->get_building()->upgradable())
+			{
+				// TODO: check money.
+
+				// If the building in the box is upgradable and he has moeney then he can upgrade it.
+				choices.emplace(action::UPGRADE);
+			}
+		}
+		else
+		{
+			choices.emplace(action::STAY);
+		}
+	}
+
+	action performed = to_perform->decision(board_.get_box(to_perform->position_), choices);
+
+	if(choices.find(performed) == choices.end())
+	{
+		throw std::logic_error("Player can't perform this action now");
+	}
+
+	return performed;
+}
+
 // Protected methods
 std::vector<std::shared_ptr<player>>::iterator playground::find_player(unsigned long int id)
 {
@@ -112,7 +175,6 @@ std::vector<std::shared_ptr<player>>::iterator playground::find_player(unsigned 
 		return p->get_id() == id;
 	});
 }
-
 
 std::string playground::format_text(unsigned int position) const
 {
@@ -199,7 +261,6 @@ std::string playground::adapt_label_size(const std::string& original, unsigned i
 	// If conditions for adapring size are not met then it just appends the delimiters.
 	return delimiter + original+ delimiter;
 }
-
 
 std::ostream& operator<<(std::ostream& os, const playground& play)
 {

@@ -6,8 +6,11 @@
 #include "building/building.h"
 #include "players/player.h"
 
+
 namespace prj
 {
+
+class player;
 
 class contract
 {

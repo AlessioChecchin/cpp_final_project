@@ -36,6 +36,9 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}
         // Move player
         playgr_.move_player(current_player, roll_dice());
 
+		playgr_.perform_action(current_player);
+
+
         // Per test - da togliere
         game_end = true;
         ////////////////////////////////////////////////////////////////////////////////////////v
