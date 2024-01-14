@@ -42,6 +42,7 @@ set(SOURCE_FILES
 	${PARENT_DIR}/src/contract.cpp
 	${PARENT_DIR}/src/dice.cpp
 	${PARENT_DIR}/src/game.cpp
+	${PARENT_DIR}/src/logger/logger.cpp
 	${PARENT_DIR}/src/playground.cpp
 	${PARENT_DIR}/src/players/bot.cpp
 	${PARENT_DIR}/src/players/human.cpp

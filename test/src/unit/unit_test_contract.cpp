@@ -31,10 +31,13 @@ void unit_test_contract::test_getters()
 	std::shared_ptr<prj::human> p;
 
 	assert(("Failed to assign default owner to contract a", a.get_owner() == nullptr));
+	assert(("Failed to get building to contract a", a.get_building()));
 	//cannot test the default building because it is an unique_ptr
 
 	a.set_owner(p);
+	a.set_building(std::unique_ptr<prj::building>(new prj::terrain()));
 	assert(("Failed to get owner to contract a", a.get_owner() == p));
+	assert(("Failed to get building to contract a", a.get_building()));
 	//cannot test the building because it is an unique_ptr
 }
 
@@ -44,11 +47,13 @@ void unit_test_contract::test_setters()
 	prj::contract a;
 	std::shared_ptr<prj::human> p;
 
-	assert(("Failed to assign default owner to contract a", a.get_owner() == nullptr));
+	assert(("Failed to create default owner to contract a", a.get_owner() == nullptr));
+	assert(("Failed to create default building to contract a", a.get_building()));
 	//cannot test the default building because it is an unique_ptr
 
 	a.set_owner(p);
 	a.set_building(std::unique_ptr<prj::building>(new prj::terrain()));
 	assert(("Failed to set owner to contract a", a.get_owner() == p));
+	assert(("Failed to set building to contract a", a.get_building()));
 	//cannot test the building because it is an unique_ptr	
 }

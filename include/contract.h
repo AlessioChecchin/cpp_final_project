@@ -61,8 +61,6 @@ public:
 	*/
 	const building* get_building() const;
 
-	void set_owner(std::shared_ptr<player> new_player);
-
 	/**
 	 * Sets a new building.
 	 * @param new_building The new building.
