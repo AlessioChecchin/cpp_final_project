@@ -59,28 +59,73 @@ void game::run()
 
 				if(result == action::SHOW)
 				{
-					std::cout << playgr_;
+                    // Print field
+					std::cout << playgr_ ;
+                    std::cout << std::endl;
+
+                    // Print players scores
+                    auto temp_players = playgr_.get_players();
+                    for(int i=0; i<playgr_.number_players(); i++)
+                        std::cout   << "Giocatore " 
+                                    << temp_players[i]->get_id() << ": " 
+                                    << temp_players[i]->get_score() << std::endl;
+                    
+                    std::cout << std::endl;
+                    // Print properties
+                    for(int i=0; i<playgr_.number_players(); i++)
+                    {
+                        auto temp_ownerships = temp_players[i]->get_ownerships();
+                        
+                        std::cout   << "Giocatore "
+                                    << temp_players[i]->get_id() << ": ";
+
+                        for(int a=0; a<temp_ownerships.size(); a++)
+                        {
+                            std::cout << playgr_.get_box_name(temp_ownerships[a]) << ", ";
+                        }
+                        std::cout << std::endl;
+                    }
+                     
 				}
 			}
 			while(result == action::SHOW);
 
+
 			switch(result)
 			{
 				case action::NOTHING:
+                {
 					break;
+                }
 				case action::BUY:
-					logger_ << "Il player " << current_player->get_id() << " ha comprato il [ddddddterrenodddd]" << std::endl;
+                {
+                    log_bought_terrain(current_player);
 					break;
+                }
 				case action::UPGRADE:
-					logger_ << "Il player "  << current_player->get_id() << " ha effettuato l'upgrade" << std::endl;
+                {
+                    log_bought_house(current_player);
 					break;
+                }
 				case action::STAY:
-					logger_ << "Il player " << current_player->get_id() << " action stay " << std::endl;
+                {
+                    // Get payee and payment amount
+                    auto payee = playgr_.get_player_box(current_player)->get_contract()->get_owner();
+                    auto building_category = playgr_.get_player_box(current_player)->get_category();
+                    auto building = playgr_.get_player_box(current_player)->get_contract()->get_building();
+                    unsigned int amount = conf_->get_action_cost(action::STAY, building_category, building);
+
+                    log_fee(payee, current_player, amount);
 					break;
+                }
 				case action::LOSE:
-					logger_ << "Il player " << current_player->get_id() << " e' stato eliminato " << std::endl;
+                {
+					log_eliminated(current_player);
 					break;
+                }
 			}
+
+            log_turn_ended(current_player);
         }
 
         logger_ << std::endl;
@@ -257,7 +302,7 @@ void game::log_bought_house(std::shared_ptr<player> p) const
     logger_ << "Giocatore "
             << p->get_id() 
             << " ha costruito una casa sul terreno "
-            << p->get_pos()
+            << playgr_.get_box_name(p->get_pos())
             << std::endl;
 }
 void game::log_bought_terrain(std::shared_ptr<player> p) const
@@ -265,7 +310,7 @@ void game::log_bought_terrain(std::shared_ptr<player> p) const
     logger_ << "Giocatore "
             << p->get_id() 
             << " ha acquistato il terreno "
-            << p->get_pos()
+            << playgr_.get_box_name(p->get_pos())
             << std::endl;
 }
 void game::log_bought_hotel(std::shared_ptr<player> p) const
@@ -273,7 +318,7 @@ void game::log_bought_hotel(std::shared_ptr<player> p) const
     logger_ << "Giocatore "
             << p->get_id() 
             << " ha migliorato una casa in albergo sul terreno "
-            << p->get_pos()
+            << playgr_.get_box_name(p->get_pos())
             << std::endl;
 }
 void game::log_fee(std::shared_ptr<player> payee, std::shared_ptr<player> payer, unsigned int amount) const
@@ -285,10 +330,10 @@ void game::log_fee(std::shared_ptr<player> payee, std::shared_ptr<player> payer,
             << " fiorini a giocatore "
             << payee->get_id()
             << " per pernottamento nella casella "
-            << payer->get_pos()
+            << playgr_.get_box_name(payer->get_pos())
             << std::endl;
 }
-void game::log_round_ended(std::shared_ptr<player> p) const
+void game::log_turn_ended(std::shared_ptr<player> p) const
 {
     logger_ << "Giocatore "
             << p->get_id() 

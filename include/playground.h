@@ -19,6 +19,7 @@ namespace prj
 class playground
 {	
 public:
+
 	playground(std::shared_ptr<config> configuration);
 
     /**
@@ -152,19 +153,19 @@ protected:
 	board board_;
 
 	/**
-	 * Configuration
-	*/
-	std::shared_ptr<config> configuration_;
-
-	/**
 	 * Map that contains all the players in the playground.
 	*/
-	std::vector<std::shared_ptr<player>> players_;	
+	std::vector<std::shared_ptr<player>> players_{};	
 	/**
 	 * Index of the player that has to play the current round
 	 */
-	unsigned int player_index;
+	unsigned int player_index{};
 	
+	/**
+	 * Configuration
+	*/
+	std::shared_ptr<config> configuration_{};
+
 	/**
 	 * Operator overload.
 	*/

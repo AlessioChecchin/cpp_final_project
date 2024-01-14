@@ -1,28 +1,32 @@
+/**
+ * Box implementation.
+ * 
+ * @author Alessio Checchin.
+*/
+
 #include "box.h"
 
 namespace prj
 {
 
-box::box(const category& cat): category_{cat}, contract_{std::unique_ptr<contract>(new contract())}
+box::box(const category& my_category): category_{my_category}, contract_{std::unique_ptr<contract>(new contract())}
+{}
+
+category box::get_category() const
 {
-	//std::unique_ptr<building> new_building = contract_->get_building()->upgrade();
-
-	//contract_->set_building(std::move(new_building));
-
-	//new_building = std::move(contract_->get_building()->upgrade());
-	//contract_->set_building(std::move(new_building));
-
-
+	return category_;
 }
 
 contract* box::get_contract()
 {
+	// Returns non-owning pointer.
 	return contract_.get();
 }
 
 const contract* box::get_contract() const
 {
+	// Returns non-owning pointer.
 	return contract_.get();
 }
 
-}
+} // prj

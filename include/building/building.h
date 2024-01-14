@@ -23,12 +23,12 @@ public:
 	/**
 	 * Copy is disabled because this class must be extended.
 	*/
-	building(const building& b) = delete;
+	building(const building& my_building) = delete;
 
 	/**
 	 * Copy is disabled because this class must be extended.
 	*/
-	building& operator=(const building& b) = delete;
+	building& operator=(const building& my_building) = delete;
 
 	/**
 	 * Building name getter.
@@ -48,7 +48,7 @@ public:
 	virtual std::unique_ptr<building> upgrade() const = 0;
 	
 	/**
-	 * Returns if the building is upgradable.
+	 * Returns true if the building is upgradable.
 	*/
 	virtual bool upgradable() const = 0;
 
@@ -70,6 +70,6 @@ protected:
 	unsigned int id_{};
 };
 
-}
+} // prj
 
 #endif // BUILDING_H

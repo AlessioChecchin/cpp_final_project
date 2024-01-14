@@ -5,15 +5,17 @@
 */
 
 #include "config.h"
+
+#include <string>
+
+
 #include "players/action.h"
 #include "category.h"
-#include "building/building.h"
 
+#include "building/building.h"
 #include "building/terrain.h"
 #include "building/house.h"
 #include "building/hotel.h"
-
-#include <string>
 
 
 namespace prj
@@ -31,7 +33,7 @@ namespace prj
 			{ 2, 4,  7 },
 			{ 4, 8, 14 }
 		},
-		round_number_{20},
+		round_number_{100},
 		human_number_{0},
 		bot_number_{4},
 		initial_budget_{100},
@@ -153,9 +155,9 @@ namespace prj
 
 		if(performed_action == action::BUY || performed_action == action::UPGRADE)
 		{
-			if(y >= 0 && y <= buy_prices_.size())
+			if(y >= 0 && y < buy_prices_.size())
 			{
-				if(x >= 0 && x <= buy_prices_[y].size())
+				if(x >= 0 && x < buy_prices_[y].size())
 				{
 					return buy_prices_[y][x];
 				}
@@ -163,9 +165,9 @@ namespace prj
 		}
 		else if(performed_action == action::STAY)
 		{
-			if(y >= 0 && y <= stay_prices_.size())
+			if(y >= 0 && y < stay_prices_.size())
 			{
-				if(x >= 0 && x <= stay_prices_[y].size())
+				if(x >= 0 && x < stay_prices_[y].size())
 				{
 					return stay_prices_[y][x];
 				}

@@ -9,15 +9,17 @@
 
 namespace prj
 {
-	enum class action
-	{
-		BUY = 0,
-		STAY = 1,
-		UPGRADE = 2,
-		NOTHING = 3,
-		LOSE = 4,
-		SHOW = 5
-	};
-}
+
+enum class action
+{
+	BUY = 0,
+	STAY = 1,
+	UPGRADE = 2,
+	NOTHING = 3,
+	LOSE = 4,
+	SHOW = 5
+};
+
+} // prj
 
 #endif // ACTION_H
