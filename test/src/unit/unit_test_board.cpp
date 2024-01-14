@@ -24,7 +24,15 @@ void unit_test_board::test_constructor()
 
 void unit_test_board::test_getters()
 {
-	
+	//testing getters
+	prj::board a{std::unique_ptr<prj::config>(new prj::config())};
+
+	assert(("Failing to get box 1 from board oobject a", test_get_valid(a, 1)));
+	assert(("Failing to get box 0 from board oobject a", test_get_valid(a, 0)));
+	assert(("Failing to get box -1 from board oobject a", test_get_valid(a, -1)));
+	assert(("Failing to get box 35 from board oobject a", test_get_valid(a, 35)));
+	assert(("Failing to get box 12 from board oobject a", test_get_valid(a, 12)));
+	assert(("Failing to get box 2 from board oobject a", test_get_valid(a, 2)));
 }
 
 void unit_test_board::test_methods()
@@ -51,6 +59,19 @@ bool test_board_valid()
 	try
 	{
 		prj::board a{std::shared_ptr<prj::config>(new prj::config())};
+		return true;
+	}
+	catch(const std::exception& e)
+	{
+		return false;
+	}
+}
+
+bool test_get_valid(const prj::board& b, unsigned int position)
+{
+	try
+	{
+		b.get_box(position);
 		return true;
 	}
 	catch(const std::exception& e)
