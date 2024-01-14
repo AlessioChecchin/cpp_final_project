@@ -56,6 +56,11 @@ namespace prj
 		 */
 		int get_score() const;
 
+		/**
+		 * Getter for player ownerships
+		 * @return A vector containing the position of the player ownerships
+		 */
+		std::vector<unsigned int>& get_ownerships();
 
 		/**
 		 * Decision taken by the player

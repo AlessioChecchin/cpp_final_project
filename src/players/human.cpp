@@ -70,7 +70,7 @@ char human::wait_feedback(const std::string& message)
 		std::cin.clear();
 
 		is_valid = response == "S" || response == "s" ||
-				   response == "N"  || message == "n" ||
+				   response == "N"  || response == "n" ||
 				   response == "show" || response == "SHOW";
 		
 		if(!is_valid)

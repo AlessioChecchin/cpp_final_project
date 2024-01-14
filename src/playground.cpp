@@ -23,12 +23,6 @@
 namespace prj
 {
 
-// TO REMOVE
-void playground::test(std::shared_ptr<player> player)
-{
-	player->score_ = -1000;
-}
-
 playground::playground(std::shared_ptr<config> configuration): board_{configuration}, players_{}, player_index{0}, configuration_{configuration}
 {
 	if(!configuration)
@@ -337,6 +331,7 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 		
 		case action::STAY:
 			to_perform->score_ -= stay_cost;
+
 
 			player_box->get_contract()->get_owner()->score_ += stay_cost;
 			break;

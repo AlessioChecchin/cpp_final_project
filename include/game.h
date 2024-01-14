@@ -95,7 +95,7 @@ class game
          * Logs "round ended" event
          * @param p Target Player
          */
-        void log_round_ended(std::shared_ptr<player> p) const;
+        void log_turn_ended(std::shared_ptr<player> p) const;
 
         /**
          * Logs "player eliminated" event
