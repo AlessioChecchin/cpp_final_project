@@ -42,4 +42,9 @@ namespace prj
 	{
 		return position_;
 	}
+
+	std::vector<unsigned int>& player::get_ownerships()
+	{
+		return ownerships_;
+	}
 }

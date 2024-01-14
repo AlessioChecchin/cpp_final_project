@@ -332,6 +332,7 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 		case action::STAY:
 			to_perform->score_ -= stay_cost;
 
+
 			player_box->get_contract()->get_owner()->score_ += stay_cost;
 			break;
 

@@ -19,6 +19,7 @@ namespace prj
 class playground
 {	
 public:
+
 	playground(std::shared_ptr<config> configuration);
 
     /**
