@@ -7,7 +7,7 @@
 #ifndef UNIT_TEST_HOTEL_H
 #define UNIT_TEST_HOTEL_H
 
-#include "../../core/test_suite.h"
+#include "core/test_suite.h"
 #include "building/hotel.h"
 
 #include <memory>

@@ -27,12 +27,13 @@ void unit_test_board::test_getters()
 	//testing getters
 	prj::board a{std::unique_ptr<prj::config>(new prj::config())};
 
-	assert(("Failing to get box 1 from board oobject a", test_get_valid(a, 1)));
-	assert(("Failing to get box 0 from board oobject a", test_get_valid(a, 0)));
-	assert(("Failing to get box -1 from board oobject a", test_get_valid(a, -1)));
-	assert(("Failing to get box 35 from board oobject a", test_get_valid(a, 35)));
-	assert(("Failing to get box 12 from board oobject a", test_get_valid(a, 12)));
-	assert(("Failing to get box 2 from board oobject a", test_get_valid(a, 2)));
+	assert(("Failing to get box 1 from board oobject a", test_get_valid(a, 1) == true));
+	assert(("Failing to get box 0 from board oobject a", test_get_valid(a, 0) == true));
+	assert(("Failing to get box 12 from board oobject a", test_get_valid(a, 12) == true));
+	assert(("Failing to get box 2 from board oobject a", test_get_valid(a, 2) == true));
+	
+	assert(("Failing to get box -1 from board oobject a", test_get_valid(a, -1) == false));
+	assert(("Failing to get box 35 from board oobject a", test_get_valid(a, 35) == false));
 }
 
 void unit_test_board::test_methods()

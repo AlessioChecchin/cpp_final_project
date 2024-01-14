@@ -7,7 +7,7 @@
 #ifndef UNIT_TEST_TERRAIN_H
 #define UNIT_TEST_TERRAIN_H
 
-#include "../../core/test_suite.h"
+#include "core/test_suite.h"
 
 class unit_test_terrain: public test_suite
 {

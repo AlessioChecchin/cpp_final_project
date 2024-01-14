@@ -4,10 +4,10 @@
  * @author Giulio Cattelan
 */
 
-#ifndef UNIT_BOT_HUMAN_H
-#define UNIT_BOT_HUMAN_H
+#ifndef UNIT_TEST_BOT_H
+#define UNIT_TEST_BOT_H
 
-#include "../../core/test_suite.h"
+#include "core/test_suite.h"
 
 class unit_test_bot: public test_suite
 {
@@ -21,4 +21,4 @@ public:
 	void test_methods();
 };
 
-#endif // UNIT_BOT_HUMAN_H
+#endif // UNIT_TEST_BOT_H

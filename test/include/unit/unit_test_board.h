@@ -7,7 +7,8 @@
 #ifndef UNIT_TEST_BOARD_H
 #define UNIT_TEST_BOARD_H
 
-#include "../core/test_suite.h"
+#include "core/test_suite.h"
+
 #include "board.h"
 
 class unit_test_board: public test_suite

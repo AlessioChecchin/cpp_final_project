@@ -7,7 +7,8 @@
 #ifndef UNIT_TEST_PLAYGROUND_H
 #define UNIT_TEST_PLAYGROUND_H
 
-#include "../core/test_suite.h"
+#include "core/test_suite.h"
+
 #include "playground.h"
 #include "players/player.h"
 #include "players/human.h"

@@ -7,7 +7,7 @@
 #ifndef UNIT_TEST_CATEGORY_H
 #define UNIT_TEST_CATEGORY_H
 
-#include "../core/test_suite.h"
+#include "core/test_suite.h"
 
 class unit_test_category: public test_suite
 {

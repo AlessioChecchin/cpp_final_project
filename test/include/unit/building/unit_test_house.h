@@ -7,7 +7,7 @@
 #ifndef UNIT_TEST_HOUSE_H
 #define UNIT_TEST_HOUSE_H
 
-#include "../../core/test_suite.h"
+#include "core/test_suite.h"
 
 class unit_test_house: public test_suite
 {

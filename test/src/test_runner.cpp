@@ -1,13 +1,14 @@
 #include "core/test_config.h"		//test_config is included, go uncomment macros to configure it
 #include "core/test_suite.h"
 
+#include "unit/unit_test_playground.h"
+
 #include "unit/unit_test_config.h"
 #include "unit/unit_test_category.h"
 #include "unit/unit_test_dice.h"
 #include "unit/unit_test_contract.h"
 #include "unit/unit_test_box.h"
 #include "unit/unit_test_board.h"
-#include "unit/unit_test_playground.h"
 #include "unit/unit_test_game.h"
 
 #include "unit/players/unit_test_human.h"

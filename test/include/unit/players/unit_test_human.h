@@ -7,7 +7,7 @@
 #ifndef UNIT_TEST_HUMAN_H
 #define UNIT_TEST_HUMAN_H
 
-#include "../../core/test_suite.h"
+#include "core/test_suite.h"
 
 class unit_test_human: public test_suite
 {
