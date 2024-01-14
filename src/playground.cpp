@@ -237,6 +237,7 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 
 		if(owner == nullptr)
 		{
+			std::cout << "NULLLLPTR";
 			// If the box does not have a owner then the user can do nothing or buy the terrain.
 			choices.emplace(action::NOTHING);
 
@@ -326,6 +327,21 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 	}
 
 	return performed;
+}
+
+const box* playground::get_player_box(std::shared_ptr<player> my_player) const
+{
+	if(!my_player)
+	{
+		throw std::invalid_argument("Invalid player");
+	}
+
+	if(!is_playing(my_player))
+	{
+		throw std::invalid_argument("Invalid player");
+	}
+
+	return board_.get_box(my_player->position_);
 }
 
 // Protected methods

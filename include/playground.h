@@ -36,9 +36,9 @@ public:
 
 	/**
 	 * Adds a player to the playground.
-	 * @param new_player The player to add.
+	 * @param my_player The player to add.
 	*/
-	virtual void add_player(std::shared_ptr<player> new_player);
+	virtual void add_player(std::shared_ptr<player> my_player);
 
 	/**
 	 * Getter for the box name 
@@ -61,9 +61,9 @@ public:
 
 	/**
 	 * Removes a player from the playground.
-	 * @param to_remove The player to remove.
+	 * @param my_player The player to remove.
 	*/
-	virtual void remove_player(std::shared_ptr<player> to_remove);
+	virtual void remove_player(std::shared_ptr<player> my_player);
 
 	/**
 	 * Returns a vector containing the players in the playground.
@@ -79,19 +79,32 @@ public:
 
 	/**
 	 * Tests if a player is present in the playground.
+	 * @param my_player The player to check.
 	 * @return true if the player is present, false otherwise.
 	*/
-	virtual bool is_playing(std::shared_ptr<player> to_remove) const;
+	virtual bool is_playing(std::shared_ptr<player> my_player) const;
 
 	/**
 	 * Move the player of the specified number of steps.
 	 * The player can be moved either forward and backward
-	 * @param to_move The player to remove
+	 * @param my_player The player to move
 	 * @param steps Number of steps of the player
 	 */
-	virtual void move_player(std::shared_ptr<player> to_move, int steps);
+	virtual void move_player(std::shared_ptr<player> my_player, int steps);
 
-	virtual action perform_action(std::shared_ptr<player> p);
+	/**
+	 * Performs the action that should occur when a player steps on a new box.
+	 * @param my_player The player that is performing the action.
+	 * @return The performed action.
+	*/
+	virtual action perform_action(std::shared_ptr<player> my_player);
+
+	/**
+	 * Player box getter.
+	 * @param my_player The player on the box.
+	 * @return The box on which the player is.
+	*/
+	const box* get_player_box(std::shared_ptr<player> my_player) const;
 
 protected:
 
@@ -149,9 +162,11 @@ protected:
 	 */
 	unsigned int player_index;
 	
+	/**
+	 * Operator overload.
+	*/
     friend std::ostream& operator<<(std::ostream& os, const playground& play);
 };
-
 
 }
 

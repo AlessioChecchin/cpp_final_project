@@ -49,23 +49,42 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
             playgr_.move_player(current_player, temp_roll);
             log_arrived(current_player);
 
+			action result = playgr_.perform_action(current_player);
+
+			switch(result)
+			{
+				case action::NOTHING:
+					break;
+				case action::BUY:
+					logger_ << "Il player " << current_player->get_id() << " ha comprato il [ddddddterrenodddd]" << std::endl;
+					break;
+				case action::UPGRADE:
+					logger_ << "Il player "  << current_player->get_id() << " ha effettuato l'upgrade" << std::endl;
+					break;
+				case action::STAY:
+					logger_ << "Il player " << current_player->get_id() << " action stay " << std::endl;
+					break;
+				case action::LOSE:
+					logger_ << "Il player " << current_player->get_id() << " e' stato eliminato " << std::endl;
+					break;
+			}
+
             // FOR TEST PURPOSE ONLY
-            if(round%3==0 && turn == 0)
-            {
-                playgr_.test(current_player);
-            }
-
-
-            // Turn end
-            log_round_ended(current_player);
-
-
+            //if(round%3==0 && turn == 2 && !test)
+            //    {playgr_.test(current_player);
+            //    test= true;}
+            //std::cout<<">>>> score player "<<current_player->get_id()<<" = "<<current_player->get_score()<<std::endl;
+            
+    
             // Check if player has money. If so eliminate him and update players
-            if(current_player->get_score()<0)
-            {
-                log_eliminated(current_player);
-                playgr_.remove_player(current_player);
-            }
+            //if(current_player->get_score() < 0)
+            //{
+            //    std::cout<<"!!!!!";
+            //    log_eliminated(current_player);
+            //    playgr_.remove_player(current_player);
+            //    players = playgr_.get_players();
+            //}
+            
 
             // Check if there's only one player left
             if(playgr_.number_players() == 1)
@@ -76,6 +95,8 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
 
         if(game_end)
             log_win(playgr_.next_player());
+	    logger_ << playgr_;
+
 
         logger_ << std::endl;
 
@@ -155,7 +176,7 @@ std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned
     // Add bots to playground
     for(int i=0 ; i<conf_->get_bot_number(); i++)
     {
-        std::shared_ptr<player> player(new bot(init_balance));
+        std::shared_ptr<player> player(new bot(init_balance, conf_));
 
         unsigned int temp_roll = roll_dice();
         log_dice_rolled(player, temp_roll);
