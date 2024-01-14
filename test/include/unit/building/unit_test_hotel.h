@@ -8,7 +8,7 @@
 #define UNIT_TEST_HOTEL_H
 
 #include "../../core/test_suite.h"
-#include "../../../../include/building/hotel.h"
+#include "building/hotel.h"
 
 #include <memory>
 

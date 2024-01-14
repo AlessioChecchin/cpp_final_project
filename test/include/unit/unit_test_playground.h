@@ -8,10 +8,10 @@
 #define UNIT_TEST_PLAYGROUND_H
 
 #include "../core/test_suite.h"
-#include "../../../include/playground.h"
-#include "../../../include/players/player.h"
-#include "../../../include/players/human.h"
-#include "../../../include/players/bot.h"
+#include "playground.h"
+#include "players/player.h"
+#include "players/human.h"
+#include "players/bot.h"
 
 #include <memory>
 
