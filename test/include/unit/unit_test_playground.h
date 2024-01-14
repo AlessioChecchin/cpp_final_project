@@ -27,7 +27,7 @@ public:
 	void test_methods();
 };
 
-bool test_playground_valid();
+bool test_playground_valid(std::shared_ptr<prj::config> configuration);
 
 bool try_get_players(const prj::playground& a);
 bool try_get_box_names(const prj::playground& a, unsigned int position);

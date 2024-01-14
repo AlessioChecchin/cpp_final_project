@@ -22,7 +22,9 @@ unit_test_playground::unit_test_playground(): test_suite{"unit_test_playground"}
 void unit_test_playground::test_constructor()
 {
 	//testing constructor
-	assert(("Failed to create playground object", test_playground_valid()));
+	assert(("Failed to create playground object", test_playground_valid(std::shared_ptr<prj::config>(new prj::config())) == true));
+
+	assert(("Failed to create playground object", test_playground_valid(nullptr) == false));
 }
 
 void unit_test_playground::test_getters()
@@ -175,11 +177,11 @@ void unit_test_playground::test_methods()
 	assert(("Failing to perform action", try_perform_action(a, nullptr) == false));
 }
 
-bool test_playground_valid()
+bool test_playground_valid(std::shared_ptr<prj::config> configuration)
 {
 	try
 	{
-		prj::playground a(std::shared_ptr<prj::config>(new prj::config()));
+		prj::playground a(configuration);
 	}
 	catch(const std::exception& e)
 	{
