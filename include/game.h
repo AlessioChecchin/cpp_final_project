@@ -117,6 +117,11 @@ class game
          */
         game(std::shared_ptr<config> conf);
 
+        /**
+         * Run the game
+         */
+        void run();
+
         
 
 };

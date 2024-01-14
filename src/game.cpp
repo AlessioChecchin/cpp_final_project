@@ -13,7 +13,16 @@
 #include "logger/logger.h"
 namespace prj
 {
+
+
 game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{logger_.get_logger()}
+{
+}
+
+
+
+
+void game::run()
 {
     // Create dices
     for(int i=0; i<conf_->get_dice_number(); i++)
@@ -22,7 +31,7 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
     // Create players with initial budget
     auto tempPlayers = create_players(conf_->get_initial_budget());
 
-    // Order players with dice rolling and add the to playground
+    // Order players with dice rolling and add them to playground
     order_players(tempPlayers);
 
     bool game_end = false;
@@ -81,10 +90,10 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
     }
 
     // Game ended due to max round number reached
-
-
-
 }
+
+
+
 
 void game::order_players(std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>>& players)
 {
@@ -144,6 +153,14 @@ void game::order_players(std::multimap<unsigned long int , std::shared_ptr<playe
 }
 
 
+
+
+
+
+
+
+
+
 std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>> game::create_players(unsigned int init_balance)
 {
     std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>> players;
@@ -182,6 +199,12 @@ unsigned long int game::roll_dice()
 
     return result;
 }
+
+
+
+
+
+
 
 
 
