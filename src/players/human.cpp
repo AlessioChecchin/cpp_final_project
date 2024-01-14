@@ -1,9 +1,12 @@
 /**
+ * Human implementation.
+ * 
  * @author Jacopo Toniolo
 */
 
 #include "players/human.h"
 #include "players/action.h"
+#include "box.h"
 
 #include <iostream>
 #include <algorithm>

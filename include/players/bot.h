@@ -1,6 +1,9 @@
 /**
+ * Bot class.
+ * 
  * @author Jacopo Toniolo
  */
+
 #ifndef BOT_H
 #define BOT_H
 
@@ -21,7 +24,9 @@ public:
     bot(std::shared_ptr<config> configuration);
 
     /**
-     * Instantiate player with initial balance
+     * Instantiate player with initial balance.
+	 * @param balance Initial balance.
+	 * @param configuration Configuration object.
      */
     bot(unsigned int balance, std::shared_ptr<config> configuration);
 
@@ -34,8 +39,13 @@ public:
     virtual action decision(const box* current_box, const std::set<action>& choices) override;
 
 private:
+
+	/**
+	 * Configuration object.
+	*/
 	std::shared_ptr<config> configuration_;
 };
 
-}
+} // prj
+
 #endif  // BOT_H

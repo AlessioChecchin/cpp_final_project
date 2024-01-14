@@ -1,13 +1,18 @@
+/**
+ * Board implementation.
+ * 
+ * @author Alessio Checchin
+*/
+
 #include "board.h"
-#include "box.h"
-#include "category.h"
-#include "dice.h"
 
 #include <vector>
 #include <algorithm>
-#include <iostream>
 #include <stdexcept>
 
+#include "box.h"
+#include "category.h"
+#include "dice.h"
 #include "config.h"
 
 namespace prj

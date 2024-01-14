@@ -1,4 +1,12 @@
+/**
+ * Category implementation.
+ * 
+ * @author Alessio Checchin
+*/
+
 #include "category.h"
+
+#include <string>
 
 namespace prj
 {

@@ -1,5 +1,6 @@
 /**
  * Board class.
+ * 
  * @author Alessio Checchin
 */
 
@@ -23,6 +24,8 @@ class board
 public:
 	/**
 	 * Default constructor.
+	 * @param configuration Configuration object.
+	 * @throws std::invalid_argument
 	*/
 	board(std::shared_ptr<config> configuration);
 	
@@ -37,6 +40,7 @@ public:
 	 * Returns a non-owning pointer that allows to access a box.
 	 * @param position The position of the box to get.
 	 * @return A non-owning pointer to the box. Pointer lifetime is automatically handled.
+	 * @throws std::out_of_range
 	*/
 	const box* get_box(unsigned int position) const;
 
@@ -44,13 +48,14 @@ public:
 	 * Returns a non-owning pointer that allows to access a box.
 	 * @param position The position of the box to get.
 	 * @return A non-owning pointer to the box. Pointer lifetime is automatically handled.
+	 * @throws std::out_of_range
 	*/
 	box* get_box(unsigned int position);
 
     /**
 	 * Size of the field.
 	*/
-	const static int FIELD_SIZE = 28;
+	constexpr static int FIELD_SIZE = 28;
 
 protected:
 
@@ -63,6 +68,6 @@ protected:
 	std::array<std::unique_ptr<box>, FIELD_SIZE> field_;
 };
 
-}
+} // prj
 
 #endif // BOARD_H

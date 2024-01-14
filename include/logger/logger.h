@@ -1,4 +1,6 @@
 /**
+ * Logger class.
+ * 
  * @author Jacopo Toniolo
  */
 #ifndef LOGGER_H
@@ -12,28 +14,25 @@
 namespace prj
 {
 
-
 /**
- * Logger is a Singleton
+ * Logger is a singleton.
  */
 class logger
 {
 
 public:
     /**
-     * Getter for logger instance
-     * @return logger& - Instance of the singleton
+     * Getter for logger instance.
+     * @return The instance of the singleton.
      */
     static logger& get_logger();
 
     /**
-     * Destructor - necessary to close file 
+     * Destructor. It's necessary to close file 
      */
     ~ logger();
 
 private:
-
-    std::ofstream file_;
 
     /**
      * Default constructor
@@ -41,27 +40,30 @@ private:
     logger();
 
     /**
-     * Copy disable
+     * Copy disabled.
      */
     logger(const logger& l) = delete;
 
     /**
-     * Copy disable
+     * Copy disabled.
      */
     logger& operator=(const logger& l) = delete;
     
-
     /**
-     * operator<< sends logs to the logger
+     * operator<< sends logs to the logger.
      */
     template <typename T>
     friend logger& operator<<(logger& log, const T& obj);
     
     /**
-     * Saves the log message in the log file
+     * Saves the log message in the log file.
      */
     void save_log();
 
+	/**
+	 * File stream.
+	*/
+    std::ofstream file_;
 };
     
 /**
@@ -73,8 +75,9 @@ private:
  */
 logger& operator<<(logger& log, std::ostream& (*f)(std::ostream&));
 
-}
+} // prj
 
+// Template implementation.
 #include "logger/logger.hpp"
 
 #endif // LOGGER_H

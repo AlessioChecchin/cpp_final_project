@@ -17,25 +17,41 @@
 
 namespace prj
 {
+
 /**
  * This class contains all the information necessary to correctly configure the game.
  * It also allows convenient customization by a potential user, who can provide
  * different initialization techniques (for example, a subclass can load all necessary
  * information from a config. file).
- * 
- * @author Alessio Checchin
- * @version 1.0.0
 */
 class config
 {
 public:
+
+	/**
+	 * Class used to archive all the information about a category.
+	*/
 	struct category_config
 	{
+		/**
+		 * Constructor.
+		*/
 		category_config(const std::string c_name, unsigned int c_id, unsigned int c_number):
 			name{c_name}, id{c_id}, number{c_number} {}
 
+		/**
+		 * Name of the category.
+		*/
 		std::string name{};
+
+		/**
+		 * Id of the category.
+		*/
 		unsigned int id{};
+
+		/**
+		 * Number of the category.
+		*/
 		unsigned int number{};
 	};
 public:
@@ -55,12 +71,12 @@ public:
 	/**
 	 * Copy disabled
 	*/
-	config(const config& b) = delete;
+	config(const config& my_config) = delete;
 
 	/**
 	 * Copy disabled
 	*/
-	config& operator=(const config& b) = delete;
+	config& operator=(const config& my_config) = delete;
 
 	/**
 	 * Max round number getter.
@@ -106,6 +122,7 @@ public:
 
 	/**
 	 * Buy land possibility getter.
+	 * @param to_buy THe building to buy.
 	 * @return Chance of a bot buying a land.
 	*/
 	virtual double get_buy_building_possibility(const building* to_buy) const;
@@ -134,6 +151,7 @@ public:
 	 * @param action_performed The performed action
 	 * @param building_category The category of the building.
 	 * @param current_building Current building.
+	 * @return The cost of an action of a building of a certain category.
 	*/
 	virtual	int get_action_cost(action performed_action, const category building_category, const building* current_building) const;
 
@@ -240,6 +258,5 @@ protected:
 };
 
 } // prj
-
 
 #endif// CONFIG_H

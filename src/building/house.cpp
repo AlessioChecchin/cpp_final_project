@@ -1,5 +1,5 @@
 /**
- * House building.
+ * House building implementation.
  * 
  * @author Alessio Checchin
 */
