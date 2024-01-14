@@ -139,6 +139,10 @@ void playground::remove_player(std::shared_ptr<player> to_remove)
 {
 	if(!to_remove)
 		throw std::invalid_argument("Trying to remove null player");
+	if(!is_playing(to_remove))
+	{
+		throw std::invalid_argument("Cannot remove a player which isn't player");
+	}
 	unsigned long int id = to_remove->id_;
 
 
@@ -179,6 +183,15 @@ bool playground::is_playing(std::shared_ptr<player> target) const
 
 void playground::move_player(std::shared_ptr<player> to_move, int steps)
 {
+	if(!to_move)
+	{
+		throw std::invalid_argument("Invalid player");
+	}
+	if(!is_playing(to_move))
+	{
+		throw std::invalid_argument("The player is not playing");
+	}
+
     bool moving_forward = true;
 	// Get number of laps when adding steps 
     int laps = static_cast<int>(std::abs(steps) / board_.FIELD_SIZE);
