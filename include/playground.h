@@ -45,7 +45,7 @@ public:
 	 * @param pos Position index
 	 * @return Box name (row-column)
 	 */
-	virtual std::string get_box_name(unsigned int pos);
+	virtual std::string get_box_name(unsigned int pos) const;
 
 	/**
 	 * Obtain the player that has to play the current round

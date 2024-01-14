@@ -43,7 +43,7 @@ playground::playground(std::shared_ptr<config> configuration): board_{configurat
 		return players_[player_index++];
 	}
 
-std::string playground::get_box_name(unsigned int index)
+std::string playground::get_box_name(unsigned int index) const
 {
 	const int side_lenght = (board_.FIELD_SIZE+4)/4;	// Board has (size*4 - 4) boxes 
 	const int MAX_CHAR_INCREMENT = 26;	// from a to z there are 26 letters
@@ -53,7 +53,7 @@ std::string playground::get_box_name(unsigned int index)
 		throw std::invalid_argument("Index is out of board size");
 
 	std::stringstream result;
-    char start_char = 'a';
+    char start_char = 'A';
 	int row_increment = 0;
     int col = -1;
     char row = '?';
@@ -237,7 +237,6 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 
 		if(owner == nullptr)
 		{
-			std::cout << "NULLLLPTR";
 			// If the box does not have a owner then the user can do nothing or buy the terrain.
 			choices.emplace(action::NOTHING);
 

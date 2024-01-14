@@ -15,20 +15,17 @@ namespace prj
 {
 game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{logger_.get_logger()}
 {
+    // Create dices
+    for(int i=0; i<conf_->get_dice_number(); i++)
+        dices.push_back(std::move(dice(6)));
+
     // Create players with initial budget
     auto tempPlayers = create_players(conf_->get_initial_budget());
 
     // Order players with dice rolling and add the to playground
     order_players(tempPlayers);
 
-    auto players = playgr_.get_players(); // RIMUOVERE
-    //TEST
-    for(int i=0; i<playgr_.number_players(); i++)
-        std::cout<<"Player "<<players[i]->get_id()<<std::endl;
-
-    // 
     bool game_end = false;
-    unsigned int round_counter = 0;    
     std::shared_ptr<player> current_player;
 
     for(int round=0; round<1000 && !game_end; round++)
@@ -68,24 +65,7 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
 					logger_ << "Il player " << current_player->get_id() << " e' stato eliminato " << std::endl;
 					break;
 			}
-
-            // FOR TEST PURPOSE ONLY
-            //if(round%3==0 && turn == 2 && !test)
-            //    {playgr_.test(current_player);
-            //    test= true;}
-            //std::cout<<">>>> score player "<<current_player->get_id()<<" = "<<current_player->get_score()<<std::endl;
             
-    
-            // Check if player has money. If so eliminate him and update players
-            //if(current_player->get_score() < 0)
-            //{
-            //    std::cout<<"!!!!!";
-            //    log_eliminated(current_player);
-            //    playgr_.remove_player(current_player);
-            //    players = playgr_.get_players();
-            //}
-            
-
             // Check if there's only one player left
             if(playgr_.number_players() == 1)
             {
@@ -95,17 +75,13 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
 
         if(game_end)
             log_win(playgr_.next_player());
-	    logger_ << playgr_;
-
 
         logger_ << std::endl;
-
-
    	    std::cout << playgr_;
 
 
         char x;
-        std::cin.get(x);
+//        std::cin.get(x);
     }
 
 
@@ -185,7 +161,7 @@ std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned
     }
     
     // Add human player to playground
-    for(int i=conf_->get_bot_number(); i<conf_->get_human_number(); i++)
+    for(int i=0; i<conf_->get_human_number(); i++)
     {
         std::shared_ptr<player> player(new human(init_balance));
         
@@ -199,12 +175,7 @@ std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned
 }
 
 unsigned long int game::roll_dice()
-{
-    // If not already existing, create dices
-    if(dices.size() == 0)
-        for(int i=0; i<conf_->get_dice_number(); i++)
-            dices.push_back(std::move(dice(6)));
-    
+{   
     // Roll and sum the results
     unsigned int result = 0;
     for(int i=0; i<dices.size(); i++)
@@ -238,7 +209,7 @@ void game::log_arrived(std::shared_ptr<player> p) const
     logger_ << "Giocatore "
             << p->get_id() 
             << " e' arrivato alla casella "
-            << p->get_pos()
+            << playgr_.get_box_name(p->get_pos())
             << std::endl;
 }
 void game::log_bought_house(std::shared_ptr<player> p) const
