@@ -19,7 +19,9 @@ unit_test_board::unit_test_board(): test_suite{"unit_test_board"}
 void unit_test_board::test_constructor()
 {
 	//testing constructor
-	assert(("Failed to create board object", test_board_valid()));
+	assert(("Failed to create board object", test_board_valid(std::shared_ptr<prj::config>(new prj::config())) == true));
+
+	assert(("Failed to create board object", test_board_valid(nullptr) == false));
 }
 
 void unit_test_board::test_getters()
@@ -55,11 +57,11 @@ void unit_test_board::test_methods()
 	assert(("Failing to determine that box -1 is not angular", a.is_angular(-1) == false));
 }
 
-bool test_board_valid()
+bool test_board_valid(std::shared_ptr<prj::config> configuration)
 {
 	try
 	{
-		prj::board a{std::shared_ptr<prj::config>(new prj::config())};
+		prj::board a(configuration);
 		return true;
 	}
 	catch(const std::exception& e)

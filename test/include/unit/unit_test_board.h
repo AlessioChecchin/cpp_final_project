@@ -22,7 +22,7 @@ public:
 	void test_methods();
 };
 
-bool test_board_valid();
+bool test_board_valid(std::shared_ptr<prj::config> configuration);
 bool test_get_valid(const prj::board& b, unsigned int position);
 
 #endif // UNIT_TEST_BOARD_H
