@@ -75,14 +75,15 @@ public:
 private:
 
 	/**
+	 * Contract owner. Might be null.
+	*/
+	std::shared_ptr<player> owner_;
+
+	/**
 	 * Contract building.
 	*/
 	std::unique_ptr<building> building_;
 
-	/**
-	 * Contract owner. Might be null.
-	*/
-	std::shared_ptr<player> owner_;
 };
 
 } // prj

@@ -36,3 +36,5 @@ add_executable(final_project ${SOURCE_FILES})
 
 # Setting include directory. This directory contains all header files.
 target_include_directories(final_project PUBLIC include)
+
+set(CMAKE_CXX_FLAGS "-O3")

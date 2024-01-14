@@ -12,7 +12,7 @@
 namespace prj
 {
 
-player::player(): name_{""}, is_playing_{false}, position_{0}, score_{0}, ownerships_{}
+player::player(): name_{""}, score_{0}, is_playing_{false}, position_{0}, ownerships_{}
 {
 	// This assignment happens only once.
 	static unsigned long int user_id = 1;
