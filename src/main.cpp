@@ -37,6 +37,7 @@ int main(int argc, char* argv[])
 		if(my_config)
 		{
 			game my_game(my_config);
+			my_game.run();
 		}
 	}
 	else

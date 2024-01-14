@@ -31,7 +31,7 @@ namespace prj
 			{ 2, 4,  7 },
 			{ 4, 8, 14 }
 		},
-		round_number_{10}, /// !!!!! da modificare
+		round_number_{20},
 		human_number_{0},
 		bot_number_{4},
 		initial_budget_{100},

@@ -20,8 +20,6 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
 }
 
 
-
-
 void game::run()
 {
     // Create dices
@@ -34,21 +32,15 @@ void game::run()
     // Order players with dice rolling and add them to playground
     order_players(tempPlayers);
 
-    bool game_end = false;
-    std::shared_ptr<player> current_player;
-
-    for(int round=0; round<1000 && !game_end; round++)
+    for(int round=0; round<conf_->get_round_number() && playgr_.number_players() > 1; round++)
     {
-
-        for(int turn=0; turn<playgr_.number_players() && !game_end; turn++)
+        for(int turn=0; turn<playgr_.number_players() && playgr_.number_players() > 1; turn++)
         {
-            unsigned int temp_roll;
-            
             // Get next player
-            current_player = playgr_.next_player();
+            std::shared_ptr<player> current_player = playgr_.next_player();
 
             // Roll dice
-            temp_roll = roll_dice();
+            unsigned int temp_roll = roll_dice();
             log_dice_rolled(current_player, temp_roll);
 
             // Move player
@@ -85,22 +77,37 @@ void game::run()
 					logger_ << "Il player " << current_player->get_id() << " e' stato eliminato " << std::endl;
 					break;
 			}
-            
-            // Check if there's only one player left
-            if(playgr_.number_players() == 1)
-            {
-                game_end = true;
-            }
         }
 
-        if(game_end)
-            log_win(playgr_.next_player());
-
         logger_ << std::endl;
-
     }
 
-    // Game ended due to max round number reached
+    // Last player in game wins
+    if(playgr_.number_players() == 1)
+    {
+        log_win(playgr_.next_player());
+    }
+    // Game ended due to max round number reached.
+    else
+    {
+        // Remaining players are saved in a descending multimap with key equal to player's score
+        std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>> players;
+        for(int i=0; i<playgr_.number_players(); i++)
+        {
+            std::shared_ptr<player> temp_player = playgr_.next_player();
+            players.insert({temp_player->get_score(), temp_player});
+        }
+
+        // Player's who's score is the highest are logged
+        std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>>::iterator it = players.begin();
+
+        int max_score = it->first;
+        for(it; it != players.end(); it++)
+        {
+            if(it->first == max_score)
+                log_win(it->second);
+        }
+    }
 }
 
 
@@ -162,10 +169,6 @@ void game::order_players(std::multimap<unsigned long int , std::shared_ptr<playe
         it++;
     }
 }
-
-
-
-
 
 
 
