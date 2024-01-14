@@ -43,6 +43,11 @@ playground::playground(std::shared_ptr<config> configuration): board_{configurat
 		return players_[player_index++];
 	}
 
+bool playground::has_next_player() const
+{
+	return number_players() != 0;
+}
+
 std::string playground::get_box_name(unsigned int index) const
 {
 	const int side_lenght = (board_.FIELD_SIZE+4)/4;	// Board has (size*4 - 4) boxes 
@@ -99,7 +104,7 @@ std::string playground::get_box_name(unsigned int index) const
 	return result.str();
 }
 
-unsigned int playground::number_players()
+unsigned int playground::number_players() const
 {
 	return players_.size();
 }

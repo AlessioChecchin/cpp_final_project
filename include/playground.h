@@ -54,10 +54,16 @@ public:
 	virtual std::shared_ptr<player> next_player();
 
 	/**
+	 * Returns if there is a next player.
+	 * @returns If there is a next player.
+	*/
+	virtual bool has_next_player() const;
+
+	/**
 	 * Getter for number of players playing
 	 * @return Number of players in the game
 	 */
-	virtual unsigned int number_players();
+	virtual unsigned int number_players() const;
 
 	/**
 	 * Removes a player from the playground.
