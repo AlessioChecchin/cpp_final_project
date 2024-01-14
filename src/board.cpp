@@ -15,6 +15,11 @@ namespace prj
 
 board::board(std::shared_ptr<config> configuration)
 {
+	if(!configuration)
+	{
+		throw std::invalid_argument("Config can't be null");
+	}
+
 	// Reading categories config.
 	std::vector<config::category_config> cat_config = configuration->get_available_categories();
 

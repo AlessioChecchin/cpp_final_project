@@ -17,6 +17,10 @@ namespace prj
 
 game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{logger_.get_logger()}
 {
+	if(!conf)
+	{
+		throw std::invalid_argument("Config can't be null");
+	}
 }
 
 
