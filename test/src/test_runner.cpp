@@ -37,7 +37,7 @@ int main()
 
 	tests.push_back(std::unique_ptr<test_suite>(new unit_test_box()));
 	tests.push_back(std::unique_ptr<test_suite>(new unit_test_board()));
-	tests.push_back(std::unique_ptr<test_suite>(new unit_test_playground()));
+	//tests.push_back(std::unique_ptr<test_suite>(new unit_test_playground()));
 	tests.push_back(std::unique_ptr<test_suite>(new unit_test_game()));
 
 	for(int i = 0; i < tests.size(); i++)

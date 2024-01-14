@@ -12,14 +12,19 @@ unit_test_board::unit_test_board(): test_suite{"unit_test_board"}
 	// Binding method. Based on the current test structure
 	// we are sure that test object does not outlive the current class instance.
 	add_test(test("constructor", std::bind(&unit_test_board::test_constructor, this)));
+	add_test(test("getters", std::bind(&unit_test_board::test_getters, this)));
 	add_test(test("methods", std::bind(&unit_test_board::test_methods, this)));
-	add_test(test("operators", std::bind(&unit_test_board::test_operators, this)));
 }
 
 void unit_test_board::test_constructor()
 {
 	//testing constructor
 	assert(("Failed to create board object", test_board_valid()));
+}
+
+void unit_test_board::test_getters()
+{
+	
 }
 
 void unit_test_board::test_methods()
@@ -41,16 +46,11 @@ void unit_test_board::test_methods()
 	assert(("Failing to determine that box -1 is not angular", a.is_angular(-1) == false));
 }
 
-void unit_test_board::test_operators()
-{
-	//testing operator<<
-}
-
 bool test_board_valid()
 {
 	try
 	{
-		//prj::board a{std::shared_ptr<prj::config>(new prj::config())};
+		prj::board a{std::shared_ptr<prj::config>(new prj::config())};
 		return true;
 	}
 	catch(const std::exception& e)
