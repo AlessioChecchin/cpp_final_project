@@ -38,7 +38,7 @@ action human::decision(const box* current_box, const std::set<action>& choices)
 
 		if(wait_feedback() == 'y')
 		{
-			return action::BUY;
+			return action::UPGRADE;
 		}
 	}
 
