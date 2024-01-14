@@ -72,17 +72,20 @@ void unit_test_playground::test_methods()
 	assert(("Failing to add a player", try_add(a, d) == true));
 	assert(("Failing to add a player", try_add(b, e) == true));
 	assert(("Failing to add a player", try_add(b, f) == true));
-
+	
+	assert(("Failing not to add a player", try_add(a, c) == false));
+	assert(("Failing not to add a player", try_add(a, d) == false));
 	assert(("Failing not to add a player", try_add(a, e) == false));
 	assert(("Failing not to add a player", try_add(a, f) == false));
 	assert(("Failing not to add a player", try_add(b, c) == false));
 	assert(("Failing not to add a player", try_add(b, d) == false));
+	assert(("Failing not to add a player", try_add(b, e) == false));
+	assert(("Failing not to add a player", try_add(b, f) == false));
 
 	assert(("Failing not to add a player", try_add(a, nullptr) == false));
 	assert(("Failing not to add a player", try_add(b, nullptr) == false));
 
 	//testing is_playing()
-
 	assert(("Failing to determine that this player is playing", a.is_playing(c) == true));
 	assert(("Failing to determine that this player is playing", a.is_playing(d) == true));
 	assert(("Failing to determine that this player is playing", b.is_playing(e) == true));
@@ -100,23 +103,76 @@ void unit_test_playground::test_methods()
 	assert(("Failing to determine that this player is playing", a.is_playing(nullptr) == false));
 	// "== true" is there and "== false" is there instead of "!" for better readability
 
-	//assert(("Failing to determine that this player is not playing", a.is_playing(new human()) == false));
-	//assert(("Failing to determine that this player is not playing", a.is_playing(new bot()) == false));
-
 	//testing move_player()
-	//assert(("Failing to move a player", a.try_move(new human(), 1)));		//To complete!!!
-	//assert(("Failing to move a player", a.try_move(new human(), 11)));
-	//assert(("Failing to move a player", a.try_move(new bot(), -5)));
-	//assert(("Failing to move a player", a.try_move(new bot(), 0)));
+	assert(("Failing to move a player", try_move(a, c, 11) == true));
+	assert(("Failing to move a player", try_move(a, d, 0) == true));
+	assert(("Failing to move a player", try_move(b, e, 0) == true));
+	assert(("Failing to move a player", try_move(b, f, -12) == true));
+
+	assert(("Failing not to move a player", try_move(a, g, 0) == false));
+	assert(("Failing not to move a player", try_move(b, g, 0) == false));
+	assert(("Failing not to move a player", try_move(a, nullptr, 0) == false));
+	assert(("Failing not to move a player", try_move(b, nullptr, 0) == false));
 
 	//testing remove_player()
-	//assert(("Failing to remove a player", try_remove(a, new human())));		//To complete!!!
-	//assert(("Failing to remove a player", try_remove(a, new human())));
-	//assert(("Failing to remove a player", try_remove(a, new bot())));
-	//assert(("Failing to remove a player", try_remove(a, new bot())));
+	assert(("Failing not to remove a player", try_remove(a, e) == false));
+	assert(("Failing not to remove a player", try_remove(a, f) == false));
+	assert(("Failing not to remove a player", try_remove(b, c) == false));
+	assert(("Failing not to remove a player", try_remove(b, d) == false));
 
-	//assert(("Failed to get players_", try_get(a)));
+	assert(("Failing not to remove a player", try_remove(a, nullptr) == false));
+	assert(("Failing not to remove a player", try_remove(b, nullptr) == false));
 
+	assert(("Failing to remove a player", try_remove(a, c) == true));
+	assert(("Failing to remove a player", try_remove(a, d) == true));
+	assert(("Failing to remove a player", try_remove(b, e) == true));
+	assert(("Failing to remove a player", try_remove(b, f) == true));
+
+	assert(("Failing not to remove a player", try_remove(a, c) == false));
+	assert(("Failing not to remove a player", try_remove(a, d) == false));
+	assert(("Failing not to remove a player", try_remove(b, e) == false));
+	assert(("Failing not to remove a player", try_remove(b, f) == false));
+
+	//testing number_players(), has_next_player()
+	assert(("Failing to determine the number of players", a.number_players() == 0));
+	assert(("Failing to determine the number of players", b.number_players() == 0));
+
+	assert(("Failing to determine that there isn't a next player", a.has_next_player() == false));
+	assert(("Failing to determine that there isn't a next player", b.has_next_player() == false));
+
+	a.add_player(c);
+	a.add_player(d);
+	b.add_player(e);
+	b.add_player(f);
+
+	assert(("Failing to determine the number of players", a.number_players() == 2));
+	assert(("Failing to determine the number of players", b.number_players() == 2));
+
+	assert(("Failing to determine that there is a next player", b.has_next_player() == true));
+	assert(("Failing to determine that there is a next player", b.has_next_player() == true));
+
+	//testing next_player()
+	assert(("Failing to get the next player", try_next_player(a)));
+	assert(("Failing to get the next player", try_next_player(a)));
+	assert(("Failing to get the next player", try_next_player(b)));
+	assert(("Failing to get the next player", try_next_player(b)));
+
+	//testing perform_action()
+	assert(("Failing to perform action", try_perform_action(a, c) == true));
+	assert(("Failing to perform action", try_perform_action(a, d) == true));
+	assert(("Failing to perform action", try_perform_action(b, e) == true));
+	assert(("Failing to perform action", try_perform_action(b, f) == true));
+
+	assert(("Failing to perform action", try_perform_action(a, e) == false));
+	assert(("Failing to perform action", try_perform_action(a, f) == false));
+	assert(("Failing to perform action", try_perform_action(b, c) == false));
+	assert(("Failing to perform action", try_perform_action(b, d) == false));
+
+	assert(("Failing to perform action", try_perform_action(a, g) == false));
+	assert(("Failing to perform action", try_perform_action(b, g) == false));
+
+	assert(("Failing to perform action", try_perform_action(a, nullptr) == false));
+	assert(("Failing to perform action", try_perform_action(a, nullptr) == false));
 }
 
 bool test_playground_valid()
@@ -140,6 +196,7 @@ bool test_playground_valid()
 		return true;
 	}
 }
+
 bool try_get_players(const prj::playground& a)
 {
 	try
@@ -176,6 +233,7 @@ bool try_get_player_box(const prj::playground& a, std::shared_ptr<prj::player> p
 		return false;
 	}
 }
+
 bool try_add(prj::playground& a, std::shared_ptr<prj::player> p)
 {
 	try
@@ -205,6 +263,32 @@ bool try_remove(prj::playground& a, std::shared_ptr<prj::player> p)
 	try
 	{
 		a.remove_player(p);
+		return true;
+	}
+	catch(const std::exception& e)
+	{
+		return false;
+	}
+}
+
+bool try_next_player(prj::playground& a)
+{
+	try
+	{
+		a.next_player();
+		return true;
+	}
+	catch(const std::exception& e)
+	{
+		return false;
+	}
+}
+
+bool try_perform_action(prj::playground& a, std::shared_ptr<prj::player> p)
+{
+	try
+	{
+		a.perform_action(p);
 		return true;
 	}
 	catch(const std::exception& e)

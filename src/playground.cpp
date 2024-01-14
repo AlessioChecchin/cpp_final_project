@@ -238,7 +238,6 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 	{
 		throw std::invalid_argument("Invalid player");
 	}
-
 	if(!is_playing(to_perform))
 	{
 		throw std::invalid_argument("Player is not playing here");
@@ -254,7 +253,7 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 
 	if(board_.is_angular(to_perform->position_))
 	{
-		// If the box is angulare the user does nothing.
+		// If the box is angular the user does nothing.
 		choices.emplace(action::NOTHING);
 	}
 	else
