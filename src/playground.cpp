@@ -1,3 +1,9 @@
+/**
+ * Playground implementation.
+ * 
+ * @author Alessio Checchin.
+*/
+
 #include "playground.h"
 
 #include <memory>
@@ -120,6 +126,10 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 
 	box* player_box = board_.get_box(to_perform->position_);
 	
+	int buy_cost = 0;
+	int upgrade_cost = 0;
+	int stay_cost = 0;
+
 	if(board_.is_angular(to_perform->position_))
 	{
 		// If the box is angulare the user does nothing.
@@ -129,14 +139,19 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 	{
 		// If the box does not have an owner, the player can buy it.
 		std::shared_ptr<player> owner = board_.get_box(to_perform->position_)->get_contract()->get_owner();
+		const building* current_building = board_.get_box(to_perform->position_)->get_contract()->get_building();
 
 		if(owner == nullptr)
 		{
 			// If the box does not have a owner then the user can do nothing or buy the terrain.
 			choices.emplace(action::NOTHING);
 
-			// TODO: check money.
-			choices.emplace(action::BUY);
+			buy_cost = configuration_->get_action_cost(action::BUY, player_box->get_category(), current_building);
+
+			if(to_perform->score_ - buy_cost >= 0)
+			{
+				choices.emplace(action::BUY);
+			}
 		}
 		else if(owner->id_ == to_perform->id_)
 		{
@@ -145,23 +160,75 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 
 			if(player_box->get_contract()->get_building()->upgradable())
 			{
-				// TODO: check money.
+				upgrade_cost = configuration_->get_action_cost(action::UPGRADE, player_box->get_category(), current_building);
 
 				// If the building in the box is upgradable and he has moeney then he can upgrade it.
-				choices.emplace(action::UPGRADE);
+				if(to_perform->score_ - upgrade_cost >= 0)
+				{
+					choices.emplace(action::UPGRADE);
+				}
 			}
 		}
 		else
 		{
-			choices.emplace(action::STAY);
+			stay_cost = configuration_->get_action_cost(action::STAY, player_box->get_category(), current_building);
+
+			// If the player can pay the the only action possibile is STAY.
+			// Note that to_perform->decision MUST return a STAY action.
+			if(to_perform->score_ - stay_cost >= 0)
+			{
+				choices.emplace(action::STAY);
+			}
+			// If the player can't pay the the only action possibile is LOSE.
+			// Note that to_perform->decision MUST return a LOSE action.
+			else
+			{
+				choices.emplace(action::LOSE);
+			}
 		}
 	}
 
+	// Decision acts as a middleware.
 	action performed = to_perform->decision(board_.get_box(to_perform->position_), choices);
 
+	// Check if the returned action is valid.
 	if(choices.find(performed) == choices.end())
 	{
 		throw std::logic_error("Player can't perform this action now");
+	}
+
+	switch(performed)
+	{
+		case action::NOTHING:
+			break;
+
+		case action::BUY:
+			// Note that the action is already validated previously
+			to_perform->score_ -= buy_cost;
+
+			player_box->get_contract()->set_owner(to_perform);
+			break;
+		
+		case action::UPGRADE:
+			// Note that the action is already validated previously
+			to_perform->score_ -= upgrade_cost;
+
+			// We already know that is upgradable.
+			player_box->get_contract()->set_building(
+				player_box->get_contract()->get_building()->upgrade()
+			);
+			break;
+		
+		case action::STAY:
+			to_perform->score_ -= stay_cost;
+
+			player_box->get_contract()->get_owner()->score_ += stay_cost;
+			break;
+
+		case action::LOSE:
+
+			to_perform->score_ = 0;
+			remove_player(to_perform);
 	}
 
 	return performed;
