@@ -5,6 +5,8 @@
 #include <iomanip>
 #include <cmath>
 #include <algorithm>
+#include <string>
+#include <sstream>
 
 #include "players/player.h"
 #include "board.h"
@@ -30,11 +32,71 @@ playground::playground(std::shared_ptr<config> configuration): board_{configurat
 
 	std::shared_ptr<player> playground::next_player()
 	{
-		if(player_index == players_.size())
+		if(player_index == number_players())
 			player_index = 0;
-		//int player_index = (player_index+1)%players_.size();
 		return players_[player_index++];
 	}
+
+std::string playground::get_box_name(unsigned int index)
+{
+	const int side_lenght = (board_.FIELD_SIZE+4)/4;	// Board has (size*4 - 4) boxes 
+	const int MAX_CHAR_INCREMENT = 26;	// from a to z there are 26 letters
+	
+	//Index is in range [0,size-1]
+	if(index >= board_.FIELD_SIZE)
+		throw std::invalid_argument("Index is out of board size");
+
+	std::stringstream result;
+    char start_char = 'a';
+	int row_increment = 0;
+    int col = -1;
+    char row = '?';
+    
+	// Lower side
+	// With size=8: 0...7 -> H8...H1
+    if( index >= 0 * (side_lenght-1) && index <= 1 * (side_lenght-1))
+    {
+        row_increment = 1 * (side_lenght-1);
+        col = side_lenght - index;
+    }
+	// Left side
+	// With size=8: 7...14 -> H1,G1,...,A1
+    else if( index >  1 * (side_lenght-1) && index <= 2 * (side_lenght-1))
+    {
+        row_increment = 2 * (side_lenght-1) - 1 * index;
+        col = 1;
+    }
+	// Upper side
+	// With size=8: 14...21 -> A1...A8
+    else if( index >  2 * (side_lenght-1) && index <= 3 * (side_lenght-1))
+    {
+        row_increment = 0;
+        col = index - (side_lenght-1)*2 + 1;
+    }
+	// Right side
+	// With size=8: 21...0 -> A8,B8,...,H8
+    else if( index >  3*(side_lenght-1) && index <  4*(side_lenght-1))
+    {
+        row_increment = - 3*(side_lenght-1) + index;
+        col = side_lenght;
+    }
+    
+    // Avaiable chars are only in range [A, ... ,Z]
+    row = start_char + row_increment % (MAX_CHAR_INCREMENT);
+
+    // If board is too large, we use double char to represent rows
+    // E.g: with 27 rows we have A0, B0, ..., Z0, AA0, BB0
+    for(int i=0; i<static_cast<int>(row_increment/MAX_CHAR_INCREMENT)+1; i++)
+    	result << row;	
+    result << col;
+
+	return result.str();
+}
+
+unsigned int playground::number_players()
+{
+	return players_.size();
+}
 
 void playground::add_player(std::shared_ptr<player> new_player)
 {
@@ -182,7 +244,7 @@ std::string playground::format_label_players(const std::multimap<unsigned int, s
 	{
 		if(it->first == position)
 		{
-			formatted += std::to_string(it->second->get_id() + 1);
+			formatted += std::to_string(it->second->get_id());
 		}
 	}
 

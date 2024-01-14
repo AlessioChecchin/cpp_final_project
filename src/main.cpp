@@ -29,6 +29,8 @@ int main()
 	
 	log << std::endl;
 
+	for(int i=0; i<28; i++)
+		std::cout<<i<<" -> "<<p.get_box_name(i)<<std::endl;
 
 //	auto tmp = std::unique_ptr<player>(new bot(100));
 	game myGame(std::shared_ptr<config>(new config()));

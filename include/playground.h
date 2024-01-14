@@ -7,6 +7,8 @@
 #include <vector>
 #include <iostream>
 #include <array>
+#include <string>
+
 
 #include "players/player.h"
 #include "board.h"
@@ -39,10 +41,23 @@ public:
 	virtual void add_player(std::shared_ptr<player> new_player);
 
 	/**
+	 * Getter for the box name 
+	 * @param pos Position index
+	 * @return Box name (row-column)
+	 */
+	virtual std::string get_box_name(unsigned int pos);
+
+	/**
 	 * Obtain the player that has to play the current round
 	 * @return Player that has to play
 	 */
 	virtual std::shared_ptr<player> next_player();
+
+	/**
+	 * Getter for number of players playing
+	 * @return Number of players in the game
+	 */
+	virtual unsigned int number_players();
 
 	/**
 	 * Removes a player from the playground.
