@@ -4,8 +4,9 @@
 #ifndef BOT_H
 #define BOT_H
 
-#include "player.h"
+#include <set>
 
+#include "player.h"
 
 namespace prj
 {
@@ -26,7 +27,7 @@ public:
     /**
      * Decision taken by the player
      */
-    virtual void decision() override;
+    virtual action decision(const box* current_box, const std::set<action>& choices) override;
 };
 
 }

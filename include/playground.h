@@ -76,6 +76,8 @@ public:
 	 */
 	virtual void move_player(std::shared_ptr<player> to_move, int steps);
 
+	virtual action perform_action(std::shared_ptr<player> p);
+
 protected:
 
 	/**

@@ -1,4 +1,13 @@
+/**
+ * Config implementation.
+ * 
+ * @author Alessio Checchin
+*/
+
 #include "config.h"
+#include "players/action.h"
+#include "category.h"
+#include "building/building.h"
 
 #include <string>
 
@@ -14,6 +23,7 @@ namespace prj
 			}
 		},
 		stay_prices_{
+			{ 0, 0,  0 },
 			{ 2, 4,  7 },
 			{ 4, 8, 14 }
 		},
@@ -116,5 +126,39 @@ namespace prj
 	std::vector<config::category_config> config::get_available_categories() const
 	{
 		return available_categories_;
+	}
+
+	int config::get_action_cost(action performed_action, const category building_category, const building* current_building) const
+	{
+		if(!current_building)
+		{
+			return 0;
+		}
+
+		int x = building_category.get_id();
+		int y = current_building->get_id();
+
+		if(performed_action == action::BUY || performed_action == action::UPGRADE)
+		{
+			if(y >= 0 && y <= buy_prices_.size())
+			{
+				if(x >= 0 && x <= buy_prices_[y].size())
+				{
+					return buy_prices_[y][x];
+				}
+			}
+		}
+		else if(performed_action == action::STAY)
+		{
+			if(y >= 0 && y <= stay_prices_.size())
+			{
+				if(x >= 0 && x <= stay_prices_[y].size())
+				{
+					return stay_prices_[y][x];
+				}
+			}
+		}
+
+		return 0;
 	}
 }

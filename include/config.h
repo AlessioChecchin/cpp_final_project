@@ -11,6 +11,10 @@
 #include <vector>
 #include <string>
 
+#include "players/action.h"
+#include "category.h"
+#include "building/building.h"
+
 namespace prj
 {
 /**
@@ -128,6 +132,14 @@ public:
 	*/
 	virtual std::string get_display_prop(const std::string& prop_name) const;
 
+	/**
+	 * Returns the cost of an action of a building of a certain category.
+	 * @param action_performed The performed action
+	 * @param building_category The category of the building.
+	 * @param current_building Current building.
+	*/
+	virtual	int get_action_cost(action performed_action, const category building_category, const building* current_building) const;
+
 protected:
 
 	/**
@@ -148,6 +160,7 @@ protected:
 	 * The default settings are:
 	 * BUILDING      | ECONOMY       | STANDARD      | LUXURY
 	 * ------------- | ------------- | ------------- | -------------
+	 * TERRAIN       | 0             | 0             | 0
 	 * HOUSE         | 2             | 4             | 7
 	 * HOTEL         | 4             | 8             | 14 
 	*/

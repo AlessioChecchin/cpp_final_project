@@ -14,6 +14,9 @@
 namespace prj
 {
 
+class category;
+class contract;
+
 /**
  * Represents a cell of a board.
 */
@@ -67,5 +70,6 @@ private:
 	std::unique_ptr<contract> contract_;
 };
 
-}
+} // prj
+
 #endif // BOX_H
