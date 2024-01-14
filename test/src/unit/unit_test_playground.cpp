@@ -24,7 +24,7 @@ void unit_test_playground::test_constructor()
 	//testing constructor
 	assert(("Failed to create playground object", test_playground_valid(std::shared_ptr<prj::config>(new prj::config())) == true));
 
-	assert(("Failed to create playground object", test_playground_valid(nullptr) == false));
+	assert(("Failed not to create playground object", test_playground_valid(nullptr) == false));
 }
 
 void unit_test_playground::test_getters()

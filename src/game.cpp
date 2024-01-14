@@ -23,7 +23,6 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
 	}
 }
 
-
 void game::run()
 {
     // Create dices
@@ -159,9 +158,6 @@ void game::run()
     }
 }
 
-
-
-
 void game::order_players(std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>>& players)
 {
     std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>> tempMap;
@@ -219,11 +215,6 @@ void game::order_players(std::multimap<unsigned long int , std::shared_ptr<playe
     }
 }
 
-
-
-
-
-
 std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>> game::create_players(unsigned int init_balance)
 {
     std::multimap<unsigned long int , std::shared_ptr<player>, std::greater<unsigned long int>> players;
@@ -262,14 +253,6 @@ unsigned long int game::roll_dice()
 
     return result;
 }
-
-
-
-
-
-
-
-
 
 void game::log_start_bonus(std::shared_ptr<player> p) const
 {
@@ -354,6 +337,5 @@ void game::log_win(std::shared_ptr<player> p)  const
             << " ha vinto la partita"
             << std::endl;
 }
-
 
 }   

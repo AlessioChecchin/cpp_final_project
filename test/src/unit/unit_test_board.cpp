@@ -21,7 +21,7 @@ void unit_test_board::test_constructor()
 	//testing constructor
 	assert(("Failed to create board object", test_board_valid(std::shared_ptr<prj::config>(new prj::config())) == true));
 
-	assert(("Failed to create board object", test_board_valid(nullptr) == false));
+	assert(("Failed not to create board object", test_board_valid(nullptr) == false));
 }
 
 void unit_test_board::test_getters()
