@@ -20,10 +20,10 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
 
     // Order players with dice rolling and add the to playground
     order_players(tempPlayers);
-    auto players = playgr_.get_players();
 
+    auto players = playgr_.get_players(); // RIMUOVERE
     //TEST
-    for(int i=0; i<players.size(); i++)
+    for(int i=0; i<playgr_.number_players(); i++)
         std::cout<<"Player "<<players[i]->get_id()<<std::endl;
 
     // 
@@ -31,23 +31,17 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
     unsigned int round_counter = 0;    
     std::shared_ptr<player> current_player;
 
-    bool test = false;
-
-
-    //for(int round=0; round<conf_->get_round_number() && !game_end; round++)
     for(int round=0; round<1000 && !game_end; round++)
     {
-	    std::cout << playgr_;
 
-        for(int turn=0; turn<players.size() && !game_end; turn++)
+        for(int turn=0; turn<playgr_.number_players() && !game_end; turn++)
         {
             unsigned int temp_roll;
 
-
-        
+            // Get next player
             current_player = playgr_.next_player();
 
-            // Dice roll
+            // Roll dice
             temp_roll = roll_dice();
             log_dice_rolled(current_player, temp_roll);
 
@@ -55,30 +49,39 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
             playgr_.move_player(current_player, temp_roll);
             log_arrived(current_player);
 
-
             // FOR TEST PURPOSE ONLY
-            if(round%3==0 && turn == 2 && !test)
-                {playgr_.test(current_player);
-                test= true;}
-            std::cout<<">>>> score player "<<current_player->get_id()<<" = "<<current_player->get_score()<<std::endl;
-            
-    
-           // Check if player has money. If so eliminate him and update players
-            if(current_player->get_score() < 0)
+            if(round%3==0 && turn == 0)
             {
-                std::cout<<"!!!!!";
+                playgr_.test(current_player);
+            }
+
+
+            // Turn end
+            log_round_ended(current_player);
+
+
+            // Check if player has money. If so eliminate him and update players
+            if(current_player->get_score()<0)
+            {
                 log_eliminated(current_player);
                 playgr_.remove_player(current_player);
-                players = playgr_.get_players();
             }
-            
 
             // Check if there's only one player left
-            if(players.size() == 0)
+            if(playgr_.number_players() == 1)
+            {
                 game_end = true;
-
+            }
         }
+
+        if(game_end)
+            log_win(playgr_.next_player());
+
         logger_ << std::endl;
+
+
+   	    std::cout << playgr_;
+
 
         char x;
         std::cin.get(x);
@@ -274,5 +277,6 @@ void game::log_win(std::shared_ptr<player> p)  const
             << " ha vinto la partita"
             << std::endl;
 }
+
 
 }   
