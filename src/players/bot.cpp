@@ -10,9 +10,13 @@
 
 namespace prj
 {
+bot::bot( std::shared_ptr<config> configuration) : player() {
+	configuration_ = configuration; 
+}  
+
 bot::bot(unsigned int balance, std::shared_ptr<config> configuration) : player(balance) {
 	configuration_ = configuration; 
-}   
+}  
 
 action bot::decision(const box* current_box, const std::set<action>& choices)
 {

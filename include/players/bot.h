@@ -15,6 +15,11 @@ namespace prj
 class bot : public player {
 
 public:
+	/**
+     * Instantiate player
+     */
+    bot(std::shared_ptr<config> configuration);
+
     /**
      * Instantiate player with initial balance
      */
