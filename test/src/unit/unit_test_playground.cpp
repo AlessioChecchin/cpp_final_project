@@ -29,29 +29,79 @@ void unit_test_playground::test_getters()
 {
 	//testing getters
 	prj::playground a(std::shared_ptr<prj::config>(new prj::config()));
-	assert(("Failed to get players_", try_get(a) == true));
+	
+	assert(("Failed to get box 0 name", a.get_box_name(0) == "H8"));
+	assert(("Failed to get box 1 name", a.get_box_name(1) == "H7"));
+	assert(("Failed to get box 14 name", a.get_box_name(14) == "A1"));
+	assert(("Failed to get box 27 name", a.get_box_name(27) == "G8"));
+
+	assert(("Failed not to get box -1 name", try_get_box_names(a, -1) == false));
+	assert(("Failed not to get box 28 name", try_get_box_names(a, 28) == false));
+	assert(("Failed not to get box 100 name", try_get_box_names(a, 100) == false));
+	assert(("Failed not to get box 35 name", try_get_box_names(a, 35) == false));
+	
+	std::shared_ptr<prj::player> b(new prj::human());
+	std::shared_ptr<prj::player> c(new prj::bot(std::shared_ptr<prj::config>(new prj::config())));
+	a.add_player(b);
+	a.add_player(c);
+	a.move_player(c, 4);
+
+	assert(("Failed to get players_", try_get_players(a) == true));
+
+	assert(("Failed to get player b box", try_get_player_box(a, b) == true));
+	assert(("Failed to get player c box", try_get_player_box(a, c) == true));
+
+	assert(("Failed not to get player nullptr box", try_get_player_box(a, nullptr) == false));
+
 }
 
 void unit_test_playground::test_methods()
 {
 	//testing add_player()
 	prj::playground a(std::shared_ptr<prj::config>(new prj::config()));
-	
-	//assert(("Failing to add a player", try_add(a, new human())));		//To complete!!!
-	//assert(("Failing to add a player", try_add(a, new human())));
-	//assert(("Failing to add a player", try_add(a, new bot())));
-	//assert(("Failing to add a player", try_add(a, new bot())));
+	prj::playground b(std::shared_ptr<prj::config>(new prj::config()));
 
-	//assert(("Failed to get players_", try_get(a)));
+	std::shared_ptr<prj::player> c(new prj::human());
+	std::shared_ptr<prj::player> d(new prj::human());
+	std::shared_ptr<prj::player> e(new prj::bot(std::shared_ptr<prj::config>(new prj::config())));
+	std::shared_ptr<prj::player> f(new prj::bot(std::shared_ptr<prj::config>(new prj::config())));
+	
+	std::shared_ptr<prj::player> g(new prj::human());
+
+	assert(("Failing to add a player", try_add(a, c) == true));
+	assert(("Failing to add a player", try_add(a, d) == true));
+	assert(("Failing to add a player", try_add(b, e) == true));
+	assert(("Failing to add a player", try_add(b, f) == true));
+
+	assert(("Failing not to add a player", try_add(a, e) == false));
+	assert(("Failing not to add a player", try_add(a, f) == false));
+	assert(("Failing not to add a player", try_add(b, c) == false));
+	assert(("Failing not to add a player", try_add(b, d) == false));
+
+	assert(("Failing not to add a player", try_add(a, nullptr) == false));
+	assert(("Failing not to add a player", try_add(b, nullptr) == false));
 
 	//testing is_playing()
-	//assert(("Failing to determine that this player is playing", a.is_playing(new human()) == true));	//To complete!!!
-	//assert(("Failing to determine that this player is playing", a.is_playing(new bot()) == true));
-	// "== true" is there for better readability
+
+	assert(("Failing to determine that this player is playing", a.is_playing(c) == true));
+	assert(("Failing to determine that this player is playing", a.is_playing(d) == true));
+	assert(("Failing to determine that this player is playing", b.is_playing(e) == true));
+	assert(("Failing to determine that this player is playing", b.is_playing(f) == true));
+	
+	assert(("Failing to determine that this player is playing", a.is_playing(e) == false));
+	assert(("Failing to determine that this player is playing", a.is_playing(f) == false));
+	assert(("Failing to determine that this player is playing", b.is_playing(c) == false));
+	assert(("Failing to determine that this player is playing", b.is_playing(d) == false));
+
+	assert(("Failing to determine that this player is playing", a.is_playing(g) == false));
+	assert(("Failing to determine that this player is playing", b.is_playing(g) == false));
+
+	assert(("Failing to determine that this player is playing", a.is_playing(nullptr) == false));
+	assert(("Failing to determine that this player is playing", a.is_playing(nullptr) == false));
+	// "== true" is there and "== false" is there instead of "!" for better readability
 
 	//assert(("Failing to determine that this player is not playing", a.is_playing(new human()) == false));
 	//assert(("Failing to determine that this player is not playing", a.is_playing(new bot()) == false));
-	// "== false" is there instead of "!" for better readability
 
 	//testing move_player()
 	//assert(("Failing to move a player", a.try_move(new human(), 1)));		//To complete!!!
@@ -90,11 +140,35 @@ bool test_playground_valid()
 		return true;
 	}
 }
-bool try_get(const prj::playground& a)
+bool try_get_players(const prj::playground& a)
 {
 	try
 	{
 		a.get_players();
+		return true;
+	}
+	catch(const std::exception& e)
+	{
+		return false;
+	}
+}
+bool try_get_box_names(const prj::playground& a, unsigned int position)
+{
+	try
+	{
+		a.get_box_name(position);
+		return true;
+	}
+	catch(const std::exception& e)
+	{
+		return false;
+	}
+}
+bool try_get_player_box(const prj::playground& a, std::shared_ptr<prj::player> p)
+{
+	try
+	{
+		a.get_player_box(p);
 		return true;
 	}
 	catch(const std::exception& e)

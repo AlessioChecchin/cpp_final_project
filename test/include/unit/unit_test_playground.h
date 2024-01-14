@@ -28,7 +28,9 @@ public:
 };
 
 bool test_playground_valid();
-bool try_get(const prj::playground& a);
+bool try_get_players(const prj::playground& a);
+bool try_get_box_names(const prj::playground& a, unsigned int position);
+bool try_get_player_box(const prj::playground& a, std::shared_ptr<prj::player> p);
 bool try_add(prj::playground& a, std::shared_ptr<prj::player> p);
 bool try_move(prj::playground& a, std::shared_ptr<prj::player> p, int steps);
 bool try_remove(prj::playground& a, std::shared_ptr<prj::player> p);
