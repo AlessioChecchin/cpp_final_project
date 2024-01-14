@@ -19,9 +19,6 @@ namespace prj
 class playground
 {	
 public:
-	// TO REMOVE
-	void test(std::shared_ptr<player> player);
-
 	playground(std::shared_ptr<config> configuration);
 
     /**

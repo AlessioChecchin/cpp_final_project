@@ -17,7 +17,6 @@ unit_test_playground::unit_test_playground(): test_suite{"unit_test_playground"}
 	add_test(test("constructor", std::bind(&unit_test_playground::test_constructor, this)));
 	add_test(test("getters", std::bind(&unit_test_playground::test_getters, this)));
 	add_test(test("methods", std::bind(&unit_test_playground::test_methods, this)));
-	add_test(test("operators", std::bind(&unit_test_playground::test_operators, this)));
 }
 
 void unit_test_playground::test_constructor()
@@ -30,7 +29,7 @@ void unit_test_playground::test_getters()
 {
 	//testing getters
 	prj::playground a(std::shared_ptr<prj::config>(new prj::config()));
-	assert(("Failed to get players_", try_get(a)));
+	assert(("Failed to get players_", try_get(a) == true));
 }
 
 void unit_test_playground::test_methods()
@@ -70,24 +69,28 @@ void unit_test_playground::test_methods()
 
 }
 
-void unit_test_playground::test_operators()
-{
-	//testing operator<<
-}
-
 bool test_playground_valid()
 {
 	try
 	{
 		prj::playground a(std::shared_ptr<prj::config>(new prj::config()));
-		return true;
 	}
 	catch(const std::exception& e)
 	{
 		return false;
 	}
+
+	try
+	{
+		prj::playground b(nullptr);
+		return false;
+	}
+	catch(const std::exception& e)
+	{
+		return true;
+	}
 }
-bool try_get(prj::playground& a)	//add const reference!!! 
+bool try_get(const prj::playground& a)
 {
 	try
 	{

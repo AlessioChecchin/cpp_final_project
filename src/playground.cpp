@@ -23,12 +23,6 @@
 namespace prj
 {
 
-// TO REMOVE
-void playground::test(std::shared_ptr<player> player)
-{
-	player->score_ = -1000;
-}
-
 playground::playground(std::shared_ptr<config> configuration): board_{configuration}, players_{}, player_index{0}, configuration_{configuration}
 {
 	if(!configuration)
@@ -37,12 +31,12 @@ playground::playground(std::shared_ptr<config> configuration): board_{configurat
 	}
 }
 
-	std::shared_ptr<player> playground::next_player()
-	{
-		if(player_index >= number_players())
-			player_index = 0;
-		return players_[player_index++];
-	}
+std::shared_ptr<player> playground::next_player()
+{
+	if(player_index >= number_players())
+		player_index = 0;
+	return players_[player_index++];
+}
 
 bool playground::has_next_player() const
 {

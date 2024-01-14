@@ -25,11 +25,10 @@ public:
 	void test_constructor();
 	void test_getters();
 	void test_methods();
-	void test_operators();
 };
 
 bool test_playground_valid();
-bool try_get(prj::playground& a);	//add const reference!!! 
+bool try_get(const prj::playground& a);
 bool try_add(prj::playground& a, std::shared_ptr<prj::player> p);
 bool try_move(prj::playground& a, std::shared_ptr<prj::player> p, int steps);
 bool try_remove(prj::playground& a, std::shared_ptr<prj::player> p);
