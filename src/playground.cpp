@@ -38,7 +38,7 @@ playground::playground(std::shared_ptr<config> configuration): board_{configurat
 
 	std::shared_ptr<player> playground::next_player()
 	{
-		if(player_index == number_players())
+		if(player_index >= number_players())
 			player_index = 0;
 		return players_[player_index++];
 	}
@@ -136,6 +136,9 @@ void playground::remove_player(std::shared_ptr<player> to_remove)
 	if(!to_remove)
 		throw std::invalid_argument("Trying to remove null player");
 	unsigned long int id = to_remove->id_;
+
+	player_index--; //Necessary to avoid player_index invalidation
+
 	auto element = std::find_if(players_.begin(), players_.end(), [id](std::shared_ptr<player> p)
 	{
 		return p->get_id() == id;

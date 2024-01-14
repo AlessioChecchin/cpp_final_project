@@ -34,7 +34,7 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
         for(int turn=0; turn<playgr_.number_players() && !game_end; turn++)
         {
             unsigned int temp_roll;
-
+            
             // Get next player
             current_player = playgr_.next_player();
 
@@ -78,11 +78,10 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
 
         logger_ << std::endl;
    	    std::cout << playgr_;
-
-
-        char x;
-//        std::cin.get(x);
     }
+
+    // Game ended due to max round number reached
+
 
 
 }
