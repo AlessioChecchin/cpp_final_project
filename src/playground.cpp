@@ -106,6 +106,10 @@ unsigned int playground::number_players() const
 
 void playground::add_player(std::shared_ptr<player> new_player)
 {
+	if(!new_player)
+	{
+		throw std::invalid_argument("Invalid player");
+	}
 	if(new_player->is_playing_)
 	{
 		throw std::invalid_argument("The player is already assigned to a playground");
