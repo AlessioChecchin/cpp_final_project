@@ -19,7 +19,7 @@ namespace prj
 		},
 		round_number_{10}, /// !!!!! da modificare
 		human_number_{0},
-		bot_number_{40},
+		bot_number_{4},
 		initial_budget_{100},
 		bonus_cycle_{20},
 		dice_number_{2},

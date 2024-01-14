@@ -30,8 +30,9 @@ playground::playground(std::shared_ptr<config> configuration): board_{configurat
 
 	std::shared_ptr<player> playground::next_player()
 	{
-		if(player_index == 4)
+		if(player_index == players_.size())
 			player_index = 0;
+		//int player_index = (player_index+1)%players_.size();
 		return players_[player_index++];
 	}
 
@@ -64,24 +65,23 @@ std::vector<std::shared_ptr<const player>> playground::get_players() const
 
 void playground::remove_player(std::shared_ptr<player> to_remove)
 {
+	if(!to_remove)
+		throw std::invalid_argument("Trying to remove null player");
 	unsigned long int id = to_remove->id_;
-	// auto element = std::find_if(players_.begin(), players_.end(), [id](std::shared_ptr<player> p)
-	// {
-	// 	return p->get_id() == id;
-	// });
+	auto element = std::find_if(players_.begin(), players_.end(), [id](std::shared_ptr<player> p)
+	{
+		return p->get_id() == id;
+	});
 	
 
-	// Fails silently.
-	// if(element == players_.end())	
-	// {
-	// 	return;
-	// }
+	//Fails silently.
+	if(element == players_.end())	
+	{
+		return;
+	}
 	
-	// (*element)->is_playing_ = false; 
-	players_.erase(players_.begin());
-	
-	players_ = get_players();
-
+	(*element)->is_playing_ = false; 
+	players_.erase(element);
 }
 
 bool playground::is_playing(std::shared_ptr<player> target) const

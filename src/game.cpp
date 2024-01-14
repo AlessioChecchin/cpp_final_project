@@ -33,22 +33,13 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
 
     bool test = false;
 
-    for(int i=0; i<40; i++)
-    {
-        std::cout<<"Playerssssssssssssssssss: "<<players.size()<< " -> ";
-
-        playgr_.remove_player(players[i]);
-        players = playgr_.get_players();
-
-        std::cout<<players.size()<<std::endl;
-    }
 
     //for(int round=0; round<conf_->get_round_number() && !game_end; round++)
     for(int round=0; round<1000 && !game_end; round++)
     {
 	    std::cout << playgr_;
 
-        for(int turn=0; turn<conf->get_bot_number() + conf_->get_human_number() && !game_end; turn++)
+        for(int turn=0; turn<players.size() && !game_end; turn++)
         {
             unsigned int temp_roll;
 
@@ -72,16 +63,14 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
             std::cout<<">>>> score player "<<current_player->get_id()<<" = "<<current_player->get_score()<<std::endl;
             
     
-            // Check if player has money. If so eliminate him and update players
-            // if(current_player->get_score() < 0)
-            // {
-            //     std::cout<<"!!!!!";
-            //     log_eliminated(current_player);
-            //     playgr_.remove_player(current_player);
-            //     players = playgr_.get_players();
-
-                
-            // }
+           // Check if player has money. If so eliminate him and update players
+            if(current_player->get_score() < 0)
+            {
+                std::cout<<"!!!!!";
+                log_eliminated(current_player);
+                playgr_.remove_player(current_player);
+                players = playgr_.get_players();
+            }
             
 
             // Check if there's only one player left
