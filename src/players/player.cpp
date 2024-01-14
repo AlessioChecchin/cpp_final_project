@@ -1,10 +1,11 @@
 #include "players/player.h"
 
 #include <string>
+#include <vector>
 
 namespace prj
 {
-	player::player(): name_{""}, is_playing_{false}, position_{0}, score_{0}
+	player::player(): name_{""}, is_playing_{false}, position_{0}, score_{0}, ownerships_{}
 	{
 		// This assignment happens only once.
 		static unsigned long int user_id = 1;

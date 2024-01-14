@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <string>
 #include <sstream>
+#include <vector>
 
 #include "players/player.h"
 #include "board.h"
@@ -137,21 +138,29 @@ void playground::remove_player(std::shared_ptr<player> to_remove)
 		throw std::invalid_argument("Trying to remove null player");
 	unsigned long int id = to_remove->id_;
 
-	player_index--; //Necessary to avoid player_index invalidation
 
+	
 	auto element = std::find_if(players_.begin(), players_.end(), [id](std::shared_ptr<player> p)
 	{
 		return p->get_id() == id;
 	});
 	
-
 	//Fails silently.
 	if(element == players_.end())	
 	{
 		return;
 	}
 	
-	(*element)->is_playing_ = false; 
+	player_index--; //Necessary to avoid player_index invalidation
+
+	// Find all ownership of the player. Set their contract owner to nullptr
+	for(unsigned int pos : to_remove->ownerships_)
+	{
+		board_.get_box(pos)->get_contract()->set_owner(nullptr);
+	}
+	
+	(*element)->is_playing_ = false;
+
 	players_.erase(element);
 }
 
@@ -304,6 +313,9 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 			to_perform->score_ -= buy_cost;
 
 			player_box->get_contract()->set_owner(to_perform);
+
+			// Save position of the terrain bought
+			to_perform->ownerships_.push_back(to_perform->get_pos());
 			break;
 		
 		case action::UPGRADE:
