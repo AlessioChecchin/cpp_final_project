@@ -3,6 +3,7 @@
 
 #include <string>
 #include <set>
+#include <vector>
 
 #include "box.h"
 #include "players/action.h"
@@ -55,6 +56,7 @@ namespace prj
 		 */
 		int get_score() const;
 
+
 		/**
 		 * Decision taken by the player
 		 * @param current_box The box the player is in.
@@ -77,7 +79,9 @@ namespace prj
 		int score_{};
 		bool is_playing_{};
 		unsigned long int id_{};
-		unsigned int position_;
+		unsigned int position_{};
+		std::vector<unsigned int> ownerships_{};
+
 
 	protected:
 		/**

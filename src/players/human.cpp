@@ -6,6 +6,7 @@
 #include "players/action.h"
 
 #include <iostream>
+#include <algorithm>
 
 namespace prj
 {
@@ -18,50 +19,71 @@ action human::decision(const box* current_box, const std::set<action>& choices)
 	// If he has only one choice it's returned.
 	// No interaction is made.
 	if(choices.size() == 1)
-	{
 		return *choices.begin();
-	}
 
-	if(choices.find(action::BUY) != choices.end())
+	// Check if a choice is specified.
+	bool is_buy = choices.find(action::BUY) != choices.end();
+	bool is_upgrade = choices.find(action::UPGRADE) != choices.end();
+	bool is_show = choices.find(action::SHOW) != choices.end();
+
+	// If is a buy action or upgrade action
+	if(is_buy || is_upgrade)
 	{
-		std::cout << "Il terreno attuale e' libero, lo vuoi comprare?" << std::endl;
+		char feedback;
 
-		if(wait_feedback() == 'y')
+		// Buy has priority over upgrade.
+		if(is_buy)
 		{
-			return action::BUY;
+			feedback = wait_feedback("Vuoi comprare la proprieta'? [s/n/show] ");
+
+			if(feedback == 's')
+				return action::BUY;
 		}
-	}
-	else if(choices.find(action::UPGRADE) != choices.end())
-	{
-
-		std::cout << "Vuoi fare l'upgrade [" << current_box->get_contract()->get_building()->get_name() << "] ?" << std::endl;
-
-		if(wait_feedback() == 'y')
+		else if(is_upgrade)
 		{
-			return action::BUY;
+			feedback = wait_feedback("Vuoi effettuare un upgrade'? [s/n/show]");
+
+			if(feedback == 's')
+				return action::UPGRADE;
+		}
+		
+		// Show command can only be done when interacting with buy or upgrade.
+		if(is_show && feedback == 'm')
+		{
+			return action::SHOW;
 		}
 	}
 
 	return action::NOTHING;
 }
 
-char human::wait_feedback()
+char human::wait_feedback(const std::string& message)
 {
 	std::string response;
 
+	bool is_valid = false;
+
 	do 
 	{
-		std::cin >> response;
+		std::cout << message;
+		std::getline(std::cin, response);
 		std::cin.clear();
 
-		if(response.empty() || (std::tolower(response[0]) != 'y' && std::tolower(response[0] != 'n')))
+		is_valid = response == "S" || response == "s" ||
+				   response == "N"  || message == "n" ||
+				   response == "show" || response == "SHOW";
+		
+		if(!is_valid)
 		{
-			std::cout << "Risposta non valida" << std::endl;
+			std::cout << "[ERRORE] Risposta non valida!" << std::endl;
 		}
 
 	}
-	while(response.empty() || (std::tolower(response[0]) != 'y' && std::tolower(response[0] != 'n')));
+	while(!is_valid);
 
+	if(response == "show")
+		return 'm';
+	
 	return std::tolower(response[0]);
 }
 

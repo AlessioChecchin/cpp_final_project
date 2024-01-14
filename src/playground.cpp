@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <string>
 #include <sstream>
+#include <vector>
 
 #include "players/player.h"
 #include "board.h"
@@ -38,12 +39,17 @@ playground::playground(std::shared_ptr<config> configuration): board_{configurat
 
 	std::shared_ptr<player> playground::next_player()
 	{
-		if(player_index == number_players())
+		if(player_index >= number_players())
 			player_index = 0;
 		return players_[player_index++];
 	}
 
-std::string playground::get_box_name(unsigned int index)
+bool playground::has_next_player() const
+{
+	return number_players() != 0;
+}
+
+std::string playground::get_box_name(unsigned int index) const
 {
 	const int side_lenght = (board_.FIELD_SIZE+4)/4;	// Board has (size*4 - 4) boxes 
 	const int MAX_CHAR_INCREMENT = 26;	// from a to z there are 26 letters
@@ -53,7 +59,7 @@ std::string playground::get_box_name(unsigned int index)
 		throw std::invalid_argument("Index is out of board size");
 
 	std::stringstream result;
-    char start_char = 'a';
+    char start_char = 'A';
 	int row_increment = 0;
     int col = -1;
     char row = '?';
@@ -99,7 +105,7 @@ std::string playground::get_box_name(unsigned int index)
 	return result.str();
 }
 
-unsigned int playground::number_players()
+unsigned int playground::number_players() const
 {
 	return players_.size();
 }
@@ -136,19 +142,30 @@ void playground::remove_player(std::shared_ptr<player> to_remove)
 	if(!to_remove)
 		throw std::invalid_argument("Trying to remove null player");
 	unsigned long int id = to_remove->id_;
+
+
+	
 	auto element = std::find_if(players_.begin(), players_.end(), [id](std::shared_ptr<player> p)
 	{
 		return p->get_id() == id;
 	});
 	
-
 	//Fails silently.
 	if(element == players_.end())	
 	{
 		return;
 	}
 	
-	(*element)->is_playing_ = false; 
+	player_index--; //Necessary to avoid player_index invalidation
+
+	// Find all ownership of the player. Set their contract owner to nullptr
+	for(unsigned int pos : to_remove->ownerships_)
+	{
+		board_.get_box(pos)->get_contract()->set_owner(nullptr);
+	}
+	
+	(*element)->is_playing_ = false;
+
 	players_.erase(element);
 }
 
@@ -237,7 +254,6 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 
 		if(owner == nullptr)
 		{
-			std::cout << "NULLLLPTR";
 			// If the box does not have a owner then the user can do nothing or buy the terrain.
 			choices.emplace(action::NOTHING);
 
@@ -246,6 +262,7 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 			if(to_perform->score_ - buy_cost >= 0)
 			{
 				choices.emplace(action::BUY);
+				choices.emplace(action::SHOW);
 			}
 		}
 		else if(owner->id_ == to_perform->id_)
@@ -261,6 +278,7 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 				if(to_perform->score_ - upgrade_cost >= 0)
 				{
 					choices.emplace(action::UPGRADE);
+					choices.emplace(action::SHOW);
 				}
 			}
 		}
@@ -302,6 +320,9 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 			to_perform->score_ -= buy_cost;
 
 			player_box->get_contract()->set_owner(to_perform);
+
+			// Save position of the terrain bought
+			to_perform->ownerships_.push_back(to_perform->get_pos());
 			break;
 		
 		case action::UPGRADE:
@@ -324,6 +345,8 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 
 			to_perform->score_ = 0;
 			remove_player(to_perform);
+		
+		default: break;
 	}
 
 	return performed;
