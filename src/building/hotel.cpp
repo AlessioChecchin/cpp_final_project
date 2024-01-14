@@ -1,5 +1,5 @@
 /**
- * Hotel building.
+ * Hotel building implementation.
  * 
  * @author Alessio Checchin
 */

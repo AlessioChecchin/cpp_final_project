@@ -16,22 +16,27 @@
 namespace prj
 {
 
+// Forward declaration.
 class player;
 
 class contract
 {
 public:
-
+	/**
+	 * Default constructor.
+	 * Default initializes the contract for a terrain.
+	*/
 	contract();
-	/**
-	 * A contract is unique and contains non copiable objects.
-	*/
-	contract(const contract& c) = delete;
 
 	/**
 	 * A contract is unique and contains non copiable objects.
 	*/
-	contract& operator=(const contract& c) = delete;
+	contract(const contract& my_contract) = delete;
+
+	/**
+	 * A contract is unique and contains non copiable objects.
+	*/
+	contract& operator=(const contract& my_contract) = delete;
 
 	/**
 	 * Returns the owner associated with the contract.

@@ -29,7 +29,7 @@ logger::~logger()
 }
 
 /**
- * !! Necessary to allow std::endl concatenation !!
+ * Necessary to allow std::endl concatenation.
 */
 logger& operator<<(logger& log, std::ostream& (*f)(std::ostream&))
 {
@@ -37,6 +37,4 @@ logger& operator<<(logger& log, std::ostream& (*f)(std::ostream&))
     return log;
 }
 
-
-
-}
+} // prj.

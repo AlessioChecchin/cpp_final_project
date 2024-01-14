@@ -14,6 +14,7 @@
 namespace prj
 {
 
+// Forward declaration.
 class category;
 class contract;
 
@@ -27,34 +28,33 @@ public:
 	/**
 	 * Constructor.
 	*/
-	box(const category& cat);
+	box(const category& my_category);
 
 	/**
 	 * Copy disabled, it contains non-copiable object.
 	*/
-	box(const box& b) = delete;
+	box(const box& my_box) = delete;
 
 	/**
 	 * Copy disabled, it contains non-copiable object.
 	*/
-	box& operator=(const box& b) = delete;
+	box& operator=(const box& my_box) = delete;
 
 	/**
 	 * Category getter.
 	 * @return The category of the box.
 	*/
-	category get_category() const
-	{
-		return category_;
-	}
+	category get_category() const;
 
 	/**
 	 * Contract getter.
+	 * @return The contract associated with the box.
 	*/
 	contract* get_contract();
 
 	/**
 	 * Contract getter.
+	 * @return The contract associated with the box.
 	*/
 	const contract* get_contract() const;
 

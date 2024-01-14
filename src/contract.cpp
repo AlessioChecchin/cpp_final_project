@@ -5,6 +5,9 @@
 */
 
 #include "contract.h"
+
+#include <memory>
+
 #include "building/terrain.h"
 
 namespace prj
@@ -20,9 +23,9 @@ std::shared_ptr<player> contract::get_owner() const
 
 void contract::set_owner(std::shared_ptr<player> owner)
 {
+	// May be null.
 	owner_ = owner;
 }
-
 
 building* contract::get_building()
 {
@@ -41,4 +44,4 @@ void contract::set_building(std::unique_ptr<building> new_building)
 	building_ = std::move(new_building);
 }
 
-}
+} // prj

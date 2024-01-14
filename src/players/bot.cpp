@@ -1,16 +1,27 @@
 /**
+ * Bot implementation.
+ * 
  * @author Jacopo Toniolo
 */
 
 #include "players/bot.h"
-#include "players/action.h"
+
 #include <iostream>
 #include <set>
+
+#include "players/action.h"
 #include "dice.h"
 
 namespace prj
 {
-bot::bot(unsigned int balance, std::shared_ptr<config> configuration) : player(balance) {
+
+bot::bot(unsigned int balance, std::shared_ptr<config> configuration) : player(balance)
+{
+	if(!configuration)
+	{
+		throw std::invalid_argument("Invalid configuration file");
+	}
+
 	configuration_ = configuration; 
 }   
 
@@ -32,7 +43,7 @@ action bot::decision(const box* current_box, const std::set<action>& choices)
 
 			dice generator(possibile_faces);
 
-			// The possibility of getting 1 from in [1, possible_faces] is exactly possibility.
+			// The possibility of getting 1 from in [1, possible_faces] is exactly "possibility".
 			if(generator.roll() == 1)
 			{
 				return action::BUY;
