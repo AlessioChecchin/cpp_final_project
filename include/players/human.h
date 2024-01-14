@@ -32,7 +32,7 @@ public:
     virtual action decision(const box* current_box, const std::set<action>& choices) override;
 
 private:
-	char wait_feedback();
+	char wait_feedback(const std::string& message);
 };
 
 }

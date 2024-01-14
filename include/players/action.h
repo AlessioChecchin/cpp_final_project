@@ -15,7 +15,8 @@ namespace prj
 		STAY = 1,
 		UPGRADE = 2,
 		NOTHING = 3,
-		LOSE = 4
+		LOSE = 4,
+		SHOW = 5
 	};
 }
 

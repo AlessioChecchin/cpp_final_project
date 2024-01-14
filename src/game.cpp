@@ -55,7 +55,18 @@ void game::run()
             playgr_.move_player(current_player, temp_roll);
             log_arrived(current_player);
 
-			action result = playgr_.perform_action(current_player);
+			action result;
+			
+			do
+			{
+				result = playgr_.perform_action(current_player);
+
+				if(result == action::SHOW)
+				{
+					std::cout << playgr_;
+				}
+			}
+			while(result == action::SHOW);
 
 			switch(result)
 			{
@@ -86,7 +97,7 @@ void game::run()
             log_win(playgr_.next_player());
 
         logger_ << std::endl;
-   	    std::cout << playgr_;
+
     }
 
     // Game ended due to max round number reached

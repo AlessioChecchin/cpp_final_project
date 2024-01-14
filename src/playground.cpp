@@ -262,6 +262,7 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 			if(to_perform->score_ - buy_cost >= 0)
 			{
 				choices.emplace(action::BUY);
+				choices.emplace(action::SHOW);
 			}
 		}
 		else if(owner->id_ == to_perform->id_)
@@ -277,6 +278,7 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 				if(to_perform->score_ - upgrade_cost >= 0)
 				{
 					choices.emplace(action::UPGRADE);
+					choices.emplace(action::SHOW);
 				}
 			}
 		}
@@ -343,6 +345,8 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 
 			to_perform->score_ = 0;
 			remove_player(to_perform);
+		
+		default: break;
 	}
 
 	return performed;
