@@ -62,8 +62,14 @@ namespace prj
 		buy_possibility_[terrain().get_id()] = 0.25;
 		buy_possibility_[house().get_id()] = 0.25;
 		buy_possibility_[hotel().get_id()] = 0.25;
-
 	}
+
+	config::config(unsigned int human_number, unsigned int bot_number): config() // delegating constructor.
+	{
+		human_number_ = human_number;
+		bot_number_ = bot_number;
+	}
+
 
 	unsigned int config::get_round_number() const
 	{

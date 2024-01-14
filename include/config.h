@@ -40,8 +40,17 @@ public:
 	};
 public:
 
+	/**
+	 * Default constructor.
+	*/
 	config();
 
+	/**
+	 * Constructor for custom human and bot number.
+	 * @param human_number Number of human players.
+	 * @param bot_number Number of bot.
+	*/
+	config(unsigned int human_number, unsigned int bot_number);
 
 	/**
 	 * Copy disabled

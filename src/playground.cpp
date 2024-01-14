@@ -267,6 +267,21 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 	return performed;
 }
 
+const box* playground::get_player_box(std::shared_ptr<player> my_player) const
+{
+	if(!my_player)
+	{
+		throw std::invalid_argument("Invalid player");
+	}
+
+	if(!is_playing(my_player))
+	{
+		throw std::invalid_argument("Invalid player");
+	}
+
+	return board_.get_box(my_player->position_);
+}
+
 // Protected methods
 
 std::string playground::format_text(unsigned int position) const
