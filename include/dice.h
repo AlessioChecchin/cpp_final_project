@@ -22,6 +22,13 @@ namespace prj
         dice(unsigned int faces);
 
         /**
+         * Construct dice by seed
+         * @param faces Number of faces
+         * @param int Seed to use 
+         */
+        dice(unsigned int faces, unsigned int seed);
+
+        /**
          * Roll the dice 
          * @return Random number between 1 and "faces"
          */

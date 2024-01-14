@@ -4,8 +4,8 @@
 #ifndef HUMAN_H
 #define HUMAN_H
 
+#include <set>
 #include "player.h"
-
 
 namespace prj
 {
@@ -25,9 +25,14 @@ public:
 
     /**
      * Decision taken by the player
+	 * @param current_box The box the player is in.
+	 * @param choices A set of possible choices.
+	 * @return One of the choices.
      */
-    virtual void decision() override;
-    
+    virtual action decision(const box* current_box, const std::set<action>& choices) override;
+
+private:
+	char wait_feedback();
 };
 
 }

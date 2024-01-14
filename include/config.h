@@ -11,6 +11,10 @@
 #include <vector>
 #include <string>
 
+#include "players/action.h"
+#include "category.h"
+#include "building/building.h"
+
 namespace prj
 {
 /**
@@ -36,8 +40,17 @@ public:
 	};
 public:
 
+	/**
+	 * Default constructor.
+	*/
 	config();
 
+	/**
+	 * Constructor for custom human and bot number.
+	 * @param human_number Number of human players.
+	 * @param bot_number Number of bot.
+	*/
+	config(unsigned int human_number, unsigned int bot_number);
 
 	/**
 	 * Copy disabled
@@ -95,19 +108,7 @@ public:
 	 * Buy land possibility getter.
 	 * @return Chance of a bot buying a land.
 	*/
-	virtual double get_buy_land_possibity_bot() const;
-
-	/**
-	 * Buy house possibility getter.
-	 * @return Chance of a bot buying a house.
-	*/
-	virtual double get_buy_house_possibility_bot() const;
-
-	/**
-	 * Buy hotel possibility getter.
-	 * @return Chance of a bot buying a hotel.
-	*/
-	virtual double get_buy_hotel_possibility_bot() const;
+	virtual double get_buy_building_possibility(const building* to_buy) const;
 
 	/**
 	 * Log path getter.
@@ -127,6 +128,14 @@ public:
 	 * @return The requested prof if exists, an empty string otherwise.
 	*/
 	virtual std::string get_display_prop(const std::string& prop_name) const;
+
+	/**
+	 * Returns the cost of an action of a building of a certain category.
+	 * @param action_performed The performed action
+	 * @param building_category The category of the building.
+	 * @param current_building Current building.
+	*/
+	virtual	int get_action_cost(action performed_action, const category building_category, const building* current_building) const;
 
 protected:
 
@@ -148,6 +157,7 @@ protected:
 	 * The default settings are:
 	 * BUILDING      | ECONOMY       | STANDARD      | LUXURY
 	 * ------------- | ------------- | ------------- | -------------
+	 * TERRAIN       | 0             | 0             | 0
 	 * HOUSE         | 2             | 4             | 7
 	 * HOTEL         | 4             | 8             | 14 
 	*/
@@ -197,22 +207,11 @@ protected:
 	unsigned int dice_faces_number_{};
 	
 	/**
-	 * Chance of a bot buying land.
+	 * Chance of a bot buying building of a certain type.
 	 * Default value: 0.25.
 	*/
-	double buy_land_possibility_bot_{};
-
-	/**
-	 * Chance of a bot buying a house.
-	 * Default value: 0.25.
-	*/
-	double buy_house_possibility_bot_{};
-
-	/**
-	 * Chance of a bot buying a hotel.
-	 * Default value: 0.25.
-	*/
-	double buy_hotel_possibility_bot_{};
+	std::map<unsigned int, double> buy_possibility_{};
+	
 
 	/**
 	 * Symbols and texts used for displaying informations to the user.

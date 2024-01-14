@@ -2,24 +2,28 @@
 #define PLAYER_H
 
 #include <string>
+#include <set>
 
-//class playground;
+#include "box.h"
+#include "players/action.h"
 
+class box;
 namespace prj
 {
 	class player
 	{
 
-	private:
-		std::string name_{};
-		int score_{};
-		bool is_playing_{};
-		unsigned long int id_{};
-		unsigned int position_;
-
 	public:
 
+		/**
+		 * Copy disabled
+		*/
+		player(const player& b) = delete;
 
+		/**
+		 * Copy disabled
+		*/
+		player& operator=(const player& b) = delete;
 
 		/**
 		 * Name getter.
@@ -43,19 +47,21 @@ namespace prj
 		 * Position getter 
 		 * @return The player position on the board
 		 */
-		unsigned int get_pos();
+		unsigned int get_pos() const;
 
 		/**
 		 * Score getter
 		 * @return The amount of money the player has
 		 */
-		unsigned int get_score();
-
+		int get_score() const;
 
 		/**
-		 * Decision of the player 
+		 * Decision taken by the player
+		 * @param current_box The box the player is in.
+		 * @param choices A set of possible choices.
+		 * @return One of the choices.
 		 */
-		virtual void decision() = 0;
+		virtual action decision(const box* current_box, const std::set<action>& choices) = 0;
 
 		/**
 		 * We decided to use friend to enforce encapsulation and allow 
@@ -65,7 +71,13 @@ namespace prj
 		 * playground. The trade-off is creating a tight-coupled class to enforce encapsulation.
 		*/
 		friend class playground;	
-		
+
+	private:
+		std::string name_{};
+		int score_{};
+		bool is_playing_{};
+		unsigned long int id_{};
+		unsigned int position_;
 
 	protected:
 		/**

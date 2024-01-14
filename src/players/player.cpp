@@ -7,7 +7,7 @@ namespace prj
 	player::player(): name_{""}, is_playing_{false}, position_{0}, score_{0}
 	{
 		// This assignment happens only once.
-		static unsigned long int user_id = 0;
+		static unsigned long int user_id = 1;
 		id_ = user_id;
 		user_id++;
 	}
@@ -17,7 +17,7 @@ namespace prj
 		this->score_ = init_balance;
 	}
 
-	unsigned int player::get_score()
+	int player::get_score() const
 	{
 		return score_;
 	}
@@ -37,7 +37,7 @@ namespace prj
 		name_ = name;
 	}
 
-	unsigned int player::get_pos()
+	unsigned int player::get_pos() const
 	{
 		return position_;
 	}

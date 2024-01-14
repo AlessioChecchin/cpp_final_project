@@ -1,3 +1,9 @@
+/**
+ * Contract class.
+ * 
+ * @author Alessio Checchin.
+*/
+
 #include "contract.h"
 #include "building/terrain.h"
 
@@ -11,6 +17,12 @@ std::shared_ptr<player> contract::get_owner() const
 {
 	return owner_;
 }
+
+void contract::set_owner(std::shared_ptr<player> owner)
+{
+	owner_ = owner;
+}
+
 
 building* contract::get_building()
 {

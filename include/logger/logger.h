@@ -7,6 +7,8 @@
 #include <string>
 #include <fstream>
 
+#include "config.h"
+
 namespace prj
 {
 
