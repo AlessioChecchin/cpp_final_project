@@ -46,7 +46,18 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
             playgr_.move_player(current_player, temp_roll);
             log_arrived(current_player);
 
-			action result = playgr_.perform_action(current_player);
+			action result;
+			
+			do
+			{
+				result = playgr_.perform_action(current_player);
+
+				if(result == action::SHOW)
+				{
+					std::cout << playgr_;
+				}
+			}
+			while(result == action::SHOW);
 
 			switch(result)
 			{
@@ -77,7 +88,7 @@ game::game(std::shared_ptr<config> conf): conf_{conf}, playgr_{conf}, logger_{lo
             log_win(playgr_.next_player());
 
         logger_ << std::endl;
-   	    std::cout << playgr_;
+   	    //std::cout << playgr_;
 
 
         char x;
