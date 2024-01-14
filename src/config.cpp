@@ -9,6 +9,10 @@
 #include "category.h"
 #include "building/building.h"
 
+#include "building/terrain.h"
+#include "building/house.h"
+#include "building/hotel.h"
+
 #include <string>
 
 
@@ -34,9 +38,6 @@ namespace prj
 		bonus_cycle_{20},
 		dice_number_{2},
 		dice_faces_number_{6},
-		buy_land_possibility_bot_{0.25},
-		buy_house_possibility_bot_{0.25},
-		buy_hotel_possibility_bot_{0.25},
 		log_path_{"./log.txt"},
 		available_categories_{}
 	{
@@ -57,6 +58,11 @@ namespace prj
 		available_categories_.push_back(economy);
 		available_categories_.push_back(standard);
 		available_categories_.push_back(luxury);
+
+		buy_possibility_[terrain().get_id()] = 0.25;
+		buy_possibility_[house().get_id()] = 0.25;
+		buy_possibility_[hotel().get_id()] = 0.25;
+
 	}
 
 	unsigned int config::get_round_number() const
@@ -94,19 +100,19 @@ namespace prj
 		return dice_faces_number_;
 	}
 
-	double config::get_buy_land_possibity_bot() const
+	double config::get_buy_building_possibility(const building* to_buy) const
 	{
-		return buy_land_possibility_bot_;
-	}
+		if(!to_buy)
+		{
+			return 0;
+		}
 
-	double config::get_buy_house_possibility_bot() const
-	{
-		return buy_house_possibility_bot_;
-	}
+		if(buy_possibility_.find(to_buy->get_id()) != buy_possibility_.end())
+		{
+			return buy_possibility_.at(to_buy->get_id());
+		}
 
-	double config::get_buy_hotel_possibility_bot() const
-	{
-		return buy_hotel_possibility_bot_;
+		return 0;
 	}
 
 	std::string config::get_display_prop(const std::string& prop_name) const
@@ -115,6 +121,7 @@ namespace prj
 		{
 			return display_props_.at(prop_name);
 		}
+
 		return "";
 	}
 

@@ -175,6 +175,7 @@ action playground::perform_action(std::shared_ptr<player> to_perform)
 
 		if(owner == nullptr)
 		{
+			std::cout << "NULLLLPTR";
 			// If the box does not have a owner then the user can do nothing or buy the terrain.
 			choices.emplace(action::NOTHING);
 

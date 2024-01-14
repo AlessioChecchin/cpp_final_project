@@ -99,19 +99,7 @@ public:
 	 * Buy land possibility getter.
 	 * @return Chance of a bot buying a land.
 	*/
-	virtual double get_buy_land_possibity_bot() const;
-
-	/**
-	 * Buy house possibility getter.
-	 * @return Chance of a bot buying a house.
-	*/
-	virtual double get_buy_house_possibility_bot() const;
-
-	/**
-	 * Buy hotel possibility getter.
-	 * @return Chance of a bot buying a hotel.
-	*/
-	virtual double get_buy_hotel_possibility_bot() const;
+	virtual double get_buy_building_possibility(const building* to_buy) const;
 
 	/**
 	 * Log path getter.
@@ -210,22 +198,11 @@ protected:
 	unsigned int dice_faces_number_{};
 	
 	/**
-	 * Chance of a bot buying land.
+	 * Chance of a bot buying building of a certain type.
 	 * Default value: 0.25.
 	*/
-	double buy_land_possibility_bot_{};
-
-	/**
-	 * Chance of a bot buying a house.
-	 * Default value: 0.25.
-	*/
-	double buy_house_possibility_bot_{};
-
-	/**
-	 * Chance of a bot buying a hotel.
-	 * Default value: 0.25.
-	*/
-	double buy_hotel_possibility_bot_{};
+	std::map<unsigned int, double> buy_possibility_{};
+	
 
 	/**
 	 * Symbols and texts used for displaying informations to the user.
