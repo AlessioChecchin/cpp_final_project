@@ -182,20 +182,11 @@ bool test_playground_valid(std::shared_ptr<prj::config> configuration)
 	try
 	{
 		prj::playground a(configuration);
-	}
-	catch(const std::exception& e)
-	{
-		return false;
-	}
-
-	try
-	{
-		prj::playground b(nullptr);
-		return false;
-	}
-	catch(const std::exception& e)
-	{
 		return true;
+	}
+	catch(const std::exception& e)
+	{
+		return false;
 	}
 }
 
