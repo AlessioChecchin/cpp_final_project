@@ -1,7 +1,7 @@
 /**
  * Player class.
  * 
- * @author Alessio Checchin
+ * @author Giulio Cattelan
 */
 
 #ifndef PLAYER_H

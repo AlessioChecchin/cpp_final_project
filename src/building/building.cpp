@@ -1,7 +1,7 @@
 /**
  * Building implementation.
  * 
- * @author Alessio Checchin
+ * @author Giulio Cattelan
 */
 
 #include "building/building.h"

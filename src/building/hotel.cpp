@@ -1,7 +1,7 @@
 /**
  * Hotel building implementation.
  * 
- * @author Alessio Checchin
+ * @author Giulio Cattelan
 */
 
 #include "building/hotel.h"

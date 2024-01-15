@@ -1,3 +1,7 @@
+/**
+ * @author Giulio Cattelan
+ */
+
 #include <iostream>
 #include <memory>
 

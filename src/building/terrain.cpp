@@ -1,7 +1,7 @@
 /**
  * Terrain building implementation.
  * 
- * @author Alessio Checchin
+ * @author Giulio Cattelan
 */
 
 #include "building/terrain.h"
