@@ -23,8 +23,9 @@ In each monopoly game wins the only player who manages not to go bankrupt. Every
 To avoid endless games, there is a limit of 100 rounds.
 In this case, the winner is the player with more money. Everyone else loses. 
 
-Each game also logs the actions made in a specific .txt file (simply called log), which can be found in the same directory of final_project (build).
-There are already two samples in that same directory: one done in a 1human/3bots game and the other one done in a 4bots game.
+Each game also logs the actions made in a specific file (called log.txt), which can be found in the same directory of final_project (build).
+There are already two samples in cpp_final_project directory: one done in a 1human/3bots game and the other one done in a 4bots game.
+(The two samples are respectively named log_human.txt and log_computer.txt)
 
 
 
