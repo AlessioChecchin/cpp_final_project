@@ -34,6 +34,8 @@ set(SOURCE_FILES
 	./src/unit/building/unit_test_house.cpp
 	./src/unit/building/unit_test_hotel.cpp
 
+	./src/unit/logger/unit_test_logger.cpp
+
 	# In order to test a class it must be added here.
 	${PARENT_DIR}/src/board.cpp
 	${PARENT_DIR}/src/box.cpp

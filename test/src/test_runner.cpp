@@ -18,6 +18,8 @@
 #include "unit/building/unit_test_house.h"
 #include "unit/building/unit_test_hotel.h"
 
+#include "unit/logger/unit_test_logger.h"
+
 #include <iostream>
 #include <memory>
 
@@ -40,6 +42,7 @@ int main()
 	tests.push_back(std::unique_ptr<test_suite>(new unit_test_board()));
 	tests.push_back(std::unique_ptr<test_suite>(new unit_test_playground()));
 	tests.push_back(std::unique_ptr<test_suite>(new unit_test_game()));
+	tests.push_back(std::unique_ptr<test_suite>(new unit_test_logger()));
 
 	for(int i = 0; i < tests.size(); i++)
 	{
