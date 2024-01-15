@@ -80,7 +80,9 @@ void game::run()
 
                         for(int a=0; a<temp_ownerships.size(); a++)
                         {
-                            std::cout << playgr_.get_box_name(temp_ownerships[a]) << ", ";
+                            std::cout << playgr_.get_box_name(temp_ownerships[a]);
+                            if(a+1 != temp_ownerships.size())
+                                std::cout<<", ";
                         }
                         std::cout << std::endl;
                     }
