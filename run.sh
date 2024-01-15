@@ -18,7 +18,7 @@ make
 
 # Check result of make. If successful it runs the executable, otherwise logs an error.
 if [ $? -eq 0 ]; then
-	./final_project human
+	./final_project $1
 else
 	echo "Build failed..."
 fi
