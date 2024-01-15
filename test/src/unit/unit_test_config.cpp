@@ -39,9 +39,9 @@ void unit_test_config::test_getters()
 	assert(("Failed to get bonus_cycle_", a.get_bonus_cycle() == 20));
 	assert(("Failed to get dice_number_", a.get_dice_number() == 2));
 	assert(("Failed to get dice_faces_number_", a.get_dice_faces_number() == 6));
-	//assert(("Failed to get buy_land_possibility_bot_", a.get_buy_building_possibility(terrain) == 0.25));
-	//assert(("Failed to get buy_land_possibility_bot_", a.get_buy_building_possibility(house) == 0.25));
-	//assert(("Failed to get buy_land_possibility_bot_", a.get_buy_building_possibility(hotel) == 0.25));
+	assert(("Failed to get buy_land_possibility_bot_", a.get_buy_building_possibility(terrain) == 0.25)); 		//Segmentation fault
+	assert(("Failed to get buy_land_possibility_bot_", a.get_buy_building_possibility(house) == 0.25));			//Segmentation fault
+	assert(("Failed to get buy_land_possibility_bot_", a.get_buy_building_possibility(hotel) == 0.25));			//Segmentation fault
 	assert(("Failed to get log_path_", a.get_log_path() == "./log.txt"));
 
 	prj::config b(1,3);
@@ -53,9 +53,9 @@ void unit_test_config::test_getters()
 	assert(("Failed to get bonus_cycle_", b.get_bonus_cycle() == 20));
 	assert(("Failed to get dice_number_", b.get_dice_number() == 2));
 	assert(("Failed to get dice_faces_number_", b.get_dice_faces_number() == 6));
-	//assert(("Failed to get buy_land_possibility_bot_", b.get_buy_building_possibility(terrain) == 0.25));
-	//assert(("Failed to get buy_land_possibility_bot_", b.get_buy_building_possibility(house) == 0.25));
-	//assert(("Failed to get buy_land_possibility_bot_", b.get_buy_building_possibility(hotel) == 0.25));
+	assert(("Failed to get buy_land_possibility_bot_", b.get_buy_building_possibility(terrain) == 0.25));		//Segmentation fault
+	assert(("Failed to get buy_land_possibility_bot_", b.get_buy_building_possibility(house) == 0.25));			//Segmentation fault
+	assert(("Failed to get buy_land_possibility_bot_", b.get_buy_building_possibility(hotel) == 0.25));			//Segmentation fault
 	assert(("Failed to get log_path_", b.get_log_path() == "./log.txt"));
 
 	assert(("Failed not to get buy_land_possibility_bot_", a.get_buy_building_possibility(nullptr) == 0));
