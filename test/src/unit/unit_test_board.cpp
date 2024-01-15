@@ -1,3 +1,10 @@
+/**
+ * Implementation of board class unit test.
+ * unit_test_board implementation.
+ * 
+ * @author Giulio Cattelan
+*/
+
 #include "unit/unit_test_board.h"
 #include "board.h"
 #include "config.h"

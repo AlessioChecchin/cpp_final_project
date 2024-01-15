@@ -1,3 +1,10 @@
+/**
+ * Implementation of category class unit test.
+ * unit_test_category implementation.
+ * 
+ * @author Giulio Cattelan
+*/
+
 #include "unit/unit_test_category.h"
 #include "category.h"
 

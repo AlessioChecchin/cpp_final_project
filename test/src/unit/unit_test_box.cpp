@@ -1,3 +1,10 @@
+/**
+ * Implementation of box class unit test.
+ * unit_test_box implementation.
+ * 
+ * @author Giulio Cattelan
+*/
+
 #include "unit/unit_test_box.h"
 #include "box.h"
 #include "category.h"

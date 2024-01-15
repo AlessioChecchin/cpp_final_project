@@ -1,7 +1,7 @@
 /**
  * Unit test for configuration class.
  * 
- * @authors Alessio Checchin, Giulio Cattelan
+ * @author Giulio Cattelan
 */
 
 #ifndef UNIT_TEST_CONFIG_H

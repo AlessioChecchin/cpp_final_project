@@ -1,3 +1,10 @@
+/**
+ * Implementation of game class unit test.
+ * unit_test_game implementation.
+ * 
+ * @author Giulio Cattelan
+*/
+
 #include "unit/unit_test_game.h"
 #include "game.h"
 #include "config.h"

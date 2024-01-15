@@ -1,3 +1,10 @@
+/**
+ * Implementation of terrain class unit test.
+ * unit_test_terrain implementation.
+ * 
+ * @author Giulio Cattelan
+*/
+
 #include "unit/building/unit_test_terrain.h"
 #include "building/terrain.h"
 

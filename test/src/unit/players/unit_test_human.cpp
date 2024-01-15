@@ -1,3 +1,10 @@
+/**
+ * Implementation of human class unit test.
+ * unit_test_human implementation.
+ * 
+ * @author Giulio Cattelan
+*/
+
 #include "unit/players/unit_test_human.h"
 #include "players/human.h"
 #include "players/action.h"

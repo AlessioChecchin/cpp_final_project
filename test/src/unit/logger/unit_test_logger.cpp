@@ -1,3 +1,10 @@
+/**
+ * Implementation of logger class unit test.
+ * unit_test_logger implementation.
+ * 
+ * @author Giulio Cattelan
+*/
+
 #include "unit/logger/unit_test_logger.h"
 #include "logger/logger.h"
 

@@ -1,3 +1,10 @@
+/**
+ * Implementation of bot class unit test.
+ * unit_test_bot implementation.
+ * 
+ * @author Giulio Cattelan
+*/
+
 #include "unit/players/unit_test_bot.h"
 #include "players/bot.h"
 #include "config.h"

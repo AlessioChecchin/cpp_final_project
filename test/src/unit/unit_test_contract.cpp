@@ -1,3 +1,10 @@
+/**
+ * Implementation of contract class unit test.
+ * unit_test_contract implementation.
+ * 
+ * @author Giulio Cattelan
+*/
+
 #include "unit/unit_test_contract.h"
 #include "contract.h"
 #include "players/human.h"

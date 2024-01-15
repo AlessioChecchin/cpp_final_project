@@ -1,3 +1,10 @@
+/**
+ * Implementation of config class unit test.
+ * unit_test_config implementation.
+ * 
+ * @author Giulio Cattelan
+*/
+
 #include "unit/unit_test_config.h"
 #include "config.h"
 #include "building/terrain.h"

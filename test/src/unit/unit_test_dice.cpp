@@ -1,3 +1,10 @@
+/**
+ * Implementation of dice class unit test.
+ * unit_test_dice implementation.
+ * 
+ * @author Giulio Cattelan
+*/
+
 #include "unit/unit_test_dice.h"
 #include "dice.h"
 

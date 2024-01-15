@@ -1,3 +1,10 @@
+/**
+ * Implementation of house class unit test.
+ * unit_test_house implementation.
+ * 
+ * @author Giulio Cattelan
+*/
+
 #include "unit/building/unit_test_house.h"
 #include "building/house.h"
 

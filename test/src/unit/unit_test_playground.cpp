@@ -1,3 +1,10 @@
+/**
+ * Implementation of playground class unit test.
+ * unit_test_playground implementation.
+ * 
+ * @author Giulio Cattelan
+*/
+
 #include "unit/unit_test_playground.h"
 #include "playground.h"
 #include "players/player.h"

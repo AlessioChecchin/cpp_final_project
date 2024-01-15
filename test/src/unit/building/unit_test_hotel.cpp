@@ -1,3 +1,10 @@
+/**
+ * Implementation of hotel class unit test.
+ * unit_test_hotel implementation.
+ * 
+ * @author Giulio Cattelan
+*/
+
 #include "unit/building/unit_test_hotel.h"
 #include "building/hotel.h"
 
