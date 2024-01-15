@@ -1,7 +1,7 @@
 /**
  * Hotel class.
  * 
- * @author Alessio Checchin
+ * @author Giulio Cattelan
 */
 
 #ifndef HOTEL_H

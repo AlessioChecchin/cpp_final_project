@@ -1,7 +1,7 @@
 /**
  * House building implementation.
  * 
- * @author Alessio Checchin
+ * @author Giulio Cattelan
 */
 
 #include "building/house.h"

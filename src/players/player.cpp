@@ -1,7 +1,7 @@
 /**
  * Player implementation
  * 
- * @author Alessio Checchin
+ * @author Giulio Cattelan
 */
 
 #include "players/player.h"

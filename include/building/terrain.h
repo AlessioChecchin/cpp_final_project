@@ -1,7 +1,7 @@
 /**
  * Terrain class.
  * 
- * @author Alessio Checchin
+ * @author Giulio Cattelan
 */
 
 #ifndef TERRAIN_H

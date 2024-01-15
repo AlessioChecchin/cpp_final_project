@@ -1,7 +1,7 @@
 /**
  * Abstract building.
  * 
- * @author Alessio Checchin
+ * @author Giulio Cattelan
 */
 
 #ifndef BUILDING_H

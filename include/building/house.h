@@ -1,7 +1,7 @@
 /**
  * House class.
  * 
- * @author Alessio Checchin
+ * @author Giulio Cattelan
 */
 
 #ifndef HOUSE_H
