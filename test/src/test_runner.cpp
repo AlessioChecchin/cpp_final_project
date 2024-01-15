@@ -27,7 +27,7 @@ int main()
 	std::vector<std::unique_ptr<test_suite>> tests;
 
 	//tests.push_back(std::unique_ptr<test_suite>(new unit_test_config())); //Test fail
-	//tests.push_back(std::unique_ptr<test_suite>(new unit_test_category())); // Test fail
+	tests.push_back(std::unique_ptr<test_suite>(new unit_test_category()));
 	tests.push_back(std::unique_ptr<test_suite>(new unit_test_dice()));
 	tests.push_back(std::unique_ptr<test_suite>(new unit_test_human()));
 	tests.push_back(std::unique_ptr<test_suite>(new unit_test_bot()));
