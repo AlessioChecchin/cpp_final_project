@@ -37,7 +37,7 @@ void unit_test_human::test_methods()
 	std::set<prj::action> choices;
 	choices.emplace(prj::action::BUY);
 
-	assert(("Failed to take a decision", try_decision(a, current_box , choices) == true));
+	assert(("Failed to take a decision", try_decision(a, current_box, choices) == true));
 
 	choices.emplace(prj::action::UPGRADE);
 	choices.emplace(prj::action::STAY);
@@ -45,7 +45,7 @@ void unit_test_human::test_methods()
 	choices.emplace(prj::action::NOTHING);
 	choices.emplace(prj::action::LOSE);
 
-	//assert(("Failed to take a decision", try_decision(a, current_box , choices) == true));
+	//assert(("Failed to take a decision", try_decision(a, current_box, choices) == true));
 }
 
 bool test_human_valid()
