@@ -1,9 +1,9 @@
 /**
- * Test core
+ * Implementation of test class.
+ * test implementation.
  * 
  * @author Alessio Checchin
 */
-
 
 #include "core/test.h"
 

@@ -44,7 +44,7 @@ action human::decision(const box* current_box, const std::set<action>& choices)
 		}
 		else if(is_upgrade)
 		{
-			feedback = wait_feedback("Vuoi effettuare un upgrade'? [s/n/show]");
+			feedback = wait_feedback("Vuoi effettuare un upgrade? [s/n/show]");
 
 			if(feedback == 's')
 				return action::UPGRADE;

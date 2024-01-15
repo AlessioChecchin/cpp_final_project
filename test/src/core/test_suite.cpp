@@ -1,9 +1,9 @@
 /**
- * Test suite core
+ * Implementation of test_suite class.
+ * test_suite implementation.
  * 
  * @author Alessio Checchin
 */
-
 
 #include "core/test_suite.h"
 
