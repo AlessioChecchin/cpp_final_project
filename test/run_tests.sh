@@ -9,9 +9,9 @@ fi
 cd build
 
 # Generate cmake if it does not exist.
-#if [! -d "./CMakeFiles"]; then
-#	cmake ..
-#fi
+if [ ! -f "Makefile" ] || [ ! -f "cmake_install.cmake" ] || [ ! -f "CMakeCache.txt" ] || [ ! -d "CMakeFiles" ]; then
+	cmake ..
+fi
 
 # Build the project.
 make
